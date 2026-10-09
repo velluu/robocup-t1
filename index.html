@@ -195,6 +195,7 @@ details.films[open] { display: grid; gap: 14px; }
 .obs .r4 code { font: 500 12px/1 var(--mono); text-align: right; }
 .wrap > *, section > *, .box > *, .two > *, .live > *, .orchview > *, .hero > * { min-width: 0; }
 .now { font: 500 13px/1.4 var(--mono); color: var(--ink); }
+.key { font: 600 13px/1 var(--body); }
 @media (max-width: 900px) { .live, .orchview { grid-template-columns: 1fr; } }
 @media (max-width: 760px) { .robot, .two { grid-template-columns: 1fr; } .qa div { grid-template-columns: 1fr; gap: 2px; } .ladder div { grid-template-columns: 2em 1fr; } .ladder div span:last-child { grid-column: 2; } .stack a { grid-template-columns: 1fr; gap: 2px; } .bytes { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 
@@ -270,12 +271,11 @@ details.films[open] { display: grid; gap: 14px; }
     <img class="strip" src="img/strip_run.png" alt="Movement, six frames" loading="lazy">
     <div class="two">
       <div class="box"><h4>Inputs</h4><div class="chips"><span><b>23</b> joint angles</span><span><b>23</b> joint speeds</span><span><b>21</b> last outputs</span><span><b>3</b> gyro</span><span><b>3</b> gravity direction</span><span><b>3</b> own velocity</span><span><b>3</b> command</span><span><b>4</b> gait clock</span></div><h4>What it practises</h4><div class="tablewrap"><table class=""><thead><tr><th>Episode</th><th>Share</th><th>Command</th></tr></thead><tbody><tr><td>A to B</td><td>45 %</td><td>go 4 to 35 m, then stand still 0.3 to 2 s</td></tr><tr><td>Sprint</td><td>30 %</td><td>flat out for 2 to 12 s</td></tr><tr><td>Fast run</td><td>10 %</td><td>2 to 7 m/s for 2 to 8 s</td></tr><tr><td>Any direction</td><td>15 %</td><td>new command every 1 to 4 s</td></tr></tbody></table></div></div>
-      <div class="box"><h4>Reward</h4><div class="tablewrap"><table class="num"><thead><tr><th>Term</th><th>Weight</th></tr></thead><tbody><tr><td>getting closer to the A to B target</td><td>+4.0 /s</td></tr><tr><td>stopped on the target</td><td>+3.0 /s</td></tr><tr><td>standing still when told to</td><td>+3.0 /s</td></tr><tr><td>matching the commanded velocity</td><td>+2.0 /s</td></tr><tr><td>speed along the command</td><td>+2.0 /s</td></tr><tr><td>forward speed in sprints</td><td>+2.0 /s</td></tr><tr><td>matching the commanded turn rate</td><td>+1.5 /s</td></tr><tr><td>hands outside the allowed box</td><td>−1.0 /s</td></tr><tr><td>foot slipping</td><td>−0.8 /s</td></tr><tr><td>torque, power, jerk (added later)</td><td>−0.01 to −0.1</td></tr></tbody></table></div><p class="note">No reward for foot timing. So it found a fast shuffle, about 10 small steps a second, and keeps stepping even when standing. An episode is 20 s and ends early if the torso drops below 80 % of its height.</p></div>
+      <div class="box"><h4>Reward</h4><div class="tablewrap"><table class="num"><thead><tr><th>Term</th><th>Weight</th></tr></thead><tbody><tr><td>getting closer to the A to B target</td><td>+4.0 /s</td></tr><tr><td>stopped on the target</td><td>+3.0 /s</td></tr><tr><td>standing still when told to</td><td>+3.0 /s</td></tr><tr><td>matching the commanded velocity</td><td>+2.0 /s</td></tr><tr><td>speed along the command</td><td>+2.0 /s</td></tr><tr><td>forward speed in sprints</td><td>+2.0 /s</td></tr><tr><td>matching the commanded turn rate</td><td>+1.5 /s</td></tr><tr><td>hands outside the allowed box</td><td>−1.0 /s</td></tr><tr><td>foot slipping</td><td>−0.8 /s</td></tr><tr><td>torque, power, jerk (added later)</td><td>−0.01 to −0.1</td></tr></tbody></table></div></div>
     </div>
     <details class="films"><summary>Watch all 46 test runs in the league server</summary>
     <div class="group">
       <h3>A to B, flat out, clean stop</h3>
-      <p class="note">The robot stands at A, runs to B and must stop there, then hold still for 2 s, so the final error counts any creep after the stop.</p>
       <div class="grid">
       <figure class="clip">
         <div class="v"><video src="clips/goto/5_m_ahead.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
@@ -309,7 +309,6 @@ details.films[open] { display: grid; gap: 14px; }
     </div>
     <div class="group">
       <h3>Walking in every direction</h3>
-      <p class="note">Four seconds at the commanded velocity, then stop. Speed measured over seconds 1 to 4. Commands of 5 and 6 m/s ask for more than the 4.5 m/s cap.</p>
       <div class="grid">
       <figure class="clip">
         <div class="v"><video src="clips/omni/forward_0.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
@@ -391,7 +390,6 @@ details.films[open] { display: grid; gap: 14px; }
     </div>
     <div class="group">
       <h3>Turning</h3>
-      <p class="note">Turning on the spot and while walking.</p>
       <div class="grid">
       <figure class="clip">
         <div class="v"><video src="clips/omni/turn_in_place_1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
@@ -421,7 +419,6 @@ details.films[open] { display: grid; gap: 14px; }
     </div>
     <div class="group">
       <h3>Fast moves</h3>
-      <p class="note">Sprints from standing, cuts and an emergency stop.</p>
       <div class="grid">
       <figure class="clip">
         <div class="v"><video src="clips/omni/10_m_from_standing.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
@@ -447,7 +444,6 @@ details.films[open] { display: grid; gap: 14px; }
     </div>
     <div class="group">
       <h3>Shoves</h3>
-      <p class="note">A push of 0.5, 1 or 1.5 m/s added to the torso, as a collision with another robot would. The banner marks the moment it lands.</p>
       <div class="grid">
       <figure class="clip">
         <div class="v"><video src="clips/omni/shove_standing_side_0.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
@@ -497,12 +493,11 @@ details.films[open] { display: grid; gap: 14px; }
     <img class="strip" src="img/strip_kick.png" alt="Kick, six frames" loading="lazy">
     <div class="two">
       <div class="box"><h4>Inputs</h4><div class="chips"><span><b>83</b> same as movement</span><span><b>2</b> ball position, last seen</span><span><b>1</b> time since seen</span><span><b>2</b> aim direction</span><span><b>1</b> power</span></div><h4>What it practises</h4><div class="tablewrap"><table class=""><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody><tr><td>ball</td><td>still, 0.3 to 1.5 m away, within ±45°</td></tr><tr><td>aim</td><td>within ±45° of where it faces</td></tr><tr><td>power</td><td>always full</td></tr><tr><td>camera</td><td>from the head, ±60° view</td></tr><tr><td>ends</td><td>fall, 8 s, or 2 s after the ball stops</td></tr></tbody></table></div></div>
-      <div class="box"><h4>Reward</h4><div class="tablewrap"><table class="num"><thead><tr><th>Term</th><th>Weight</th></tr></thead><tbody><tr><td>ball speed along the aim (2° window)</td><td>+10 /s</td></tr><tr><td>ball speed sideways off the aim</td><td>−40 /s</td></tr><tr><td>standing still after the kick</td><td>+3 /s</td></tr><tr><td>getting closer before the touch</td><td>+2 /s</td></tr><tr><td>hands outside the allowed box</td><td>−1 /s</td></tr><tr><td>foot slipping</td><td>−0.8 /s</td></tr><tr><td>time before the touch</td><td>−0.2 /s</td></tr><tr><td>torque, power, jerk (added later)</td><td>−0.01 to −0.1</td></tr></tbody></table></div><p class="note">Ball rewards only count once the ball rolls free, 0.4 m from the foot. That stops it from just pushing the ball along.</p></div>
+      <div class="box"><h4>Reward</h4><div class="tablewrap"><table class="num"><thead><tr><th>Term</th><th>Weight</th></tr></thead><tbody><tr><td>ball speed along the aim (2° window)</td><td>+10 /s</td></tr><tr><td>ball speed sideways off the aim</td><td>−40 /s</td></tr><tr><td>standing still after the kick</td><td>+3 /s</td></tr><tr><td>getting closer before the touch</td><td>+2 /s</td></tr><tr><td>hands outside the allowed box</td><td>−1 /s</td></tr><tr><td>foot slipping</td><td>−0.8 /s</td></tr><tr><td>time before the touch</td><td>−0.2 /s</td></tr><tr><td>torque, power, jerk (added later)</td><td>−0.01 to −0.1</td></tr></tbody></table></div></div>
     </div>
     <details class="films"><summary>Watch all 57 test runs in the league server</summary>
     <div class="group">
       <h3>Shots at goal from 10 m</h3>
-      <p class="note">Ball 10 m from the goal centre, from 30° left to 30° right, dead ahead of the robot or 0.1 m to a side. A goal is the ball crossing the line between the posts.</p>
       <div class="grid">
       <figure class="clip">
         <div class="v"><video src="clips/shots/shot_-30_deg__ball_-0.1_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
@@ -568,7 +563,6 @@ details.films[open] { display: grid; gap: 14px; }
     </div>
     <div class="group">
       <h3>Shots at goal from 27 m</h3>
-      <p class="note">The same test from 27 m, where the goal is 3.9° wide either side of the aim. Misses first. A miss that left nearly straight curved wide on the way.</p>
       <div class="grid">
       <figure class="clip">
         <div class="v"><video src="clips/shots27/shot_-30_deg__ball_-0.1_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
@@ -634,7 +628,6 @@ details.films[open] { display: grid; gap: 14px; }
     </div>
     <div class="group">
       <h3>Placed kicks</h3>
-      <p class="note">Ball 0.4, 0.8 or 1.2 m ahead, centred or 0.25 m to a side, kicked straight or 30° either way. Scored by the direction error against the commanded direction.</p>
       <div class="grid">
       <figure class="clip">
         <div class="v"><video src="clips/kick/kick_+0_deg__ball_0.4_ahead_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
@@ -756,7 +749,7 @@ details.films[open] { display: grid; gap: 14px; }
     <img class="strip" src="img/strip_getup.png" alt="Get-up, six frames" loading="lazy">
     <div class="two">
       <div class="box"><h4>Inputs</h4><div class="chips"><span><b>23</b> joint angles</span><span><b>23</b> joint speeds</span><span><b>23</b> last outputs</span><span><b>3</b> gyro</span><span><b>3</b> gravity direction</span><span><b>1</b> torso height</span></div><h4>What it practises</h4><div class="tablewrap"><table class=""><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody><tr><td>start</td><td>one of 41,088 fallen poses recorded in the league server</td></tr><tr><td>mix</td><td>back 28 %, front 28 %, sides 7 % each, mid-fall 30 %</td></tr><tr><td>done when</td><td>feet down, torso at standing height, tilt under 10°, held still 0.5 s</td></tr><tr><td>ends</td><td>done, or 8 s</td></tr><tr><td>training wheels</td><td>a lift on the torso, up to 60 % of body weight, faded to 0</td></tr></tbody></table></div></div>
-      <div class="box"><h4>Reward</h4><div class="tablewrap"><table class="num"><thead><tr><th>Term</th><th>Weight</th></tr></thead><tbody><tr><td>every second not yet standing</td><td>−5 to −1 /s</td></tr><tr><td>standing held 0.5 s</td><td>+5 once</td></tr><tr><td>jerky actions</td><td>−0.001</td></tr><tr><td>joint torque</td><td>−0.002</td></tr></tbody></table></div><p class="note">The time cost gets smaller as the robot gets higher, more upright and calmer, so it is pulled toward standing. No scripted poses.</p></div>
+      <div class="box"><h4>Reward</h4><div class="tablewrap"><table class="num"><thead><tr><th>Term</th><th>Weight</th></tr></thead><tbody><tr><td>every second not yet standing</td><td>−5 to −1 /s</td></tr><tr><td>standing held 0.5 s</td><td>+5 once</td></tr><tr><td>jerky actions</td><td>−0.001</td></tr><tr><td>joint torque</td><td>−0.002</td></tr></tbody></table></div></div>
     </div>
     <details class="films"><summary>Watch all 35 test runs in the league server</summary>
     <div class="grid">
@@ -954,23 +947,20 @@ details.films[open] { display: grid; gap: 14px; }
     <div class="two">
       <div class="box"><h4>Who goes for the ball: cost auction</h4>
         <p class="formula">cost = d / 3 m/s + 0.5 · |heading error| + 1.5 (wrong side of the ball) + 3 (fallen)</p>
-        <p class="note">d is the distance to the kick spot. Each robot sends its cost to the team. Lowest cost becomes striker. The current striker gets 0.7 off so it does not flip back and forth. The keeper only bids inside its own penalty area. A robot that just took a restart sits out 8 s, because touching the ball twice in a row is a foul.</p>
+        <p class="formula">d = distance to the kick spot<br>lowest cost becomes striker<br>current striker gets −0.7 so it does not flip</p>
         <h4>Where it aims</h4>
-        <p class="note">The goal centre, or 1 m to the side away from a keeper in the goal mouth. At kick-offs and indirect free kicks a direct goal does not count, so it picks the deepest direction (5° steps) whose roll stays in the field.</p>
+        <p class="formula">open play: goal centre, or 1 m away from a keeper in the goal mouth<br>kick-off, indirect free kick: deepest direction that stays in the field</p>
       </div>
       <div class="box"><h4>Turning a target point into a movement command</h4>
         <p class="formula">speed = min(8, √(2 · 3 · (d − 0.125))) m/s<br>speed ≤ 1 m/s while the target is more than 30° off<br>turn rate = clamp(3 · bearing, ±2 rad/s)<br>within 1 m: side steps, no turning</p>
-        <p class="note">It brakes so it stops on the point. Arrived within 0.3 m, moves again past 0.6 m.</p>
         <h4>Team talk: 10 bytes</h4>
         <div class="bytes"><div>tag · number</div><div class="s3">own x, y (12 bits each)</div><div class="s3">ball x, y (12 bits each)</div><div>ball age</div><div>cost</div><div>fallen, striker, check</div></div>
-        <p class="note">Robots take turns: one speaks per cycle, so each is heard every 140 ms.</p>
       </div>
     </div>
     <h3>Formation: spots follow the ball</h3>
     <div class="two">
       <div class="field"><svg viewBox="0 0 660 432" role="img" aria-label="Formation spots for the ball at x 5, y 3"><rect width="660" height="432" fill="#2E6B45"/><rect x="2" y="2" width="656" height="428" fill="none" stroke="#DDEBDF" stroke-width="2"/><line x1="330.0" y1="0" x2="330.0" y2="432" stroke="#DDEBDF" stroke-width="2"/><circle cx="330.0" cy="216" r="66.0" fill="none" stroke="#DDEBDF" stroke-width="2"/><rect x="0" y="117.0" width="108" height="198.0" fill="none" stroke="#DDEBDF" stroke-width="2"/><rect x="552" y="117.0" width="108" height="198.0" fill="none" stroke="#DDEBDF" stroke-width="2"/><line x1="380.52" y1="178.8" x2="660.0" y2="216" stroke="#F0B27A" stroke-width="2" stroke-dasharray="8 6"/><circle cx="390.0" cy="180" r="6" fill="#FFFFFF" stroke="#13261C" stroke-width="2"/><circle cx="380.52" cy="178.8" r="11" fill="#E8833A"/><circle cx="12.0" cy="214.79999999999998" r="11" fill="#9CC3FF"/><circle cx="270.0" cy="138.0" r="11" fill="#3B6FD8"/><text x="270.0" y="142.0" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">2</text><circle cx="270.0" cy="258.0" r="11" fill="#3B6FD8"/><text x="270.0" y="262.0" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">3</text><circle cx="330.0" cy="194.39999999999998" r="11" fill="#3B6FD8"/><text x="330.0" y="198.39999999999998" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">4</text><circle cx="438.0" cy="105.60000000000001" r="11" fill="#3B6FD8"/><text x="438.0" y="109.60000000000001" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">5</text><circle cx="438.0" cy="297.6" r="11" fill="#3B6FD8"/><text x="438.0" y="301.6" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">6</text><circle cx="486.0" cy="205.20000000000002" r="11" fill="#3B6FD8"/><text x="486.0" y="209.20000000000002" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">7</text></svg></div>
-      <div><div class="tablewrap"><table class=""><thead><tr><th>#</th><th>Position</th><th>x</th><th>y</th></tr></thead><tbody><tr><td>1</td><td>keeper</td><td>goal-to-ball line, 1 m out</td><td>|y| ≤ 1.2</td></tr><tr><td>2</td><td>left back</td><td>ball − 10, in −21 … 10</td><td>0.5·ball + 5, in −8 … 12</td></tr><tr><td>3</td><td>right back</td><td>ball − 10, in −21 … 10</td><td>0.5·ball − 5, in −12 … 8</td></tr><tr><td>4</td><td>holding mid</td><td>ball − 5, in −18 … 16</td><td>0.6·ball, in −10 … 10</td></tr><tr><td>5</td><td>left forward</td><td>ball + 4, in −8 … 22</td><td>0.4·ball + 8, in −4 … 15</td></tr><tr><td>6</td><td>right forward</td><td>ball + 4, in −8 … 22</td><td>0.4·ball − 8, in −15 … 4</td></tr><tr><td>7</td><td>centre forward</td><td>ball + 8, in −2 … 23</td><td>0.3·ball, in −6 … 6</td></tr></tbody></table></div>
-        <p class="note">Field 55 × 36 m, we attack to the right. Spots stay 2.5 m from the ball, out of our own goal area and inside the field. Shown: ball at (5, 3), striker orange, keeper light blue.</p></div>
+      <div><div class="tablewrap"><table class=""><thead><tr><th>#</th><th>Position</th><th>x</th><th>y</th></tr></thead><tbody><tr><td>1</td><td>keeper</td><td>goal-to-ball line, 1 m out</td><td>|y| ≤ 1.2</td></tr><tr><td>2</td><td>left back</td><td>ball − 10, in −21 … 10</td><td>0.5·ball + 5, in −8 … 12</td></tr><tr><td>3</td><td>right back</td><td>ball − 10, in −21 … 10</td><td>0.5·ball − 5, in −12 … 8</td></tr><tr><td>4</td><td>holding mid</td><td>ball − 5, in −18 … 16</td><td>0.6·ball, in −10 … 10</td></tr><tr><td>5</td><td>left forward</td><td>ball + 4, in −8 … 22</td><td>0.4·ball + 8, in −4 … 15</td></tr><tr><td>6</td><td>right forward</td><td>ball + 4, in −8 … 22</td><td>0.4·ball − 8, in −15 … 4</td></tr><tr><td>7</td><td>centre forward</td><td>ball + 8, in −2 … 23</td><td>0.3·ball, in −6 … 6</td></tr></tbody></table></div></div>
     </div>
     <h3>Referee rules it follows</h3>
     <div class="tablewrap"><table class=""><thead><tr><th>Situation</th><th>What our robots do</th><th>Why</th></tr></thead><tbody><tr><td>Before kick-off, after a goal</td><td>jump to fixed spots, P1 (−25.5, 0) to P7 (−6.5, 0)</td><td>the only time placing robots is allowed</td></tr><tr><td>Our kick-off</td><td>P7 kicks it wide, then sits out 8 s</td><td>a direct goal from kick-off does not count, a second touch is a foul</td></tr><tr><td>Their kick-off, kick-in, corner, free kick</td><td>everyone stays 6.5 m from the ball</td><td>inside 5.5 m the referee moves the robot off</td></tr><tr><td>Our goal area</td><td>only the keeper goes in</td><td>3 robots there is a foul</td></tr></tbody></table></div>
@@ -981,16 +971,15 @@ details.films[open] { display: grid; gap: 14px; }
     <p class="summary">The RL orchestrator does not replace the rules. It sits on top. Every 0.2 s it looks at the game from one robot's point of view and outputs 3 numbers that nudge the rules. If it outputs zeros you get the rule-based team back. Roles, the keeper, set plays and get-ups stay hand-written, so it can never learn to break a rule.</p>
     <h3>52 inputs, all from what this robot knows</h3>
     <div class="ins"><div style="--g:#3b6fd8"><b>6 · Me</b><span>position x, y · heading cos, sin · fallen · am I striker</span></div><div style="--g:#e8833a"><b>6 · Ball</b><span>position x, y · velocity x, y · offset from me x, y</span></div><div style="--g:#8a4fd1"><b>7 · Shirt number</b><span>which of P1 to P7 I am (one-hot)</span></div><div style="--g:#1d9a4f"><b>18 · Teammates</b><span>6 teammates from team talk · offset x, y · fallen</span></div><div style="--g:#c8402b"><b>9 · Opponents</b><span>3 nearest seen in the last 3 s · offset x, y · seen</span></div><div style="--g:#6e7685"><b>6 · Game</b><span>play on · our set play · their set play · our kick-off · their kick-off · time left</span></div></div>
-    <p class="note">Everything is in "our attack" coordinates (we always attack to the right), scaled so the field edge is 1.</p>
     <div class="arch">
       <div class="l">52 inputs</div><div class="a">→</div><div class="l">256</div><div class="a">→</div><div class="l">256</div><div class="a">→</div><div class="l o">3 outputs, tanh</div>
     </div>
     <div class="tablewrap"><table class=""><thead><tr><th>Output</th><th>Range</th><th>Used when the robot is</th><th>What it changes</th></tr></thead><tbody><tr><td>spot shift forward</td><td>−1 to 1, × 8 m</td><td>support</td><td>moves its formation spot up or back</td></tr><tr><td>spot shift sideways</td><td>−1 to 1, × 8 m</td><td>support</td><td>moves its formation spot left or right</td></tr><tr><td>aim turn</td><td>−1 to 1, × 60°</td><td>striker</td><td>turns the rules' shooting aim</td></tr></tbody></table></div>
     <div class="two">
       <div class="box"><h4>Where it trains</h4>
-        <p class="note">Full physics is far too slow for this, so we wrote a 2D match simulator in JAX that runs on the GPU. 14 robots and a ball, about 900 five-minute halves a second on one H100. Robots there move, kick and fall using our real skills' measured numbers: 4.2 m/s top speed, 11.4 m/s kicks with 3° spread, 2.6 s on the ground after a fall. The referee's restarts are in it too.</p></div>
+        <div class="tablewrap"><table class=""><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>simulator</td><td>our own 2D match sim in JAX, on the GPU</td></tr><tr><td>speed</td><td>about 900 five-minute halves a second, one H100</td></tr><tr><td>players</td><td>14 robots and a ball, referee restarts included</td></tr><tr><td>robot numbers</td><td>4.2 m/s top speed, 11.4 m/s kicks with 3° spread, 2.6 s down after a fall</td></tr></tbody></table></div></div>
       <div class="box"><h4>Reward and opponents</h4>
-        <div class="tablewrap"><table class=""><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>goal scored</td><td>+1, whole team</td></tr><tr><td>goal conceded</td><td>−1, whole team</td></tr><tr><td>ball progress toward their goal</td><td>+0.1 × fraction of the half length, every step</td></tr><tr><td>opponent</td><td>the rule-based team 75 %, a frozen copy of itself 25 %</td></tr></tbody></table></div></div>
+        <div class="tablewrap"><table class=""><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>goal scored</td><td>+1, whole team</td></tr><tr><td>goal conceded</td><td>−1, whole team</td></tr><tr><td>ball moving toward their goal</td><td>+0.1 × share of the half length</td></tr><tr><td>opponent</td><td>rule-based team 75 %, frozen copy of itself 25 %</td></tr></tbody></table></div></div>
     </div>
     <div class="tablewrap"><table class=""><thead><tr><th>Result</th><th>Value</th></tr></thead><tbody><tr><td>2D simulator, against the rule-based team</td><td>+1.3 goals per half (deployed version), +2.6 for a longer run</td></tr><tr><td>League server, against the rule-based team</td><td>41-47 in goals over 13 matches, no clear gain yet</td></tr></tbody></table></div>
   </section>
@@ -1001,16 +990,15 @@ details.films[open] { display: grid; gap: 14px; }
     <div class="live">
       <div>
         <video id="lv" src="clips/live/half.mp4" controls muted playsinline preload="metadata"></video>
-        <div class="legend"><span class="pol MOVE">Movement</span><span class="pol KICK">Kick</span><span class="pol GETUP">Get-up</span><span id="lvHoldLegend" hidden class="pol HOLD">Hold still</span><span>colour of the tag over each robot</span></div>
+        <div class="legend"><span class="pol MOVE">Movement</span><span class="pol KICK">Kick</span><span class="pol GETUP">Get-up</span><span id="lvHoldLegend" hidden class="pol HOLD">Hold still</span></div>
       </div>
       <div class="side" id="lvSide" role="group" aria-label="Our seven robots"></div>
     </div>
     <h3>Every policy switch in this half</h3>
     <div class="gantt" id="lvGantt"></div>
-    <p class="note">Click a row to jump there. White ticks are goals.</p>
     <h3 id="lvOrchTitle">What the RL orchestrator sees</h3>
     <div class="orchview">
-      <div class="box"><div id="lvPitch"></div><div class="now" id="lvNow"></div></div>
+      <div class="box"><div id="lvPitch"></div><div class="legend"><span class="key" style="color:#e0a800">▲ this robot</span><span class="key" style="color:#3b6fd8">● teammate</span><span class="key" style="color:#c8402b">● opponent seen</span><span class="key">○ ball</span><span class="key" style="color:#e0a800">▬ what the RL changed</span></div><div class="now" id="lvNow"></div></div>
       <div style="display:grid;gap:8px"><div class="box"><h4>Its 3 outputs right now</h4><div class="outs obs" id="lvOuts"></div></div><div class="obs" id="lvObs"></div></div>
     </div>
   </section>
@@ -1019,8 +1007,7 @@ details.films[open] { display: grid; gap: 14px; }
     <div class="shead"><h2>Matches</h2><div class="facts"><span>2 × 5 min, sides swap at half time</span></div></div>
     <p class="summary">Full matches against other teams' released code for the new server. Each reel plays at 8× speed and slows to real speed 8 s before every goal.</p>
     <img class="strip" src="img/strip_match.png" alt="Open play against magmaOffenburg, six frames one second apart" loading="lazy">
-    <div class="tablewrap"><table class="num"><thead><tr><th>Opponent</th><th>Our orchestrator</th><th>Half 1</th><th>Half 2</th><th>Final</th></tr></thead><tbody><tr><td>magmaOffenburg (2025 runner-up)</td><td>rule-based</td><td>2-0</td><td>9-0</td><td><b>11-0</b></td></tr><tr><td>FC Portugal (2025 champion)</td><td>rule-based</td><td>3-0</td><td>6-0</td><td><b>9-0</b></td></tr><tr><td>FC Portugal (2025 champion)</td><td>rule-based + RL</td><td>5-0</td><td>5-0</td><td><b>10-0</b></td></tr><tr><td>Apollo</td><td>rule-based</td><td>11-0</td><td>10-0</td><td><b>21-0</b></td></tr><tr><td>BahiaRT</td><td>rule-based</td><td>6-0</td><td>7-0</td><td><b>13-0</b></td></tr></tbody></table></div>
-    <p class="note">FC Portugal's binary lost 2 of its 7 robots in each half.</p>
+    <div class="tablewrap"><table class="num"><thead><tr><th>Opponent</th><th>Our orchestrator</th><th>Half 1</th><th>Half 2</th><th>Final</th></tr></thead><tbody><tr><td>magmaOffenburg (2025 runner-up)</td><td>rule-based</td><td>2-0</td><td>9-0</td><td><b>11-0</b></td></tr><tr><td>FC Portugal (2025 champion), 2 of 7 dropped out</td><td>rule-based</td><td>3-0</td><td>6-0</td><td><b>9-0</b></td></tr><tr><td>FC Portugal (2025 champion), 2 of 7 dropped out</td><td>rule-based + RL</td><td>5-0</td><td>5-0</td><td><b>10-0</b></td></tr><tr><td>Apollo</td><td>rule-based</td><td>11-0</td><td>10-0</td><td><b>21-0</b></td></tr><tr><td>BahiaRT</td><td>rule-based</td><td>6-0</td><td>7-0</td><td><b>13-0</b></td></tr></tbody></table></div>
     <div class="grid">
       <figure class="clip">
         <div class="v"><video src="clips/reels/reel_magma.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
@@ -1150,10 +1137,10 @@ details.films[open] { display: grid; gap: 14px; }
       document.getElementById("lvOuts").innerHTML = [["move spot forward (× 8 m)", a[0], used === "SUPPORT"], ["move spot sideways (× 8 m)", a[1], used === "SUPPORT"], ["turn aim (× 60°)", a[2], used === "STRIKER"]]
         .map(([n, x, on]) => { const w = Math.min(1, Math.abs(x)) * 50; return `<div class="r" style="--g:${on ? "#ffb703" : "#9aa6b6"}"><span>${n}${on ? "" : ", not used now"}</span><code>${x.toFixed(2)}</code><span class="bar"><i style="left:${x < 0 ? 50 - w : 50}%;width:${w}%"></i></span></div>`; }).join("");
       let now = `role: ${ROLE[used] || used}. `;
-      if (used === "SUPPORT" && rec[5] && rec[5].length === 4) now += `Rules spot (${rec[5][2].toFixed(1)}, ${rec[5][3].toFixed(1)}), moved to (${rec[5][0].toFixed(1)}, ${rec[5][1].toFixed(1)}): yellow line.`;
-      else if (used === "STRIKER" && rec[5] && rec[5].length === 2) now += `Rules aim ${rec[5][1].toFixed(0)}° (dashed), turned to ${rec[5][0].toFixed(0)}° (yellow).`;
-      else now += "In this role the outputs are not used.";
-      document.getElementById("lvNow").textContent = now + " Yellow triangle: this robot. Blue: teammates as heard. Red: opponents it has seen. White: ball and its velocity over 1 s.";
+      if (used === "SUPPORT" && rec[5] && rec[5].length === 4) now += `Rules spot (${rec[5][2].toFixed(1)}, ${rec[5][3].toFixed(1)}), moved to (${rec[5][0].toFixed(1)}, ${rec[5][1].toFixed(1)}).`;
+      else if (used === "STRIKER" && rec[5] && rec[5].length === 2) now += `Rules aim ${rec[5][1].toFixed(0)}° turned to ${rec[5][0].toFixed(0)}°.`;
+      else now += "Outputs not used in this role.";
+      document.getElementById("lvNow").textContent = now;
     }
   }
   (function loop() { tick(false); requestAnimationFrame(loop); })();
