@@ -1,7 +1,8 @@
-<title>T1 Team</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<title>T1 Team</title>
 <style>
 /* layout: a match-review sheet: the three skills together first, then the results, then the films, one section per network */
 :root {
@@ -101,83 +102,137 @@ footer { color: var(--muted); font-size: 14px; max-width: 72ch; }
 
 
 .hero { display: grid; gap: 14px; }
-.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; min-width: 0; align-content: start; }
+.box h4 { margin: 0; font: 600 18px/1.2 var(--display); letter-spacing: .02em; text-transform: uppercase; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 12px; }
 .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; display: grid; gap: 2px; }
 .tile .big { font: 700 40px/1 var(--display); color: var(--good); }
 .tile .who { font-weight: 600; }
-.tile .why { font-size: 14px; color: var(--muted); }
-.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px; counter-reset: step; }
-.step { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 8px; padding: 12px 14px; display: grid; gap: 4px; align-content: start; }
-.step b { font: 600 18px/1.2 var(--display); letter-spacing: .02em; text-transform: uppercase; }
-.step span { font-size: 15px; color: var(--muted); }
-.train { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
-.train .spec { display: grid; gap: 8px; margin: 0; }
-.train .spec div { display: grid; grid-template-columns: 7.5em 1fr; gap: 10px; font-size: 15px; }
-.train .spec dt { font-weight: 600; }
-.train .spec dd { margin: 0; color: var(--ink); }
-.train table { min-width: 0; width: 100%; }
-.train td.w { text-align: right; font-family: var(--mono); font-size: 13px; white-space: nowrap; }
-.train .unused { color: var(--warn); font-size: 15px; margin: 6px 0 0; }
-.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; gap: 8px; min-width: 0; }
-.box h4 { margin: 0; font: 600 18px/1.2 var(--display); letter-spacing: .02em; text-transform: uppercase; }
-.limits { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 12px; }
-.limits .box { border-top: 4px solid var(--warn); }
-@media (max-width: 760px) { .train { grid-template-columns: 1fr; } .train .spec div { grid-template-columns: 1fr; gap: 0; } }
+.tile .why { font-size: 13px; color: var(--muted); }
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+.flow .node { flex: 1 1 160px; background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 8px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; min-width: 0; }
+.flow .node.srv { border-top-color: var(--muted); }
+.flow .node.net { border-top-color: var(--pitch); }
+.flow .node b { font: 600 16px/1.2 var(--display); letter-spacing: .02em; text-transform: uppercase; }
+.flow .node span { font-size: 14px; color: var(--muted); }
+.flow .node code, .formula { font: 500 13px/1.4 var(--mono); color: var(--ink); }
+.flow .arr { align-self: center; color: var(--muted); font: 500 18px/1 var(--mono); }
+.qa { display: grid; gap: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.qa div { display: grid; grid-template-columns: 15em 6em 1fr; gap: 12px; padding: 10px 14px; border-top: 1px solid var(--line); font-size: 15px; align-items: baseline; }
+.qa div:first-child { border-top: none; }
+.qa .yes { color: var(--good); font-weight: 600; } .qa .no { color: var(--bad); font-weight: 600; }
+.robot { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 20px; align-items: start; }
+.pic { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); display: block; }
+.strip { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); display: block; }
+table.joints td:nth-child(n+3), table.num td:nth-child(n+2) { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+.kv { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 8px; }
+.kv div { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; display: grid; gap: 2px; }
+.kv span { font-size: 13px; color: var(--muted); }
+.kv b { font: 600 20px/1.2 var(--mono); }
+.arch { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.arch .l { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; font: 500 13px/1.3 var(--mono); text-align: center; }
+.arch .l.g { border-color: var(--pitch); } .arch .l.o { border-color: var(--accent); }
+.arch .a { color: var(--muted); font: 500 14px/1 var(--mono); }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips span { font: 500 13px/1 var(--mono); padding: 6px 8px; border-radius: 4px; background: var(--wait-bg); }
+.chips span b { color: var(--accent); }
+.bar { display: inline-block; height: 10px; background: var(--accent); border-radius: 2px; vertical-align: middle; }
+.ladder { counter-reset: r; display: grid; gap: 6px; }
+.ladder div { display: grid; grid-template-columns: 2.2em 11em 1fr; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; font-size: 15px; align-items: baseline; }
+.ladder div::before { counter-increment: r; content: counter(r); font: 600 18px/1 var(--display); color: var(--accent); }
+.ladder b { font: 600 15px/1.2 var(--mono); }
+.bytes { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 3px; }
+.bytes div { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 6px 4px; font: 500 11px/1.3 var(--mono); text-align: center; min-width: 0; }
+.bytes div.s2 { grid-column: span 2; } .bytes div.s3 { grid-column: span 3; }
+details.films { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; }
+details.films summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+details.films[open] { display: grid; gap: 14px; }
+.field svg { width: 100%; height: auto; display: block; border-radius: 8px; }
+.callout { border-left: 4px solid var(--accent); background: var(--surface); padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 15px; max-width: 80ch; }
+@media (max-width: 760px) { .robot, .two { grid-template-columns: 1fr; } .qa div { grid-template-columns: 1fr; gap: 2px; } .ladder div { grid-template-columns: 2em 1fr; } .ladder div span:last-child { grid-column: 2; } .bytes { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 
 </style>
-
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow">ACOD310 RoboCup 3D · Booster T1 · Karthik Nambiar · October 2026</div>
-    <h1>Training a RoboCup team from scratch</h1>
-    <p class="lede">Three skills learned with reinforcement learning (movement, kick, get-up) and an orchestrator that runs seven robots, with a learned tactics layer on top. Everything below was measured in the official 2026 league server with our own C++ player.</p>
+    <h1>How our RoboCup team works</h1>
+    <p class="lede">Seven Booster T1 humanoids in the 2026 league server. Three skill networks trained with reinforcement learning drive the joints. An orchestrator decides which skill each robot runs and where it goes.</p>
     <div class="tiles">
-      <div class="tile"><span class="who">magmaOffenburg</span><span class="big">11-0</span><span class="why">2025 runner-up, all 7 of theirs played</span></div>
-      <div class="tile"><span class="who">FC Portugal</span><span class="big">9-0</span><span class="why">2025 champion; 10-0 with the RL layer; 2 of theirs dropped out each half</span></div>
+      <div class="tile"><span class="who">magmaOffenburg</span><span class="big">11-0</span><span class="why">2025 runner-up, all 7 played</span></div>
+      <div class="tile"><span class="who">FC Portugal</span><span class="big">9-0</span><span class="why">2025 champion; 2 of theirs dropped out each half</span></div>
       <div class="tile"><span class="who">Apollo</span><span class="big">21-0</span><span class="why">public base team, real time</span></div>
       <div class="tile"><span class="who">BahiaRT</span><span class="big">13-0</span><span class="why">public base team</span></div>
     </div>
-    <nav aria-label="Sections"><a href="#start">Start</a><a href="#training-how">How training works</a><a href="#movement">Movement</a><a href="#kick">Kick</a><a href="#getup">Get-up</a><a href="#orchestrator">Orchestrator</a><a href="#together">Skills together</a><a href="#matches">Matches</a><a href="#limits">Not solved yet</a></nav>
+    <nav aria-label="Sections"><a href="#drive">How a robot is driven</a><a href="#robot">The robot</a><a href="#nets">The networks</a><a href="#movement">Movement</a><a href="#kick">Kick</a><a href="#getup">Get-up</a><a href="#together">Skills together</a><a href="#orchestrator">Orchestrator</a><a href="#matches">Matches</a><a href="#limits">Not solved yet</a></nav>
   </header>
 
-
-
-  <section id="start">
-    <div class="shead"><h2>Starting from nothing</h2></div>
-    <p class="summary">In 2026 the RoboCup 3D simulation league moves to a new MuJoCo server with the Booster T1 humanoid: 23 joints, 31.6 kg, 7 a side, two halves of 5 minutes. No team brings a walk, a kick or a get-up from the old league. We started with a robot that could not stand and built every behaviour ourselves.</p>
-    <p class="summary">The plan: a library of learned skills, each trained and tested on its own, run by an orchestrator that decides who does what. One static C++ program per robot runs all of it, about 0.2 ms per decision, as the competition requires.</p>
-    <div class="stack">
-      <div class="layer rl"><div class="lname">RL tactics</div><div class="lbody">Shifts each robot's formation spot and the shooter's aim, every 0.2 s. <span>Learned by self-play in our GPU match simulator.</span></div></div>
-      <div class="arrow">offsets ↓</div>
-      <div class="layer"><div class="lname">Rules orchestrator</div><div class="lbody">Who plays the ball, who keeps goal, where the rest stand, the referee's set-play rules, every 20 ms. <span>Hand-written.</span></div></div>
-      <div class="arrow">targets, aim ↓</div>
-      <div class="layer skill"><div class="lname">Skills</div><div class="lbody">Movement, kick, get-up: one network drives the joints at a time. <span>Learned by reinforcement learning in GPU physics.</span></div></div>
-      <div class="arrow">23 joint targets every 20 ms ↓</div>
-      <div class="layer server"><div class="lname">League server</div><div class="lbody">rcssservermj 0.2.1, MuJoCo. <span>The official 2026 server.</span></div></div>
+  <section id="drive">
+    <div class="shead"><h2>How a robot is driven</h2><div class="facts"><span>every <b>20 ms</b> per robot</span><span>PD inside the server every <b>5 ms</b></span></div></div>
+    <div class="flow">
+      <div class="node srv"><b>Server state</b><span>joint angles and speeds, gyro, torso pose; camera every 2nd cycle; team talk</span></div>
+      <div class="arr">→</div>
+      <div class="node"><b>Orchestrator</b><span>picks the role and the skill, makes the skill's command</span></div>
+      <div class="arr">→</div>
+      <div class="node net"><b>Skill network</b><span>one at a time; 76 to 89 inputs, 21 or 23 outputs each cycle</span></div>
+      <div class="arr">→</div>
+      <div class="node"><b>Joint targets</b><code>θ*ᵢ = standingᵢ + 0.5·aᵢ</code><span>get-up: θ*ᵢ = θᵢ + 0.6·aᵢ, clipped to range</span></div>
+      <div class="arr">→</div>
+      <div class="node srv"><b>Server PD, 5 ms</b><code>τᵢ = kp(θ*ᵢ − θᵢ) − kd·θ̇ᵢ</code><span>clipped to the joint's torque cap, then MuJoCo</span></div>
+    </div>
+    <div class="qa">
+      <div><span>Does a network output torques?</span><span class="no">No</span><span>It outputs one number per joint, turned into a target angle.</span></div>
+      <div><span>Does it output trajectories?</span><span class="no">No</span><span>A fresh target every 20 ms. The network's memory (a GRU) carries the motion from cycle to cycle.</span></div>
+      <div><span>Does it talk to the PD controller?</span><span class="yes">Yes</span><span>Each message sets, for all 23 joints, the target angle, target speed 0, kp, kd and extra torque 0. The server's PD turns that into torque.</span></div>
+      <div><span>Who sets the gains?</span><span class="yes">We do</span><span>Movement and kick: kp 25 N·m/rad, kd 0.6 on every joint, as in training. Get-up: kp = the joint's torque cap per radian, for full strength.</span></div>
     </div>
   </section>
 
-  <section id="training-how">
-    <div class="shead"><h2>How every skill was trained</h2>
-      <div class="facts"><span>PPO with a recurrent policy</span><span><b>8,192</b> robots per GPU</span><span>8 H100s on the HPC, 2 RTX 6000 Ada on our workstation</span></div></div>
-    <div class="steps">
-      <div class="step"><b>1 · GPU physics</b><span>MuJoCo on the GPU (MJX with the Warp backend): thousands of T1 robots at once, with the server's own robot model, contacts and a one-cycle action delay.</span></div>
-      <div class="step"><b>2 · PPO update</b><span>A recurrent policy (GRU memory) improves on a reward per second of play. Penalties and randomisation phase in as it succeeds.</span></div>
-      <div class="step"><b>3 · Export to C++</b><span>The network runs in our own plain C++ inside the player, matching training to within 0.003° per joint.</span></div>
-      <div class="step"><b>4 · League tests</b><span>Fixed batteries of tests in the real league server. A network replaces the final only if it passes everything its predecessor passed.</span></div>
+  <section id="robot">
+    <div class="shead"><h2>The robot: 23 joints</h2><div class="facts"><span>Booster T1</span><span><b>31.6 kg</b></span><span>hip <b>0.52 m</b> up, thigh 0.24 m, shin 0.28 m</span></div></div>
+    <div class="robot">
+      <div style="display:grid;gap:10px"><img class="pic" src="img/robot_front.png" alt="Booster T1 standing, front" loading="lazy"><img class="pic" src="img/robot_side.png" alt="Booster T1 standing, side" loading="lazy"></div>
+      <div class="tablewrap"><table class="joints"><thead><tr><th>Joint</th><th>Motor</th><th>Range</th><th>Torque cap N·m</th><th>Standing</th><th>Move / kick kp / kd</th><th>Get-up kp / kd</th></tr></thead><tbody><tr><td>Head yaw</td><td><code>he1</code></td><td>-90° to +90°</td><td>7</td><td>+0°</td><td>player: yaw 0, pitch 40°</td><td>7 / 0.32</td></tr><tr><td>Head pitch</td><td><code>he2</code></td><td>-20° to +70°</td><td>7</td><td>+0°</td><td>player: yaw 0, pitch 40°</td><td>7 / 0.32</td></tr><tr><td>L shoulder pitch</td><td><code>lae1</code></td><td>-190° to +70°</td><td>18</td><td>+0°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>L shoulder roll</td><td><code>lae2</code></td><td>-100° to +90°</td><td>18</td><td>-80°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>L elbow pitch</td><td><code>lae3</code></td><td>-130° to +130°</td><td>18</td><td>+0°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>L elbow yaw</td><td><code>lae4</code></td><td>-140° to +0°</td><td>18</td><td>-23°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>R shoulder pitch</td><td><code>rae1</code></td><td>-190° to +70°</td><td>18</td><td>+0°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>R shoulder roll</td><td><code>rae2</code></td><td>-90° to +100°</td><td>18</td><td>+80°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>R elbow pitch</td><td><code>rae3</code></td><td>-130° to +130°</td><td>18</td><td>+0°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>R elbow yaw</td><td><code>rae4</code></td><td>+0° to +140°</td><td>18</td><td>+23°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>Waist</td><td><code>te1</code></td><td>-90° to +90°</td><td>30</td><td>+0°</td><td>25 / 0.6</td><td>30 / 0.66</td></tr><tr><td>L hip pitch</td><td><code>lle1</code></td><td>-103° to +90°</td><td>45</td><td>-23°</td><td>25 / 0.6</td><td>45 / 0.80</td></tr><tr><td>L hip roll</td><td><code>lle2</code></td><td>-11° to +90°</td><td>30</td><td>+0°</td><td>25 / 0.6</td><td>30 / 0.66</td></tr><tr><td>L hip yaw</td><td><code>lle3</code></td><td>-57° to +57°</td><td>30</td><td>+0°</td><td>25 / 0.6</td><td>30 / 0.66</td></tr><tr><td>L knee</td><td><code>lle4</code></td><td>+0° to +134°</td><td>60</td><td>+46°</td><td>25 / 0.6</td><td>60 / 0.93</td></tr><tr><td>L ankle pitch</td><td><code>lle5</code></td><td>-50° to +20°</td><td>20</td><td>-23°</td><td>25 / 0.6</td><td>20 / 0.54</td></tr><tr><td>L ankle roll</td><td><code>lle6</code></td><td>-25° to +25°</td><td>15</td><td>+0°</td><td>25 / 0.6</td><td>15 / 0.46</td></tr><tr><td>R hip pitch</td><td><code>rle1</code></td><td>-103° to +90°</td><td>45</td><td>-23°</td><td>25 / 0.6</td><td>45 / 0.80</td></tr><tr><td>R hip roll</td><td><code>rle2</code></td><td>-90° to +11°</td><td>30</td><td>+0°</td><td>25 / 0.6</td><td>30 / 0.66</td></tr><tr><td>R hip yaw</td><td><code>rle3</code></td><td>-57° to +57°</td><td>30</td><td>+0°</td><td>25 / 0.6</td><td>30 / 0.66</td></tr><tr><td>R knee</td><td><code>rle4</code></td><td>+0° to +134°</td><td>60</td><td>+46°</td><td>25 / 0.6</td><td>60 / 0.93</td></tr><tr><td>R ankle pitch</td><td><code>rle5</code></td><td>-50° to +20°</td><td>20</td><td>-23°</td><td>25 / 0.6</td><td>20 / 0.54</td></tr><tr><td>R ankle roll</td><td><code>rle6</code></td><td>-25° to +25°</td><td>15</td><td>+0°</td><td>25 / 0.6</td><td>15 / 0.46</td></tr></tbody></table></div>
+    </div>
+    <p class="note">Ranges and torque caps are the league server's robot model. The head is not driven by any network: the player holds it level and tilted 40° down so the camera sees the ball.</p>
+  </section>
+
+  <section id="nets">
+    <div class="shead"><h2>The networks and how they are trained</h2><div class="facts"><span>PPO, recurrent policy</span><span><b>8,192</b> robots per GPU</span><span>MuJoCo on the GPU (MJX, Warp)</span></div></div>
+    <h3>One shape for all three skills</h3>
+    <div class="arch">
+      <div class="l">inputs<br>76 to 89</div><div class="a">→</div>
+      <div class="l">Dense 128<br>LayerNorm, ELU</div><div class="a">+</div>
+      <div class="l g">Dense 128 → GRU 64<br>memory</div><div class="a">→</div>
+      <div class="l">concat 192</div><div class="a">→</div>
+      <div class="l">512</div><div class="a">→</div><div class="l">256</div><div class="a">→</div><div class="l">128</div><div class="a">→</div>
+      <div class="l o">21 or 23<br>joint outputs</div>
+    </div>
+    <div class="tablewrap"><table class="num"><thead><tr><th>Network</th><th>Inputs</th><th>Outputs</th><th>Parameters (actor)</th><th>Runs on</th></tr></thead><tbody><tr><td>Movement</td><td>83</td><td>21</td><td>326,058</td><td>the player, every 20 ms</td></tr><tr><td>Kick</td><td>89</td><td>21</td><td>327,594</td><td>the player, every 20 ms</td></tr><tr><td>Get-up</td><td>76</td><td>23</td><td>324,526</td><td>the player, every 20 ms</td></tr><tr><td>RL tactics</td><td>52</td><td>3</td><td>80,131</td><td>the player, every 200 ms</td></tr></tbody></table></div>
+    <div class="tablewrap"><table class="num"><thead><tr><th>Network</th><th>Learning rate</th><th>Epochs</th><th>Minibatch</th><th>γ</th><th>GAE λ</th><th>Clip</th><th>Entropy</th></tr></thead><tbody><tr><td>Movement</td><td>1e-4</td><td>10</td><td>32,768</td><td>0.99</td><td>0.7</td><td>0.1</td><td>0</td></tr><tr><td>Kick</td><td>1e-4</td><td>10</td><td>32,768</td><td>0.99</td><td>0.7</td><td>0.1</td><td>0</td></tr><tr><td>Get-up</td><td>1e-4</td><td>10</td><td>32,768</td><td>0.99</td><td>0.95</td><td>0.1</td><td>0</td></tr></tbody></table></div>
+    <p class="note">The critic that scores states during training gets extra, privileged inputs (true ball state, foot contacts, height over ground) and is thrown away after training. Each network runs in our own plain C++ in about 0.2 ms, matching training to within 0.003° per joint.</p>
+    <h3>Training loop</h3>
+    <div class="flow">
+      <div class="node"><b>1 · Simulate</b><span>8,192 T1 robots at once on one GPU with the server's robot model, contacts and one-cycle action delay</span></div><div class="arr">→</div>
+      <div class="node"><b>2 · Update</b><span>PPO: 8,192 × 128 steps = 1,048,576 steps per iteration, 10 epochs</span></div><div class="arr">→</div>
+      <div class="node"><b>3 · Curriculum</b><span>penalties, shoves and randomisation phase in as the robots succeed</span></div><div class="arr">→</div>
+      <div class="node"><b>4 · League tests</b><span>export to C++, fixed test batteries in the real server; only a pass replaces the final</span></div>
     </div>
   </section>
+
   <section id="movement">
-    <div class="shead">
-      <h2>Movement network</h2>
-      <div class="facts"><span>A to B <b>7 of 7</b></span><span>falls <b>0 of 30</b></span><span>shoves <b>9 of 9</b></span></div>
+    <div class="shead"><h2>Skill 1 · Movement: run anywhere, stop on the spot</h2></div>
+    <div class="kv"><div><span>inputs</span><b>83</b></div><div><span>outputs</span><b>21 joints</b></div><div><span>parameters</span><b>326,058</b></div><div><span>final run</span><b>0.92 B steps, 84 min</b></div><div><span>top speed</span><b>4.46 m/s</b></div><div><span>A to B</span><b>7 of 7, 0 falls</b></div></div>
+    <img class="strip" src="img/strip_run.png" alt="A to B run, six frames" loading="lazy">
+    <div class="two">
+      <div class="box"><h4>Inputs</h4><div class="chips"><span><b>23</b> joint angles</span><span><b>23</b> joint speeds</span><span><b>21</b> last outputs</span><span><b>3</b> gyro</span><span><b>3</b> gravity direction</span><span><b>3</b> own velocity</span><span><b>3</b> command vx vy turn</span><span><b>4</b> gait clock</span></div>
+        <h4>What it practises</h4><div class="tablewrap"><table class=""><thead><tr><th>Episode type</th><th>Share</th><th>Command</th></tr></thead><tbody><tr><td>A to B</td><td>45 %</td><td>legs of 4 to 35 m, then hold still 0.3 to 2 s</td></tr><tr><td>Sprint</td><td>30 %</td><td>flat out (8 m/s asked), 2 to 12 s</td></tr><tr><td>Fast run</td><td>10 %</td><td>2 to 7 m/s, 2 to 8 s</td></tr><tr><td>Any direction</td><td>15 %</td><td>new command every 1 to 4 s</td></tr></tbody></table></div><p class="note">Half start from standing; half of sprints and runs end in a 1 to 3 s brake. Episode: 20 s, ends if the torso drops below 80 % height.</p></div>
+      <div class="box"><h4>Reward, per second</h4><div class="tablewrap"><table class="num"><thead><tr><th>Term</th><th>Weight</th></tr></thead><tbody><tr><td>progress to the A-to-B target</td><td>+4.0</td></tr><tr><td>stopped on the target</td><td>+3.0</td></tr><tr><td>standing still when told</td><td>+3.0</td></tr><tr><td>match commanded velocity</td><td>+2.0</td></tr><tr><td>speed along the command</td><td>+2.0</td></tr><tr><td>forward speed, sprints</td><td>+2.0</td></tr><tr><td>match commanded turn rate</td><td>+1.5</td></tr><tr><td>hands outside the foul box</td><td>−1.0</td></tr><tr><td>foot slip</td><td>−0.8</td></tr><tr><td>torque, power, jerk (curriculum)</td><td>−0.01 to −0.1</td></tr></tbody></table></div>
+        <p class="note">No gait or foot-timing term: the cause of its 10-steps-a-second shuffle.</p></div>
     </div>
-    <p class="summary">One network walks, turns, runs, stops and takes shoves. In a match the player gives it a target point (A to B) and it brakes to stop on the point. The omnidirectional tests give it a velocity command instead.</p>
-    <h3>How it was trained</h3>
-    <div class="train">
-      <div class="box"><h4>Constraints</h4><dl class="spec"><div><dt>Sees</dt><dd>83 numbers: joint angles and speeds, its last action, gyro, gravity direction, the velocity command, a gait clock, its own velocity.</dd></div><div><dt>Drives</dt><dd>21 joints (the head is separate): target = standing pose + 0.5 × output, PD kp 25, kd 0.6, 50 times a second, 20 to 40 ms action delay as in the server.</dd></div><div><dt>Practises</dt><dd>A-to-B legs of 4 to 35 m (45 % of episodes), flat-out sprints (30 %), fast runs (10 %), any direction (15 %). Half start from standing; half the runs end in a brake to a stop.</dd></div><div><dt>Ends</dt><dd>When the torso drops below 80 % of its standing height, or after 20 s.</dd></div><div><dt>Randomised</dt><dd>Shoves, start poses, landings after a beam, foot friction ±20 %, mass ±5 %, phased in as it succeeds.</dd></div><div><dt>Run</dt><dd>8,192 robots in parallel, 924 million steps, 84 minutes on one RTX 6000 Ada, warm-started through six runs from our first sprint network.</dd></div></dl></div>
-      <div class="box"><h4>Rewards</h4><div class="tablewrap"><table><thead><tr><th>Reward term</th><th style="text-align:right">Weight</th></tr></thead><tbody><tr><td>Progress towards the target (A to B)</td><td class="w">+4.0 /s</td></tr><tr><td>Stopped on the target</td><td class="w">+3.0 /s</td></tr><tr><td>Standing still when told to stand</td><td class="w">+3.0 /s</td></tr><tr><td>Matching the commanded velocity</td><td class="w">+2.0 /s</td></tr><tr><td>Speed along the commanded direction</td><td class="w">+2.0 /s</td></tr><tr><td>Forward speed in sprints</td><td class="w">+2.0 /s</td></tr><tr><td>Matching the commanded turn rate</td><td class="w">+1.5 /s</td></tr><tr><td>Hands outside the referee&#x27;s hand-foul box</td><td class="w">−1.0 /s</td></tr><tr><td>Foot slip</td><td class="w">−0.8 /s</td></tr><tr><td>Torque, power and jerky actions</td><td class="w">−0.01 to −0.1</td></tr></tbody></table></div><p class="unused">Not used: any gait or foot-timing term. That is why it moves and stands with a fast shuffle of about 10 steps a second.</p><p class="note">Weights are per second of play. The torque, power and smoothness penalties ramp in by curriculum as the robot gets better.</p></div>
-    </div>
+    <h3>Runs that led to it</h3>
+    <div class="tablewrap"><table class="num"><thead><tr><th>Run</th><th>Where</th><th>What changed</th><th>Steps</th><th>PPO iterations</th><th>Time</th></tr></thead><tbody><tr><td><b>loco1b</b></td><td>Z8</td><td>from scratch: stock T1 walk</td><td><span class="bar" style="width:4px"></span> 260 M</td><td>495</td><td>72 min</td></tr><tr><td><b>loco1d</b></td><td>Z8</td><td>8,192 robots, flat field</td><td><span class="bar" style="width:4px"></span> 168 M</td><td>160</td><td>27 min</td></tr><tr><td><b>loco1e</b></td><td>Z8</td><td>restart from the save before a collapse</td><td><span class="bar" style="width:4px"></span> 67 M</td><td>128</td><td>12 min</td></tr><tr><td><b>loco1f</b></td><td>Z8</td><td>learning rate 1e-4</td><td><span class="bar" style="width:4px"></span> 101 M</td><td>192</td><td>17 min</td></tr><tr><td><b>loco1i</b></td><td>Z8</td><td>the server&#x27;s 20 ms action delay</td><td><span class="bar" style="width:4px"></span> 185 M</td><td>352</td><td>32 min</td></tr><tr><td><b>loco1k</b></td><td>Z8</td><td>feet on the server&#x27;s contact parameters</td><td><span class="bar" style="width:25px"></span> 2,064 M</td><td>3,936</td><td>344 min</td></tr><tr><td><b>sprint1b</b></td><td>Z8</td><td>forward sprint commands</td><td><span class="bar" style="width:4px"></span> 185 M</td><td>176</td><td>26 min</td></tr><tr><td><b>sprint7</b></td><td>Z8</td><td>forward-speed reward, faster env</td><td><span class="bar" style="width:4px"></span> 168 M</td><td>160</td><td>18 min</td></tr><tr><td><b>sprint7c</b></td><td>Z8</td><td>speed reward alone</td><td><span class="bar" style="width:4px"></span> 134 M</td><td>128</td><td>14 min</td></tr><tr><td><b>sprint7e</b></td><td>Z8</td><td>speed weight 1 → 2</td><td><span class="bar" style="width:4px"></span> 235 M</td><td>224</td><td>25 min</td></tr><tr><td><b>sprint7s</b></td><td>Z8</td><td>stand phase: stand-still 6.0</td><td><span class="bar" style="width:4px"></span> 285 M</td><td>272</td><td>30 min</td></tr><tr><td><b>sprint7y</b></td><td>Z8</td><td>heading tracking 1 → 5</td><td><span class="bar" style="width:20px"></span> 1,627 M</td><td>1,552</td><td>172 min</td></tr><tr><td><b>sprint7z</b></td><td>Z8</td><td>entropy 0.002 → 0</td><td><span class="bar" style="width:9px"></span> 755 M</td><td>720</td><td>79 min</td></tr><tr><td><b>sprint7q2</b></td><td>Z8</td><td>the server&#x27;s solver budget 100/50</td><td><span class="bar" style="width:9px"></span> 772 M</td><td>736</td><td>265 min</td></tr><tr><td><i>reshape</i></td><td></td><td>82 → 83 inputs (own velocity), 23 → 21 outputs (head dropped); learned layers kept</td><td></td><td></td><td></td></tr><tr><td><b>omniA ×7 jobs</b></td><td>Z8</td><td>all-direction env, slip and arm penalties, Warp physics, beam landings</td><td><span class="bar" style="width:52px"></span> 4,184 M</td><td>3,990</td><td>455 min</td></tr><tr><td><b>omniC</b></td><td>Z8</td><td>advantage fix, fresh IMU</td><td><span class="bar" style="width:18px"></span> 1,468 M</td><td>1,400</td><td>138 min</td></tr><tr><td><b>omniT</b></td><td>Z8</td><td>fast runs 2 to 7 m/s, braking</td><td><span class="bar" style="width:76px"></span> 6,124 M</td><td>5,840</td><td>663 min</td></tr><tr><td><b>omniH3</b></td><td>Z8</td><td>course tracking, progress reward 2</td><td><span class="bar" style="width:120px"></span> 9,563 M</td><td>9,120</td><td>867 min</td></tr><tr><td><b>gotoH2</b></td><td>Z8</td><td>A-to-B legs: progress 4, arrive 3</td><td><span class="bar" style="width:8px"></span> 671 M</td><td>640</td><td>60 min</td></tr><tr><td><b>gotoV</b></td><td>Z8</td><td>exploration reset, sprint share 0.3, legs ≥ 4 m</td><td><span class="bar" style="width:11px"></span> 923 M</td><td>880</td><td>84 min</td></tr></tbody></table></div><p class="note">Chain: 26 runs from 09-18 to 10-08, 29.9 billion steps, 31,101 PPO iterations, 60 GPU hours on the workstation. 105 movement runs launched in all (80 distinct recipes); the rest were dead ends.</p>
+    <details class="films"><summary>All 46 filmed test runs of this network in the league server</summary>
     <div class="group">
       <h3>A to B, flat out, clean stop</h3>
       <p class="note">The robot stands at A, runs to B and must stop there, then hold still for 2 s, so the final error counts any creep after the stop.</p>
@@ -392,18 +447,22 @@ footer { color: var(--muted); font-size: 14px; max-width: 72ch; }
       </figure>
       </div>
     </div>
+</details>
   </section>
+
   <section id="kick">
-    <div class="shead">
-      <h2>Kick network</h2>
-      <div class="facts"><span>10 m <b>15 of 15</b></span><span>27 m <b>12 of 15</b></span><span>placed kicks <b>27 of 27</b> within 10°</span><span>falls <b>0</b></span></div>
+    <div class="shead"><h2>Skill 2 · Kick: full power on the aim line</h2></div>
+    <div class="kv"><div><span>inputs</span><b>89</b></div><div><span>outputs</span><b>21 joints</b></div><div><span>parameters</span><b>327,594</b></div><div><span>final run</span><b>1.17 B steps, 73 min</b></div><div><span>10 m shots</span><b>165 of 165</b></div><div><span>27 m shots</span><b>84 %</b></div></div>
+    <img class="strip" src="img/strip_kick.png" alt="A kick, six frames" loading="lazy">
+    <div class="two">
+      <div class="box"><h4>Inputs</h4><div class="chips"><span><b>83</b> the movement inputs</span><span><b>2</b> ball where its camera last saw it</span><span><b>1</b> time since seen</span><span><b>2</b> aim direction</span><span><b>1</b> power</span></div>
+        <h4>Episode</h4><div class="tablewrap"><table class=""><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody><tr><td>ball</td><td>still, 0.3 to 1.5 m away, within ±45°</td></tr><tr><td>aim</td><td>within ±45° of the start heading</td></tr><tr><td>power</td><td>always full</td></tr><tr><td>camera</td><td>25 Hz, ±60° view, from the head</td></tr><tr><td>ends</td><td>fall, 8 s, or 2 s after the ball stops</td></tr></tbody></table></div></div>
+      <div class="box"><h4>Reward, per second</h4><div class="tablewrap"><table class="num"><thead><tr><th>Term</th><th>Weight</th></tr></thead><tbody><tr><td>ball speed along the aim, within a 2° window</td><td>+10</td></tr><tr><td>ball speed across the aim</td><td>−40</td></tr><tr><td>standing still after the kick</td><td>+3</td></tr><tr><td>closing in before the touch</td><td>+2</td></tr><tr><td>hands outside the foul box</td><td>−1</td></tr><tr><td>foot slip</td><td>−0.8</td></tr><tr><td>time before the touch</td><td>−0.2</td></tr><tr><td>torque, power, jerk (curriculum)</td><td>−0.01 to −0.1</td></tr></tbody></table></div>
+        <p class="note">Ball terms count only once the ball rolls free, 0.4 m from the foot.</p></div>
     </div>
-    <p class="summary">The movement network holds the robot still until the ball is placed. Then the kick network takes over and kicks in the commanded field direction. Clips end just before the server moves the ball back after a goal.</p>
-    <h3>How it was trained</h3>
-    <div class="train">
-      <div class="box"><h4>Constraints</h4><dl class="spec"><div><dt>Sees</dt><dd>The movement network&#x27;s 83 numbers, plus the ball where its own head camera last saw it (25 times a second, ±60° view), time since it saw it, and the kick direction.</dd></div><div><dt>Drives</dt><dd>21 joints exactly as movement does, head held looking down, 50 times a second.</dd></div><div><dt>Starts</dt><dd>Ball still, 0.3 to 1.5 m away within ±45°; 30 % of episodes walking in. Aim within ±45° of the starting heading, always full power.</dd></div><div><dt>Ends</dt><dd>On a fall, after 8 s, or 2 s after the ball stops.</dd></div><div><dt>Randomised</dt><dd>Shoves, start poses, foot friction ±20 %, mass ±5 %. The ball is the server&#x27;s own: 0.41 kg, 0.11 m radius.</dd></div><div><dt>Run</dt><dd>8,192 robots on one H100, 1.18 billion steps in 73 minutes, warm-started from movement through seven runs.</dd></div></dl></div>
-      <div class="box"><h4>Rewards</h4><div class="tablewrap"><table><thead><tr><th>Reward term</th><th style="text-align:right">Weight</th></tr></thead><tbody><tr><td>Ball speed along the aim, inside a 2° direction window</td><td class="w">+10 /s</td></tr><tr><td>Ball speed across the aim</td><td class="w">−40 /s</td></tr><tr><td>Standing still after the kick</td><td class="w">+3 /s</td></tr><tr><td>Closing in on the ball before the touch</td><td class="w">+2 /s</td></tr><tr><td>Hands outside the hand-foul box</td><td class="w">−1 /s</td></tr><tr><td>Foot slip</td><td class="w">−0.8 /s</td></tr><tr><td>Time before the first touch</td><td class="w">−0.2 /s</td></tr><tr><td>Torque, power and jerky actions</td><td class="w">−0.01 to −0.1</td></tr></tbody></table></div><p class="note">The ball terms only count once the ball rolls free, 0.4 m from the foot, so it is paid for the shot and not for pushing. The heavy lateral penalty and the 2° window took 27 m shots from 47 % to 84 %.</p></div>
-    </div>
+    <h3>Runs that led to it</h3>
+    <div class="tablewrap"><table class="num"><thead><tr><th>Run</th><th>Where</th><th>What changed</th><th>Steps</th><th>PPO iterations</th><th>Time</th></tr></thead><tbody><tr><td><i>movement chain</i></td><td>Z8</td><td>runs 1 to 24 above, plus gotoH2 to 14:26</td><td></td><td></td><td></td></tr><tr><td><i>reshape</i></td><td></td><td>83 → 89 inputs (ball, time since seen, aim, power)</td><td></td><td></td><td></td></tr><tr><td><b>kickA</b></td><td>Z8</td><td>kick env, league ball: ball 10, lateral 2, approach 2, stand 2</td><td><span class="bar" style="width:32px"></span> 419 M</td><td>400</td><td>42 min</td></tr><tr><td><b>kickB</b></td><td>Z8</td><td>ball paid only when rolling free; lateral 5</td><td><span class="bar" style="width:120px"></span> 1,552 M</td><td>1,480</td><td>153 min</td></tr><tr><td><b>kickC</b></td><td>Z8</td><td>lateral 20</td><td><span class="bar" style="width:35px"></span> 461 M</td><td>440</td><td>48 min</td></tr><tr><td><b>kickD</b></td><td>H100</td><td>lateral 40</td><td><span class="bar" style="width:32px"></span> 419 M</td><td>400</td><td>37 min</td></tr><tr><td><b>kickD3</b></td><td>H100</td><td>stand 0.5 → 3</td><td><span class="bar" style="width:58px"></span> 755 M</td><td>720</td><td>47 min</td></tr><tr><td><b>kL2</b></td><td>H100</td><td>2° direction window</td><td><span class="bar" style="width:32px"></span> 419 M</td><td>400</td><td>26 min</td></tr><tr><td><b>kL5</b></td><td>H100</td><td>same recipe, another seed</td><td><span class="bar" style="width:90px"></span> 1,174 M</td><td>1,120</td><td>72 min</td></tr></tbody></table></div><p class="note">Own runs: 7, 5.2 billion steps, 4,960 PPO iterations, 7.6 GPU hours (workstation and one H100), on top of the movement chain it started from. 31 kick runs launched in all.</p>
+    <details class="films"><summary>All 57 filmed test runs of this network in the league server</summary>
     <div class="group">
       <h3>Shots at goal from 10 m</h3>
       <p class="note">Ball 10 m from the goal centre, from 30° left to 30° right, dead ahead of the robot or 0.1 m to a side. A goal is the ball crossing the line between the posts.</p>
@@ -650,18 +709,22 @@ footer { color: var(--muted); font-size: 14px; max-width: 72ch; }
       </figure>
       </div>
     </div>
+</details>
   </section>
+
   <section id="getup">
-    <div class="shead">
-      <h2>Get-up network</h2>
-      <div class="facts"><span>up within 5 s <b>26 of 26</b></span><span>median <b>1.81 s</b></span><span>fell again <b>0</b></span></div>
+    <div class="shead"><h2>Skill 3 · Get-up: every second on the ground costs</h2></div>
+    <div class="kv"><div><span>inputs</span><b>76</b></div><div><span>outputs</span><b>23 joints</b></div><div><span>parameters</span><b>324,526</b></div><div><span>final run</span><b>0.80 B steps, 70 min</b></div><div><span>up within 5 s</span><b>206 of 206</b></div><div><span>median</span><b>1.8 s</b></div></div>
+    <img class="strip" src="img/strip_getup.png" alt="A get-up, six frames" loading="lazy">
+    <div class="two">
+      <div class="box"><h4>Inputs</h4><div class="chips"><span><b>23</b> joint angles</span><span><b>23</b> joint speeds</span><span><b>23</b> last outputs</span><span><b>3</b> gyro</span><span><b>3</b> gravity direction</span><span><b>1</b> torso height</span></div>
+        <h4>Episode</h4><div class="tablewrap"><table class=""><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody><tr><td>start</td><td>one of 41,088 fallen states made in the server's physics</td></tr><tr><td>mix</td><td>back 28 %, front 28 %, sides 7 % each, mid-fall 30 %</td></tr><tr><td>success</td><td>feet down, torso at standing height, tilt < 10°, still, held 0.5 s</td></tr><tr><td>ends</td><td>success or 8 s</td></tr><tr><td>training aid</td><td>torso lift up to 60 % of body weight, faded to 0</td></tr></tbody></table></div></div>
+      <div class="box"><h4>Reward</h4><div class="tablewrap"><table class="num"><thead><tr><th>Term</th><th>Weight</th></tr></thead><tbody><tr><td>time cost until standing</td><td>−5 to −1 per s</td></tr><tr><td>standing held 0.5 s</td><td>+5 once</td></tr><tr><td>jerky actions</td><td>−0.001</td></tr><tr><td>joint torque</td><td>−0.002</td></tr></tbody></table></div>
+        <p class="note">The time cost shrinks as the robot gets higher, more upright and calmer. No fall penalty, no scripted poses.</p></div>
     </div>
-    <p class="summary">Put on its back, front, sides or mid-fall, shoved over while standing or running, or dropped against a goalpost, the get-up network stands the robot up and hands back to the movement network. Done criterion: standing within 5 s in at least 95 % of tests, then 3 m of walking without a fall.</p>
-    <h3>How it was trained</h3>
-    <div class="train">
-      <div class="box"><h4>Constraints</h4><dl class="spec"><div><dt>Sees</dt><dd>76 numbers: joint angles and speeds, its last action, gyro, gravity direction, torso height.</dd></div><div><dt>Drives</dt><dd>All 23 joints: target = current angle + 0.6 × output, stiff gains (knee 60 N·m per rad, hip 45), 50 times a second.</dd></div><div><dt>Starts</dt><dd>From 41,088 fallen states made in the server&#x27;s physics: on the back 28 %, front 28 %, each side 7 %, mid-fall after a shove 30 %.</dd></div><div><dt>Success</dt><dd>Both feet down, torso at standing height, tilt under 10°, still, held for 0.5 s. The episode ends there, or after 8 s.</dd></div><div><dt>Training aid</dt><dd>A lift on the torso of up to 60 % of body weight at first, faded to zero as it improved. Off in every test.</dd></div><div><dt>Run</dt><dd>8,192 robots, 816 million steps, 75 minutes on one RTX 6000 Ada; 3 h 20 min from the first get-up launch.</dd></div></dl></div>
-      <div class="box"><h4>Rewards</h4><div class="tablewrap"><table><thead><tr><th>Reward term</th><th style="text-align:right">Weight</th></tr></thead><tbody><tr><td>Time cost until standing (less as it gets higher, more upright and calmer)</td><td class="w">−5 to −1 /s</td></tr><tr><td>Standing held 0.5 s</td><td class="w">+5 once</td></tr><tr><td>Jerky actions</td><td class="w">−0.001</td></tr><tr><td>Joint torque</td><td class="w">−0.002</td></tr></tbody></table></div><p class="unused">Not used: a fall penalty, hand penalties, scripted poses.</p><p class="note">Every second on the ground costs, so it learns to get up fast with no hand-made motion.</p></div>
-    </div>
+    <h3>Runs that led to it</h3>
+    <div class="tablewrap"><table class="num"><thead><tr><th>Run</th><th>Where</th><th>What changed</th><th>Steps</th><th>PPO iterations</th><th>Time</th></tr></thead><tbody><tr><td><b>getupResidual</b></td><td>Z8</td><td>from scratch: residual targets, torque-cap gains, torso lift</td><td><span class="bar" style="width:12px"></span> 84 M</td><td>80</td><td>7 min</td></tr><tr><td><b>getupR1</b></td><td>Z8</td><td>same recipe, open-ended</td><td><span class="bar" style="width:18px"></span> 126 M</td><td>120</td><td>10 min</td></tr><tr><td><b>getupR1b</b></td><td>Z8</td><td>continued</td><td><span class="bar" style="width:31px"></span> 210 M</td><td>200</td><td>17 min</td></tr><tr><td><b>getupR2</b></td><td>Z8</td><td>stillness in the progress term</td><td><span class="bar" style="width:120px"></span> 797 M</td><td>760</td><td>70 min</td></tr></tbody></table></div><p class="note">4 runs on one day, 1.2 billion steps, 1,160 PPO iterations, under 2 GPU hours. 10 get-up runs launched in all.</p>
+    <details class="films"><summary>All 35 filmed test runs of this network in the league server</summary>
     <div class="grid">
       <figure class="clip">
         <div class="v"><video src="clips/getup/back_7143.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
@@ -804,50 +867,7 @@ footer { color: var(--muted); font-size: 14px; max-width: 72ch; }
         <figcaption><div class="row"><h4>On its right side, against the right goalpost</h4><span class="chip good">Up in 1.90 s</span></div><p>Get-up network stood it up in 1.90 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (4.1 m, no fall).</p></figcaption>
       </figure>
     </div>
-  </section>
-  <section id="orchestrator">
-    <div class="shead">
-      <h2>The orchestrator: learned tactics over a rules team</h2>
-      <div class="facts"><span>policy <b>z8b 243 in the league, w3h3 best in the simulator</b></span><span>trained <b>about 25 min per run, 30 runs on 8 H100 and 16 A100</b></span><span>simulator <b>1.0 M decisions/s per H100</b></span></div>
-    </div>
-    <p class="summary">Two layers decide what each of the seven robots does. The rules layer picks roles every cycle (keeper, the robot that plays the ball, formation spots for the rest), keeps the referee&#x27;s set-play rules and drives the three skill networks. On top of it, a learned layer trained with reinforcement learning shifts each robot&#x27;s spot and the ball player&#x27;s aim. It was trained by self-play in our own GPU match simulator, set up with the skills&#x27; measured speed, kick spread and get-up time, starting from exactly the rules team. The rules layer wins every match below. The learned layer beats it in the simulator, and in the league server it is level with it so far.</p>
-    <div class="stack">
-      <div class="layer rl"><div class="lname">Learned tactics</div><div class="lbody">One small network shared by the six field robots, run on each robot's own view every 0.2 s: 52 inputs (own pose, ball, the teammates heard over team talk, the three nearest opponents seen, the play mode, time left), 3 outputs. <span>Moves the robot's formation spot by up to 8 m and turns the ball player's aim by up to 60°. Output zero is the rules team exactly.</span></div></div>
-      <div class="arrow">offsets ↓</div>
-      <div class="layer"><div class="lname">Rules orchestrator</div><div class="lbody">Roles every cycle: player 1 keeps goal, the robot that can stand behind the ball first plays it (each robot says its time-to-ball in a 10-byte team-talk slot of its own), the rest hold formation spots that follow the ball. <span>Plays either side, beams before kick-off and after goals, and keeps the referee's set-play rules: wide kick-offs since a direct kick-off goal does not count, 6.5 m away at their restarts, at most 2 robots in our goal area.</span></div></div>
-      <div class="arrow">targets, aim ↓</div>
-      <div class="layer skill"><div class="lname">Skill networks</div><div class="lbody">Movement gotoV 19:25 (4.2 m/s), kick kL5 01:38 (28 m, 84 % from 27 m), get-up R2 15:50 (up in 1.8 s). <span>One network in control at a time, switched by the player.</span></div></div>
-      <div class="arrow">23 joint targets every 20 ms ↓</div>
-      <div class="layer server"><div class="lname">League server</div><div class="lbody">rcssservermj 0.2.1, 7 v 7, Booster T1. <span>Our C++ player, fully static, about 0.2 ms per decision.</span></div></div>
-    </div>
-    <h3>How it was trained</h3>
-    <p class="note">PPO with one network shared by the six field robots. The opponent is the rules team, or a frozen copy of the policy (self-play). The reward is goals for minus goals against, plus a small reward for moving the ball forward. Exploration noise jitters every robot&#x27;s target 5 times a second, so play gets worse for the first iterations. The policy then learns to play through the noise, and its noise-free version climbs above the rules team. Each point on the chart is 256 simulated halves of 300 s against the rules team with the noise off.</p>
-    <div class="chart"><svg viewBox="0 0 720 300" role="img" aria-label="Goal difference per half against the rules team during training"><line x1="54" x2="704" y1="255.8" y2="255.8" stroke="var(--line)" stroke-width="1"/><text x="46" y="259.8" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">-1.0</text><line x1="54" x2="704" y1="226.2" y2="226.2" stroke="var(--line)" stroke-width="1"/><text x="46" y="230.2" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">-0.5</text><line x1="54" x2="704" y1="196.5" y2="196.5" stroke="var(--line)" stroke-width="2"/><text x="46" y="200.5" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+0.0</text><line x1="54" x2="704" y1="166.8" y2="166.8" stroke="var(--line)" stroke-width="1"/><text x="46" y="170.8" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+0.5</text><line x1="54" x2="704" y1="137.1" y2="137.1" stroke="var(--line)" stroke-width="1"/><text x="46" y="141.1" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+1.0</text><line x1="54" x2="704" y1="107.4" y2="107.4" stroke="var(--line)" stroke-width="1"/><text x="46" y="111.4" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+1.5</text><line x1="54" x2="704" y1="77.7" y2="77.7" stroke="var(--line)" stroke-width="1"/><text x="46" y="81.7" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+2.0</text><line x1="54" x2="704" y1="48.0" y2="48.0" stroke="var(--line)" stroke-width="1"/><text x="46" y="52.0" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+2.5</text><line x1="54" x2="704" y1="18.3" y2="18.3" stroke="var(--line)" stroke-width="1"/><text x="46" y="22.3" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+3.0</text><text x="54.0" y="278" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--mono)">0</text><text x="216.5" y="278" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--mono)">1523</text><text x="379.0" y="278" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--mono)">3046</text><text x="541.5" y="278" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--mono)">4569</text><text x="704.0" y="278" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--mono)">6092</text><text x="379.0" y="296" text-anchor="middle" font-size="12" fill="var(--muted)">PPO iterations</text><polyline points="54.0,200.0 59.3,198.3 64.7,176.3 70.0,124.6 75.3,95.3 80.7,72.1 86.0,51.7 91.3,33.4 96.7,28.1 102.0,23.9 107.3,19.0 112.7,21.3 118.0,16.0 123.4,21.3 128.7,21.8 134.0,33.6 139.4,25.0 144.7,27.1 150.0,51.7 155.4,36.7 160.7,36.7 166.0,42.7 171.4,39.4 176.7,31.6 182.0,21.8 187.4,36.0 192.7,34.1 198.0,48.5 203.4,20.2 208.7,32.7 214.0,38.3 219.4,31.1 224.7,22.7 230.1,31.1 235.4,41.9 240.7,35.7 246.1,20.2 251.4,37.8 256.7,40.3 262.1,34.8 267.4,32.0 272.7,27.6 278.1,19.0 283.4,29.2 288.7,43.9 294.1,31.3 299.4,49.0 304.7,20.6 310.1,20.6 315.4,27.6 320.7,42.4 326.1,40.3 331.4,63.3 336.7,39.4 342.1,38.3 347.4,32.0 352.8,40.8 358.1,50.1" fill="none" stroke="var(--pitch)" stroke-width="3"/><polyline points="54.0,195.3 59.3,260.0 64.7,202.7 70.0,193.4 75.3,171.4 80.7,141.9 86.0,115.8 91.3,102.5 96.7,98.6 102.0,118.1 107.3,103.7 112.7,69.3 118.0,88.4 123.4,102.3 128.7,91.2 134.0,67.2 139.4,73.1 144.7,83.3 150.0,95.3 155.4,95.1 160.7,102.3 166.0,88.6 171.4,111.3 176.7,100.7 182.0,87.0 187.4,95.8 192.7,116.7 198.0,91.4 203.4,96.2 208.7,90.9 214.0,87.0 219.4,83.0 224.7,106.7 230.1,96.5 235.4,95.3 240.7,91.6 246.1,87.4 251.4,81.4 256.7,95.8 262.1,100.4 267.4,95.1 272.7,83.9 278.1,103.2 283.4,80.3 288.7,104.4 294.1,81.0 299.4,97.2 304.7,82.3 310.1,96.7 315.4,94.9 320.7,83.8 326.1,85.6 331.4,87.2 336.7,83.3 342.1,101.3 347.4,97.4 352.8,96.7 358.1,103.2 363.4,98.1 368.8,78.6 374.1,99.3 379.4,94.4 384.8,82.1 390.1,87.2 395.4,112.7 400.8,95.1 406.1,104.4 411.4,87.4 416.8,78.6 422.1,101.8 427.4,89.8 432.8,102.3 438.1,94.4 443.4,105.3 448.8,95.3 454.1,100.7 459.4,99.0 464.8,90.9 470.1,78.9 475.5,92.5 480.8,88.6 486.1,111.3 491.5,93.7 496.8,84.4 502.1,110.4 507.5,103.5 512.8,78.4 518.1,98.1" fill="none" stroke="var(--accent)" stroke-width="2"/><polyline points="54.0,197.2 56.1,196.0 58.3,196.9 60.4,193.2 62.5,188.1 64.7,203.9 66.8,199.7 68.9,200.0 71.1,208.5 73.2,208.0 75.3,209.5 77.5,198.1 79.6,196.7 81.7,210.8 83.9,207.8 86.0,201.6 88.1,213.9 90.3,199.5 92.4,209.0 94.5,211.5 96.7,209.5 98.8,209.5 100.9,203.4 103.1,195.3 105.2,193.7 107.3,183.0 109.5,191.1 111.6,187.2 113.8,180.7 115.9,189.3 118.0,184.4 120.2,168.0 122.3,184.4 124.4,187.9 126.6,169.8 128.7,177.7 130.8,177.5 133.0,162.1 135.1,183.2 137.2,175.8 139.4,169.3 141.5,175.4 143.6,172.8 145.8,175.8 147.9,165.6 150.0,186.0 152.2,183.7 154.3,185.3 156.4,174.4 158.6,170.9 160.7,184.4 162.8,170.5 165.0,164.0 167.1,161.7 169.2,173.7 171.4,171.4 173.5,173.7 175.6,172.6 177.8,153.8 179.9,183.2 182.0,174.7 184.2,166.1 186.3,173.2 188.4,157.0 190.6,170.7 192.7,171.4 194.8,175.1 197.0,168.4 199.1,163.7 201.2,167.7 203.4,157.0 205.5,174.0 207.6,161.9 209.8,167.0 211.9,163.5 214.0,164.0 216.2,165.4 218.3,163.5 220.4,168.6 222.6,161.4 224.7,167.7 226.8,165.4 229.0,158.4 231.1,170.9 233.3,171.9 235.4,168.6 237.5,167.2 239.7,161.2 241.8,159.1 243.9,167.2 246.1,172.4 248.2,167.0 250.3,169.8 252.5,154.5 254.6,165.4 256.7,165.2 258.9,156.8 261.0,169.8 263.1,172.4 265.3,167.0 267.4,159.8 269.5,181.6 271.7,157.0 273.8,175.4 275.9,161.7 278.1,162.9 280.2,154.7 282.3,167.0 284.5,172.8 286.6,167.5 288.7,168.4 290.9,173.5 293.0,158.2 295.1,160.5 297.3,162.4 299.4,147.3 301.5,145.7 303.7,152.6 305.8,165.4 307.9,166.5 310.1,151.2 312.2,148.0 314.3,156.1 316.5,174.4 318.6,142.2 320.7,159.3 322.9,160.1 325.0,162.6 327.1,167.5 329.3,163.1 331.4,156.3 333.5,160.5 335.7,173.2 337.8,162.6 339.9,161.0 342.1,170.7 344.2,156.6 346.4,161.9 348.5,170.0 350.6,161.4 352.8,163.7 354.9,156.3 357.0,145.5 359.2,159.6 361.3,155.6 363.4,148.9 365.6,148.4 367.7,154.5 369.8,159.3 372.0,145.7 374.1,160.7 376.2,164.9 378.4,161.9 380.5,155.8 382.6,164.2 384.8,151.9 386.9,170.5 389.0,168.8 391.2,174.4 393.3,154.7 395.4,158.6 397.6,157.0 399.7,179.3 401.8,156.1 404.0,158.2 406.1,175.1 408.2,166.1 410.4,159.8 412.5,171.6 414.6,154.0 416.8,158.4 418.9,168.0 421.0,170.0 423.2,168.4 425.3,163.1 427.4,156.8 429.6,161.0 431.7,158.2 433.8,167.5 436.0,156.3 438.1,162.9 440.2,161.2 442.4,166.1 444.5,156.8 446.6,170.3 448.8,157.7 450.9,154.5 453.0,164.2 455.2,168.1 457.3,151.4 459.4,161.7 461.6,168.6 463.7,168.0 465.9,155.2 468.0,168.1 470.1,168.8 472.3,158.0 474.4,147.3 476.5,147.3 478.7,174.0 480.8,155.4 482.9,159.1 485.1,151.2 487.2,148.9 489.3,154.0 491.5,167.7 493.6,155.2 495.7,154.2 497.9,158.6 500.0,161.7 502.1,164.2 504.3,158.6 506.4,159.6 508.5,156.8 510.7,160.1 512.8,160.1 514.9,157.5 517.1,167.7 519.2,169.8 521.3,163.5 523.5,155.2 525.6,148.0 527.7,141.7 529.9,169.8 532.0,169.3 534.1,156.3 536.3,157.3 538.4,156.8 540.5,160.5 542.7,158.0 544.8,163.1 546.9,141.7 549.1,153.3 551.2,160.1 553.3,151.9 555.5,156.1 557.6,160.5 559.7,162.6 561.9,171.9 564.0,152.6 566.1,155.0 568.3,168.6 570.4,167.2 572.5,157.3 574.7,169.3 576.8,152.2 579.0,160.7 581.1,161.7 583.2,160.3 585.4,148.4 587.5,166.3 589.6,164.7 591.8,165.8 593.9,158.4 596.0,158.0 598.2,144.0 600.3,158.4 602.4,155.2 604.6,167.0 606.7,157.0 608.8,160.1 611.0,147.5 613.1,163.1 615.2,151.0 617.4,160.3 619.5,156.3 621.6,153.5 623.8,161.9 625.9,156.6 628.0,161.7 630.2,163.5 632.3,160.1 634.4,165.2 636.6,163.3 638.7,162.6 640.8,172.8 643.0,161.0 645.1,164.7 647.2,155.4 649.4,155.6 651.5,170.7 653.6,154.2 655.8,170.7 657.9,157.0 660.0,152.9 662.2,159.6 664.3,149.6 666.4,166.8 668.6,158.0 670.7,162.9 672.8,152.4 675.0,159.3 677.1,161.9 679.2,160.1 681.4,156.1 683.5,157.3 685.6,158.9 687.8,158.6 689.9,159.6 692.0,146.1 694.2,164.2 696.3,155.4 698.5,145.7 700.6,150.7 702.7,155.4 704.0,160.5" fill="none" stroke="var(--warn)" stroke-width="2"/></svg><ul class="legend"><li><span class="swatch" style="background:var(--pitch)"></span>w3h3: 8,192 games per GPU, exploration 0.3</li><li><span class="swatch" style="background:var(--accent)"></span>w3h2: 4,096 games per GPU, exploration 0.3</li><li><span class="swatch" style="background:var(--warn)"></span>w1h4: exploration 0.1, learning rate 1e-4</li></ul></div>
-    <p class="note">Goal difference per 300 s half against the rules team in the simulator, noise off, ± about 0.14. w3h3 (8,192 parallel games per GPU, exploration 0.3) reached +2.6. Runs with a third of that exploration (w1h4) settle near +0.6. The deployed z8b policy (5 min on the Z8, iteration 243) measured +1.31 ± 0.07 over 1,024 fresh halves: 62 % won, 18 % drawn, 19 % lost.</p>
-    <div class="tablewrap"><table>
-      <thead><tr><th>Run</th><th>Setting</th><th>Last evaluation vs rules (goals per half)</th></tr></thead>
-      <tbody>
-<tr><td>w3h3</td><td>exploration 0.3, 8,192 games per GPU, H100</td><td class="n">+2.47 to +2.63 (± 0.14)</td></tr>
-<tr><td>w3a4</td><td>exploration 0.3, ball-progress reward x3, A100</td><td class="n">+1.91</td></tr>
-<tr><td>w3a3</td><td>exploration 0.4, A100</td><td class="n">+1.84</td></tr>
-<tr><td>w3a5</td><td>warm start from z8b 243, A100</td><td class="n">+1.64</td></tr>
-<tr><td>w3h2</td><td>exploration 0.3, 4,096 games, H100</td><td class="n">+1.66</td></tr>
-<tr><td>w3h5</td><td>exploration 0.3, learning rate 1e-4, H100</td><td class="n">+1.50</td></tr>
-<tr><td>z8b</td><td>exploration 0.3, 5 min on the Z8 GPU, iteration 243 (deployed)</td><td class="n">+1.31 ± 0.07 (1,024 halves)</td></tr>
-<tr><td>w3h4</td><td>half the games against a frozen copy (self-play), H100</td><td class="n">+1.10</td></tr>
-<tr><td>w1h4</td><td>exploration 0.1, learning rate 1e-4, H100</td><td class="n">+0.61</td></tr>
-<tr><td>w1a1, w1a2</td><td>one output&#x27;s exploration at 0.0001</td><td class="n">diverged, stopped</td></tr>
-      </tbody>
-    </table></div>
-    <h3>In the league server: learned against rules</h3>
-    <div class="tablewrap"><table>
-      <thead><tr><th>Match</th><th>Score</th><th>Note</th></tr></thead>
-      <tbody>
-<tr><td>Learned (z8b 243) vs rules, 5 full matches</td><td class="n">W-D-L 2-1-2, goals 17-14</td><td>mean +0.6 per match, standard error 1.5: level within noise</td></tr>
-<tr><td>Learned (w3h3 2675) vs rules, 3 full matches</td><td class="n">W-D-L 1-1-1, goals 9-10</td><td>the simulator&#x27;s strongest policy, level in the league too</td></tr>
-<tr><td>Rules vs rules (two identical teams), 2 full matches</td><td class="n">3-13</td><td>the noise floor: identical teams can differ by 5 goals a match, so dozens of matches are needed. 9 more learned-vs-rules and control matches are running</td></tr>
-      </tbody>
-    </table></div>
+</details>
   </section>
   <section id="together">
     <div class="shead">
@@ -887,11 +907,52 @@ footer { color: var(--muted); font-size: 14px; max-width: 72ch; }
       </figure>
     </div>
   </section>
+
+  <section id="orchestrator">
+    <div class="shead"><h2>The orchestrator: who does what, every 20 ms</h2><div class="facts"><span>rules layer: <b>no trained parameters</b></span><span>RL tactics layer: <b>80,131</b> parameters</span><span>runs on every robot, no central computer</span></div></div>
+    <p class="callout">The orchestrator never touches a joint. It chooses which skill network runs and gives the movement network its 3-number command (forward, sideways, turn rate). The skill network makes the joint targets; the server's PD makes the torques.</p>
+    <h3>Each cycle, on each robot</h3>
+    <div class="ladder">
+      <div><b>Read</b><span>server message: joints, gyro, exact torso pose, camera (every 2nd cycle), team talk, game state</span></div>
+      <div><b>Ball</b><span>own camera sighting, else the freshest teammate report under 1 s old; velocity from 0.4 s of sightings; where it will stop (decelerates 2.3 m/s²)</span></div>
+      <div><b>Fallen?</b><span>torso under 0.30 m or tilted over 45° → get-up network until standing is held 0.5 s; fresh retry after 10 s</span></div>
+      <div><b>Role</b><span>first match in this order: WAIT (before kick-off, after a goal) → KICK-OFF spots → AWAY at their restarts → STRIKER (lowest cost) → KEEPER (#1) → SUPPORT</span></div>
+      <div><b>Command</b><span>a target point → goto law → movement network; or the kick network when the striker is lined up</span></div>
+      <div><b>Talk</b><span>on its own cycle of 7: a 10-byte message to the team</span></div>
+    </div>
+    <div class="two">
+      <div class="box"><h4>Who plays the ball: cost auction</h4>
+        <p class="formula">cost = d / 3 m/s + 0.5 · |heading error| + 1.5 (if on the far side of the ball) + 3 (if fallen)</p>
+        <p class="note">d = distance to the kick spot, 0.8 m behind the ball on the aim line. Lowest cost plays; the current striker gets −0.7 s so it does not flip; ties go to the lower number. Keeper only inside its own penalty area. A robot that took a restart sits out 8 s (no double touch).</p>
+        <h4>When the striker kicks</h4>
+        <div class="tablewrap"><table class="num"><thead><tr><th>Condition</th><th>Value</th></tr></thead><tbody><tr><td>ball distance</td><td>≤ 1.2 m</td></tr><tr><td>ball off the heading</td><td>< 45°</td></tr><tr><td>heading off the aim</td><td>< 30°</td></tr><tr><td>ball speed</td><td>< 0.6 m/s</td></tr></tbody></table></div>
+        <p class="note">Aim: the goal centre, or 1 m to the side away from a keeper standing in the goal mouth. Kick-offs and indirect free kicks: the deepest direction (5° scan) whose 30 m roll stays in the field, because a direct goal from them does not count.</p>
+      </div>
+      <div class="box"><h4>Goto law: the command for the movement network</h4>
+        <p class="formula">v = min(8, √(2 · 3 · (d − 0.125))) m/s<br>v ≤ 1 m/s while the target is more than 30° off<br>turn rate = clamp(3 · bearing, ±2 rad/s)<br>within 1 m: sideways steps, no turning</p>
+        <p class="note">Brakes so it stops on the point. Arrived within 0.3 m; moves again only past 0.6 m. Support robots re-aim only when their spot moves over 0.8 m, and face the ball.</p>
+        <h4>Team talk: 10 bytes</h4>
+        <div class="bytes"><div>tag 5b · #3b</div><div class="s3">own x, y · 12 bits each</div><div class="s3">ball x, y · 12 bits each</div><div>ball age</div><div>cost ×10</div><div>fallen, striker, check 6b</div></div>
+        <p class="note">Each robot speaks on cycle number mod 7, so one teammate per cycle. The check bits are salted with a hash of the team name, so a copy of our player on the other side cannot pass as a teammate.</p>
+      </div>
+    </div>
+    <h3>Formation: spots follow the ball</h3>
+    <div class="two">
+      <div class="field"><svg viewBox="0 0 660 432" role="img" aria-label="Formation spots for the ball at x 5, y 3"><rect width="660" height="432" fill="#2E6B45"/><rect x="2" y="2" width="656" height="428" fill="none" stroke="#DDEBDF" stroke-width="2"/><line x1="330.0" y1="0" x2="330.0" y2="432" stroke="#DDEBDF" stroke-width="2"/><circle cx="330.0" cy="216" r="66.0" fill="none" stroke="#DDEBDF" stroke-width="2"/><rect x="0" y="117.0" width="108" height="198.0" fill="none" stroke="#DDEBDF" stroke-width="2"/><rect x="552" y="117.0" width="108" height="198.0" fill="none" stroke="#DDEBDF" stroke-width="2"/><line x1="380.52" y1="178.8" x2="660.0" y2="216" stroke="#F0B27A" stroke-width="2" stroke-dasharray="8 6"/><circle cx="390.0" cy="180" r="6" fill="#FFFFFF" stroke="#13261C" stroke-width="2"/><circle cx="380.52" cy="178.8" r="11" fill="#E8833A"/><circle cx="12.0" cy="214.79999999999998" r="11" fill="#9CC3FF"/><circle cx="270.0" cy="138.0" r="11" fill="#3B6FD8"/><text x="270.0" y="142.0" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">2</text><circle cx="270.0" cy="258.0" r="11" fill="#3B6FD8"/><text x="270.0" y="262.0" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">3</text><circle cx="330.0" cy="194.39999999999998" r="11" fill="#3B6FD8"/><text x="330.0" y="198.39999999999998" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">4</text><circle cx="438.0" cy="105.60000000000001" r="11" fill="#3B6FD8"/><text x="438.0" y="109.60000000000001" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">5</text><circle cx="438.0" cy="297.6" r="11" fill="#3B6FD8"/><text x="438.0" y="301.6" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">6</text><circle cx="486.0" cy="205.20000000000002" r="11" fill="#3B6FD8"/><text x="486.0" y="209.20000000000002" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">7</text></svg></div>
+      <div><div class="tablewrap"><table class=""><thead><tr><th>#</th><th>Role</th><th>x</th><th>y</th></tr></thead><tbody><tr><td>1</td><td>keeper</td><td>on the goal-to-ball line, 1 m out</td><td>|y| ≤ 1.2</td></tr><tr><td>2</td><td>left back</td><td>ball − 10, in −21 … 10</td><td>0.5·ball + 5, in −8 … 12</td></tr><tr><td>3</td><td>right back</td><td>ball − 10, in −21 … 10</td><td>0.5·ball − 5, in −12 … 8</td></tr><tr><td>4</td><td>holding mid</td><td>ball − 5, in −18 … 16</td><td>0.6·ball, in −10 … 10</td></tr><tr><td>5</td><td>left forward</td><td>ball + 4, in −8 … 22</td><td>0.4·ball + 8, in −4 … 15</td></tr><tr><td>6</td><td>right forward</td><td>ball + 4, in −8 … 22</td><td>0.4·ball − 8, in −15 … 4</td></tr><tr><td>7</td><td>centre forward</td><td>ball + 8, in −2 … 23</td><td>0.3·ball, in −6 … 6</td></tr></tbody></table></div>
+        <p class="note">Field 55 × 36 m, we attack +x. Then: at least 2.5 m from the ball, never inside our goal area (at most 2 robots allowed there), inside the field. Shown: the ball at (5, 3), orange = striker, light blue = keeper.</p></div>
+    </div>
+    <h3>Set plays and the referee</h3>
+    <div class="tablewrap"><table class=""><thead><tr><th>Situation</th><th>What our robots do</th><th>Why</th></tr></thead><tbody><tr><td>Before kick-off, after a goal</td><td>beam to fixed spots: #1 (−25.5, 0), #2 (−16, ±5) … #7 (−6.5, 0)</td><td>beaming is only allowed then</td></tr><tr><td>Our kick-off</td><td>#7 walks in and kicks wide; it then sits out 8 s</td><td>a direct kick-off goal is void; second touch is a foul</td></tr><tr><td>Their kick-off, kick-in, corner, free kick</td><td>everyone ≥ 6.5 m from the ball</td><td>inside 5.5 m the referee teleports the robot off the field</td></tr><tr><td>Our goal area</td><td>only the keeper; field robots clamped outside</td><td>3 robots there for 0.1 s is a foul</td></tr></tbody></table></div>
+    <h3>The RL tactics layer on top</h3>
+    <div class="tablewrap"><table class=""><thead><tr><th></th><th>Value</th></tr></thead><tbody><tr><td>Network</td><td>52 → 256 → 256 → 3, tanh, 80,131 parameters, one copy per field robot, every 0.2 s</td></tr><tr><td>Inputs</td><td>own pose, ball and its velocity, 6 teammates from team talk, 3 nearest opponents seen, play mode, time left</td></tr><tr><td>Outputs</td><td>support robots: move the formation spot by up to 8 m; striker: turn the aim by up to 60°</td></tr><tr><td>Cannot change</td><td>roles, keeper, kick-offs, set-play distances, get-ups, any joint</td></tr><tr><td>Trained in</td><td>our 2D match simulator in JAX: robots as points with the goto law, measured kick speed and spread, ball roll, falls, the referee's restarts; about 900 halves a second on one H100</td></tr><tr><td>Reward</td><td>+1 per goal, −1 per goal against, + 0.1 × ball progress; opponent: the rules team 75 %, a frozen copy of itself 25 %</td></tr><tr><td>Result</td><td>simulator: +1.3 to +2.6 goals per half against the rules team. League: 41-47 over 13 matches, no measurable gain yet</td></tr></tbody></table></div>
+  </section>
   <section id="matches">
     <div class="shead">
       <h2>Matches</h2>
       <div class="facts"><span>full matches, <b>2 × 5 min</b>, sides swapped at half time</span><span>opponents: <b>FC Portugal</b> and <b>magmaOffenburg</b> (Portuguese Open 2026 binaries), the <b>Apollo</b> and <b>BahiaRT</b> base teams</span></div>
     </div>
+    <img class="strip" src="img/strip_match.png" alt="Open play against magmaOffenburg, six frames one second apart" loading="lazy">
     <div class="tablewrap"><table>
       <thead><tr><th>Opponent</th><th>Our orchestrator</th><th>Server timing</th><th>Half 1</th><th>Half 2</th><th>Match</th><th>Our falls</th></tr></thead>
       <tbody>
@@ -973,14 +1034,7 @@ footer { color: var(--muted); font-size: 14px; max-width: 72ch; }
 
   <section id="limits">
     <div class="shead"><h2>Not solved yet</h2></div>
-    <div class="limits">
-      <div class="box"><h4>RL gain not shown in the league</h4><p class="note">+1.3 to +2.6 goals per half in our simulator. In the league against the rules layer: 41-47 over 13 matches, while two identical rules teams went 15-22 over 5. No measurable difference yet; next is adding the server's measured noise to the simulator and deciding on dozens of matches.</p></div>
-      <div class="box"><h4>The gait shuffles</h4><p class="note">About 10 foot lifts a second, even standing (magmaOffenburg: 2.5 to 3). The rulebook bans unnatural behaviour that exploits the simulation. A still stance when idle is in testing; the real fix is retraining the gait with foot-timing terms.</p></div>
-      <div class="box"><h4>Falls</h4><p class="note">32 to 48 per match across our 7 robots: contact, and referee teleports when a robot stands too close at the other side's restart.</p></div>
-      <div class="box"><h4>One match per opponent</h4><p class="note">FC Portugal's binary lost 2 of its 7 robots each half in our setup. These are Portuguese Open 2026 binaries, not necessarily what teams bring to RoboCup 2026.</p></div>
-    </div>
+    <div class="tablewrap"><table class=""><thead><tr><th>Problem</th><th>Measured</th><th>Next</th></tr></thead><tbody><tr><td>RL layer not shown to help in the league</td><td>41-47 over 13 matches; identical rules teams 15-22 over 5</td><td>server noise in the simulator, decide on dozens of matches</td></tr><tr><td>Gait shuffle</td><td>about 10 foot lifts a second, even standing (magmaOffenburg 2.5 to 3)</td><td>still stance when idle (testing); retrain with foot-timing terms</td></tr><tr><td>Falls</td><td>32 to 48 per match over 7 robots</td><td>contact handling, avoid standing near the ball at their restarts</td></tr><tr><td>Opponent sample</td><td>one match each; FC Portugal lost 2 of 7 robots per half</td><td>more matches, real-time mode for all</td></tr></tbody></table></div>
   </section>
-
-
-  <footer>Recorded from the server's own physics state and rendered offline. Match clips: a side-line camera that follows the ball, the score counted from goal-line crossings as the referee does. Skill films: the same tests the automatic batteries score, run between 22:00 and 22:15 on 8 October.</footer>
+  <footer>Every number on this page comes from the training code and logs of the runs named, or from tests in the league server rcssservermj 0.2.1. Films are rendered from the server's own physics state.</footer>
 </div>
