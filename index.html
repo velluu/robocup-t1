@@ -194,7 +194,6 @@ details.films[open] { display: grid; gap: 14px; }
       <div style="display:grid;gap:10px"><img class="pic" src="img/robot_front.png" alt="Booster T1 standing, front" loading="lazy"><img class="pic" src="img/robot_side.png" alt="Booster T1 standing, side" loading="lazy"></div>
       <div class="tablewrap"><table class="joints"><thead><tr><th>Joint</th><th>Motor</th><th>Range</th><th>Torque cap N·m</th><th>Standing</th><th>Move / kick kp / kd</th><th>Get-up kp / kd</th></tr></thead><tbody><tr><td>Head yaw</td><td><code>he1</code></td><td>-90° to +90°</td><td>7</td><td>+0°</td><td>player: yaw 0, pitch 40°</td><td>7 / 0.32</td></tr><tr><td>Head pitch</td><td><code>he2</code></td><td>-20° to +70°</td><td>7</td><td>+0°</td><td>player: yaw 0, pitch 40°</td><td>7 / 0.32</td></tr><tr><td>L shoulder pitch</td><td><code>lae1</code></td><td>-190° to +70°</td><td>18</td><td>+0°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>L shoulder roll</td><td><code>lae2</code></td><td>-100° to +90°</td><td>18</td><td>-80°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>L elbow pitch</td><td><code>lae3</code></td><td>-130° to +130°</td><td>18</td><td>+0°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>L elbow yaw</td><td><code>lae4</code></td><td>-140° to +0°</td><td>18</td><td>-23°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>R shoulder pitch</td><td><code>rae1</code></td><td>-190° to +70°</td><td>18</td><td>+0°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>R shoulder roll</td><td><code>rae2</code></td><td>-90° to +100°</td><td>18</td><td>+80°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>R elbow pitch</td><td><code>rae3</code></td><td>-130° to +130°</td><td>18</td><td>+0°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>R elbow yaw</td><td><code>rae4</code></td><td>+0° to +140°</td><td>18</td><td>+23°</td><td>25 / 0.6</td><td>18 / 0.51</td></tr><tr><td>Waist</td><td><code>te1</code></td><td>-90° to +90°</td><td>30</td><td>+0°</td><td>25 / 0.6</td><td>30 / 0.66</td></tr><tr><td>L hip pitch</td><td><code>lle1</code></td><td>-103° to +90°</td><td>45</td><td>-23°</td><td>25 / 0.6</td><td>45 / 0.80</td></tr><tr><td>L hip roll</td><td><code>lle2</code></td><td>-11° to +90°</td><td>30</td><td>+0°</td><td>25 / 0.6</td><td>30 / 0.66</td></tr><tr><td>L hip yaw</td><td><code>lle3</code></td><td>-57° to +57°</td><td>30</td><td>+0°</td><td>25 / 0.6</td><td>30 / 0.66</td></tr><tr><td>L knee</td><td><code>lle4</code></td><td>+0° to +134°</td><td>60</td><td>+46°</td><td>25 / 0.6</td><td>60 / 0.93</td></tr><tr><td>L ankle pitch</td><td><code>lle5</code></td><td>-50° to +20°</td><td>20</td><td>-23°</td><td>25 / 0.6</td><td>20 / 0.54</td></tr><tr><td>L ankle roll</td><td><code>lle6</code></td><td>-25° to +25°</td><td>15</td><td>+0°</td><td>25 / 0.6</td><td>15 / 0.46</td></tr><tr><td>R hip pitch</td><td><code>rle1</code></td><td>-103° to +90°</td><td>45</td><td>-23°</td><td>25 / 0.6</td><td>45 / 0.80</td></tr><tr><td>R hip roll</td><td><code>rle2</code></td><td>-90° to +11°</td><td>30</td><td>+0°</td><td>25 / 0.6</td><td>30 / 0.66</td></tr><tr><td>R hip yaw</td><td><code>rle3</code></td><td>-57° to +57°</td><td>30</td><td>+0°</td><td>25 / 0.6</td><td>30 / 0.66</td></tr><tr><td>R knee</td><td><code>rle4</code></td><td>+0° to +134°</td><td>60</td><td>+46°</td><td>25 / 0.6</td><td>60 / 0.93</td></tr><tr><td>R ankle pitch</td><td><code>rle5</code></td><td>-50° to +20°</td><td>20</td><td>-23°</td><td>25 / 0.6</td><td>20 / 0.54</td></tr><tr><td>R ankle roll</td><td><code>rle6</code></td><td>-25° to +25°</td><td>15</td><td>+0°</td><td>25 / 0.6</td><td>15 / 0.46</td></tr></tbody></table></div>
     </div>
-    <p class="note">Ranges and torque caps are the league server's robot model. The head is not driven by any network: the player holds it level and tilted 40° down so the camera sees the ball.</p>
   </section>
 
   <section id="nets">
@@ -210,7 +209,7 @@ details.films[open] { display: grid; gap: 14px; }
     </div>
     <div class="tablewrap"><table class="num"><thead><tr><th>Network</th><th>Inputs</th><th>Outputs</th><th>Parameters (actor)</th><th>Runs on</th></tr></thead><tbody><tr><td>Movement</td><td>83</td><td>21</td><td>326,058</td><td>the player, every 20 ms</td></tr><tr><td>Kick</td><td>89</td><td>21</td><td>327,594</td><td>the player, every 20 ms</td></tr><tr><td>Get-up</td><td>76</td><td>23</td><td>324,526</td><td>the player, every 20 ms</td></tr><tr><td>RL tactics</td><td>52</td><td>3</td><td>80,131</td><td>the player, every 200 ms</td></tr></tbody></table></div>
     <div class="tablewrap"><table class="num"><thead><tr><th>Network</th><th>Learning rate</th><th>Epochs</th><th>Minibatch</th><th>γ</th><th>GAE λ</th><th>Clip</th><th>Entropy</th></tr></thead><tbody><tr><td>Movement</td><td>1e-4</td><td>10</td><td>32,768</td><td>0.99</td><td>0.7</td><td>0.1</td><td>0</td></tr><tr><td>Kick</td><td>1e-4</td><td>10</td><td>32,768</td><td>0.99</td><td>0.7</td><td>0.1</td><td>0</td></tr><tr><td>Get-up</td><td>1e-4</td><td>10</td><td>32,768</td><td>0.99</td><td>0.95</td><td>0.1</td><td>0</td></tr></tbody></table></div>
-    <p class="note">The critic that scores states during training gets extra, privileged inputs (true ball state, foot contacts, height over ground) and is thrown away after training. Each network runs in our own plain C++ in about 0.2 ms, matching training to within 0.003° per joint.</p>
+    <p class="note">Training also uses a critic with privileged inputs (true ball state, foot contacts); it is not deployed. Each network runs in our C++ player in about 0.2 ms.</p>
     <h3>Training loop</h3>
     <div class="flow">
       <div class="node"><b>1 · Simulate</b><span>8,192 T1 robots at once on one GPU with the server's robot model, contacts and one-cycle action delay</span></div><div class="arr">→</div>
@@ -230,8 +229,6 @@ details.films[open] { display: grid; gap: 14px; }
       <div class="box"><h4>Reward, per second</h4><div class="tablewrap"><table class="num"><thead><tr><th>Term</th><th>Weight</th></tr></thead><tbody><tr><td>progress to the A-to-B target</td><td>+4.0</td></tr><tr><td>stopped on the target</td><td>+3.0</td></tr><tr><td>standing still when told</td><td>+3.0</td></tr><tr><td>match commanded velocity</td><td>+2.0</td></tr><tr><td>speed along the command</td><td>+2.0</td></tr><tr><td>forward speed, sprints</td><td>+2.0</td></tr><tr><td>match commanded turn rate</td><td>+1.5</td></tr><tr><td>hands outside the foul box</td><td>−1.0</td></tr><tr><td>foot slip</td><td>−0.8</td></tr><tr><td>torque, power, jerk (curriculum)</td><td>−0.01 to −0.1</td></tr></tbody></table></div>
         <p class="note">No gait or foot-timing term: the cause of its 10-steps-a-second shuffle.</p></div>
     </div>
-    <h3>Runs that led to it</h3>
-    <div class="tablewrap"><table class="num"><thead><tr><th>Run</th><th>Where</th><th>What changed</th><th>Steps</th><th>PPO iterations</th><th>Time</th></tr></thead><tbody><tr><td><b>loco1b</b></td><td>Z8</td><td>from scratch: stock T1 walk</td><td><span class="bar" style="width:4px"></span> 260 M</td><td>495</td><td>72 min</td></tr><tr><td><b>loco1d</b></td><td>Z8</td><td>8,192 robots, flat field</td><td><span class="bar" style="width:4px"></span> 168 M</td><td>160</td><td>27 min</td></tr><tr><td><b>loco1e</b></td><td>Z8</td><td>restart from the save before a collapse</td><td><span class="bar" style="width:4px"></span> 67 M</td><td>128</td><td>12 min</td></tr><tr><td><b>loco1f</b></td><td>Z8</td><td>learning rate 1e-4</td><td><span class="bar" style="width:4px"></span> 101 M</td><td>192</td><td>17 min</td></tr><tr><td><b>loco1i</b></td><td>Z8</td><td>the server&#x27;s 20 ms action delay</td><td><span class="bar" style="width:4px"></span> 185 M</td><td>352</td><td>32 min</td></tr><tr><td><b>loco1k</b></td><td>Z8</td><td>feet on the server&#x27;s contact parameters</td><td><span class="bar" style="width:25px"></span> 2,064 M</td><td>3,936</td><td>344 min</td></tr><tr><td><b>sprint1b</b></td><td>Z8</td><td>forward sprint commands</td><td><span class="bar" style="width:4px"></span> 185 M</td><td>176</td><td>26 min</td></tr><tr><td><b>sprint7</b></td><td>Z8</td><td>forward-speed reward, faster env</td><td><span class="bar" style="width:4px"></span> 168 M</td><td>160</td><td>18 min</td></tr><tr><td><b>sprint7c</b></td><td>Z8</td><td>speed reward alone</td><td><span class="bar" style="width:4px"></span> 134 M</td><td>128</td><td>14 min</td></tr><tr><td><b>sprint7e</b></td><td>Z8</td><td>speed weight 1 → 2</td><td><span class="bar" style="width:4px"></span> 235 M</td><td>224</td><td>25 min</td></tr><tr><td><b>sprint7s</b></td><td>Z8</td><td>stand phase: stand-still 6.0</td><td><span class="bar" style="width:4px"></span> 285 M</td><td>272</td><td>30 min</td></tr><tr><td><b>sprint7y</b></td><td>Z8</td><td>heading tracking 1 → 5</td><td><span class="bar" style="width:20px"></span> 1,627 M</td><td>1,552</td><td>172 min</td></tr><tr><td><b>sprint7z</b></td><td>Z8</td><td>entropy 0.002 → 0</td><td><span class="bar" style="width:9px"></span> 755 M</td><td>720</td><td>79 min</td></tr><tr><td><b>sprint7q2</b></td><td>Z8</td><td>the server&#x27;s solver budget 100/50</td><td><span class="bar" style="width:9px"></span> 772 M</td><td>736</td><td>265 min</td></tr><tr><td><i>reshape</i></td><td></td><td>82 → 83 inputs (own velocity), 23 → 21 outputs (head dropped); learned layers kept</td><td></td><td></td><td></td></tr><tr><td><b>omniA ×7 jobs</b></td><td>Z8</td><td>all-direction env, slip and arm penalties, Warp physics, beam landings</td><td><span class="bar" style="width:52px"></span> 4,184 M</td><td>3,990</td><td>455 min</td></tr><tr><td><b>omniC</b></td><td>Z8</td><td>advantage fix, fresh IMU</td><td><span class="bar" style="width:18px"></span> 1,468 M</td><td>1,400</td><td>138 min</td></tr><tr><td><b>omniT</b></td><td>Z8</td><td>fast runs 2 to 7 m/s, braking</td><td><span class="bar" style="width:76px"></span> 6,124 M</td><td>5,840</td><td>663 min</td></tr><tr><td><b>omniH3</b></td><td>Z8</td><td>course tracking, progress reward 2</td><td><span class="bar" style="width:120px"></span> 9,563 M</td><td>9,120</td><td>867 min</td></tr><tr><td><b>gotoH2</b></td><td>Z8</td><td>A-to-B legs: progress 4, arrive 3</td><td><span class="bar" style="width:8px"></span> 671 M</td><td>640</td><td>60 min</td></tr><tr><td><b>gotoV</b></td><td>Z8</td><td>exploration reset, sprint share 0.3, legs ≥ 4 m</td><td><span class="bar" style="width:11px"></span> 923 M</td><td>880</td><td>84 min</td></tr></tbody></table></div><p class="note">Chain: 26 runs from 09-18 to 10-08, 29.9 billion steps, 31,101 PPO iterations, 60 GPU hours on the workstation. 105 movement runs launched in all (80 distinct recipes); the rest were dead ends.</p>
     <details class="films"><summary>All 46 filmed test runs of this network in the league server</summary>
     <div class="group">
       <h3>A to B, flat out, clean stop</h3>
@@ -460,8 +457,6 @@ details.films[open] { display: grid; gap: 14px; }
       <div class="box"><h4>Reward, per second</h4><div class="tablewrap"><table class="num"><thead><tr><th>Term</th><th>Weight</th></tr></thead><tbody><tr><td>ball speed along the aim, within a 2° window</td><td>+10</td></tr><tr><td>ball speed across the aim</td><td>−40</td></tr><tr><td>standing still after the kick</td><td>+3</td></tr><tr><td>closing in before the touch</td><td>+2</td></tr><tr><td>hands outside the foul box</td><td>−1</td></tr><tr><td>foot slip</td><td>−0.8</td></tr><tr><td>time before the touch</td><td>−0.2</td></tr><tr><td>torque, power, jerk (curriculum)</td><td>−0.01 to −0.1</td></tr></tbody></table></div>
         <p class="note">Ball terms count only once the ball rolls free, 0.4 m from the foot.</p></div>
     </div>
-    <h3>Runs that led to it</h3>
-    <div class="tablewrap"><table class="num"><thead><tr><th>Run</th><th>Where</th><th>What changed</th><th>Steps</th><th>PPO iterations</th><th>Time</th></tr></thead><tbody><tr><td><i>movement chain</i></td><td>Z8</td><td>runs 1 to 24 above, plus gotoH2 to 14:26</td><td></td><td></td><td></td></tr><tr><td><i>reshape</i></td><td></td><td>83 → 89 inputs (ball, time since seen, aim, power)</td><td></td><td></td><td></td></tr><tr><td><b>kickA</b></td><td>Z8</td><td>kick env, league ball: ball 10, lateral 2, approach 2, stand 2</td><td><span class="bar" style="width:32px"></span> 419 M</td><td>400</td><td>42 min</td></tr><tr><td><b>kickB</b></td><td>Z8</td><td>ball paid only when rolling free; lateral 5</td><td><span class="bar" style="width:120px"></span> 1,552 M</td><td>1,480</td><td>153 min</td></tr><tr><td><b>kickC</b></td><td>Z8</td><td>lateral 20</td><td><span class="bar" style="width:35px"></span> 461 M</td><td>440</td><td>48 min</td></tr><tr><td><b>kickD</b></td><td>H100</td><td>lateral 40</td><td><span class="bar" style="width:32px"></span> 419 M</td><td>400</td><td>37 min</td></tr><tr><td><b>kickD3</b></td><td>H100</td><td>stand 0.5 → 3</td><td><span class="bar" style="width:58px"></span> 755 M</td><td>720</td><td>47 min</td></tr><tr><td><b>kL2</b></td><td>H100</td><td>2° direction window</td><td><span class="bar" style="width:32px"></span> 419 M</td><td>400</td><td>26 min</td></tr><tr><td><b>kL5</b></td><td>H100</td><td>same recipe, another seed</td><td><span class="bar" style="width:90px"></span> 1,174 M</td><td>1,120</td><td>72 min</td></tr></tbody></table></div><p class="note">Own runs: 7, 5.2 billion steps, 4,960 PPO iterations, 7.6 GPU hours (workstation and one H100), on top of the movement chain it started from. 31 kick runs launched in all.</p>
     <details class="films"><summary>All 57 filmed test runs of this network in the league server</summary>
     <div class="group">
       <h3>Shots at goal from 10 m</h3>
@@ -722,8 +717,6 @@ details.films[open] { display: grid; gap: 14px; }
       <div class="box"><h4>Reward</h4><div class="tablewrap"><table class="num"><thead><tr><th>Term</th><th>Weight</th></tr></thead><tbody><tr><td>time cost until standing</td><td>−5 to −1 per s</td></tr><tr><td>standing held 0.5 s</td><td>+5 once</td></tr><tr><td>jerky actions</td><td>−0.001</td></tr><tr><td>joint torque</td><td>−0.002</td></tr></tbody></table></div>
         <p class="note">The time cost shrinks as the robot gets higher, more upright and calmer. No fall penalty, no scripted poses.</p></div>
     </div>
-    <h3>Runs that led to it</h3>
-    <div class="tablewrap"><table class="num"><thead><tr><th>Run</th><th>Where</th><th>What changed</th><th>Steps</th><th>PPO iterations</th><th>Time</th></tr></thead><tbody><tr><td><b>getupResidual</b></td><td>Z8</td><td>from scratch: residual targets, torque-cap gains, torso lift</td><td><span class="bar" style="width:12px"></span> 84 M</td><td>80</td><td>7 min</td></tr><tr><td><b>getupR1</b></td><td>Z8</td><td>same recipe, open-ended</td><td><span class="bar" style="width:18px"></span> 126 M</td><td>120</td><td>10 min</td></tr><tr><td><b>getupR1b</b></td><td>Z8</td><td>continued</td><td><span class="bar" style="width:31px"></span> 210 M</td><td>200</td><td>17 min</td></tr><tr><td><b>getupR2</b></td><td>Z8</td><td>stillness in the progress term</td><td><span class="bar" style="width:120px"></span> 797 M</td><td>760</td><td>70 min</td></tr></tbody></table></div><p class="note">4 runs on one day, 1.2 billion steps, 1,160 PPO iterations, under 2 GPU hours. 10 get-up runs launched in all.</p>
     <details class="films"><summary>All 35 filmed test runs of this network in the league server</summary>
     <div class="grid">
       <figure class="clip">
@@ -874,7 +867,7 @@ details.films[open] { display: grid; gap: 14px; }
       <h2>The three skills together</h2>
       <div class="facts"><span>movement <b>gotoV 19:25</b></span><span>kick <b>kL5 01:38</b></span><span>get-up <b>R2 15:50</b></span><span>player <b>drill mode</b>, ball search fixed 22:12</span></div>
     </div>
-    <p class="summary">The player runs one network at a time and switches on its own: get-up whenever the robot is down, movement to reach the ball, kick once it is lined up behind the ball. Times are from the robot's arrival on the field.</p>
+    <p class="summary">The player runs one network at a time and switches on its own: get-up whenever the robot is down, movement to reach the ball, kick once it is lined up behind the ball.</p>
     <div class="demo">
       <figure class="scene">
         <div class="v"><video src="clips/demo/demo_A_shove_getup_move_goal.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Shove, get up, walk, score</span></div>
@@ -889,7 +882,6 @@ details.films[open] { display: grid; gap: 14px; }
             <li><span class="t">11.50 s</span><span class="net kick">kick</span><span>Shoots at the goal from 16 m</span></li>
             <li><span class="t">14.30 s</span><span class="net none">goal</span><span>Ball crosses the goal line</span></li>
           </ol>
-          <p class="note">The camera switches to a view down the shot at 10.9 s. The clip ends at 17.0 s, before the server's kick-off restart moves the robot off the field. All three takes of this scene with this kick network scored.</p>
         </figcaption>
       </figure>
       <figure class="scene">
@@ -902,7 +894,6 @@ details.films[open] { display: grid; gap: 14px; }
             <li><span class="t">9.20 s</span><span class="net kick">kick</span><span>Shoots at the goal from 10.6 m</span></li>
             <li><span class="t">11.02 s</span><span class="net none">goal</span><span>Ball crosses the goal line</span></li>
           </ol>
-          <p class="note">The camera switches to a view down the shot at 8.5 s. The clip ends at 13.7 s, before the kick-off restart. Both takes of this scene scored.</p>
         </figcaption>
       </figure>
     </div>
@@ -933,14 +924,14 @@ details.films[open] { display: grid; gap: 14px; }
         <p class="note">Brakes so it stops on the point. Arrived within 0.3 m; moves again only past 0.6 m. Support robots re-aim only when their spot moves over 0.8 m, and face the ball.</p>
         <h4>Team talk: 10 bytes</h4>
         <div class="bytes"><div>tag 5b · #3b</div><div class="s3">own x, y · 12 bits each</div><div class="s3">ball x, y · 12 bits each</div><div>ball age</div><div>cost ×10</div><div>fallen, striker, check 6b</div></div>
-        <p class="note">Each robot speaks on cycle number mod 7, so one teammate per cycle. The check bits are salted with a hash of the team name, so a copy of our player on the other side cannot pass as a teammate.</p>
+        <p class="note">Each robot speaks on cycle number mod 7, so one teammate per cycle. Check bits salted with the team name.</p>
       </div>
     </div>
     <h3>Formation: spots follow the ball</h3>
     <div class="two">
       <div class="field"><svg viewBox="0 0 660 432" role="img" aria-label="Formation spots for the ball at x 5, y 3"><rect width="660" height="432" fill="#2E6B45"/><rect x="2" y="2" width="656" height="428" fill="none" stroke="#DDEBDF" stroke-width="2"/><line x1="330.0" y1="0" x2="330.0" y2="432" stroke="#DDEBDF" stroke-width="2"/><circle cx="330.0" cy="216" r="66.0" fill="none" stroke="#DDEBDF" stroke-width="2"/><rect x="0" y="117.0" width="108" height="198.0" fill="none" stroke="#DDEBDF" stroke-width="2"/><rect x="552" y="117.0" width="108" height="198.0" fill="none" stroke="#DDEBDF" stroke-width="2"/><line x1="380.52" y1="178.8" x2="660.0" y2="216" stroke="#F0B27A" stroke-width="2" stroke-dasharray="8 6"/><circle cx="390.0" cy="180" r="6" fill="#FFFFFF" stroke="#13261C" stroke-width="2"/><circle cx="380.52" cy="178.8" r="11" fill="#E8833A"/><circle cx="12.0" cy="214.79999999999998" r="11" fill="#9CC3FF"/><circle cx="270.0" cy="138.0" r="11" fill="#3B6FD8"/><text x="270.0" y="142.0" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">2</text><circle cx="270.0" cy="258.0" r="11" fill="#3B6FD8"/><text x="270.0" y="262.0" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">3</text><circle cx="330.0" cy="194.39999999999998" r="11" fill="#3B6FD8"/><text x="330.0" y="198.39999999999998" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">4</text><circle cx="438.0" cy="105.60000000000001" r="11" fill="#3B6FD8"/><text x="438.0" y="109.60000000000001" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">5</text><circle cx="438.0" cy="297.6" r="11" fill="#3B6FD8"/><text x="438.0" y="301.6" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">6</text><circle cx="486.0" cy="205.20000000000002" r="11" fill="#3B6FD8"/><text x="486.0" y="209.20000000000002" text-anchor="middle" font-size="12" font-family="monospace" fill="#FFFFFF">7</text></svg></div>
       <div><div class="tablewrap"><table class=""><thead><tr><th>#</th><th>Role</th><th>x</th><th>y</th></tr></thead><tbody><tr><td>1</td><td>keeper</td><td>on the goal-to-ball line, 1 m out</td><td>|y| ≤ 1.2</td></tr><tr><td>2</td><td>left back</td><td>ball − 10, in −21 … 10</td><td>0.5·ball + 5, in −8 … 12</td></tr><tr><td>3</td><td>right back</td><td>ball − 10, in −21 … 10</td><td>0.5·ball − 5, in −12 … 8</td></tr><tr><td>4</td><td>holding mid</td><td>ball − 5, in −18 … 16</td><td>0.6·ball, in −10 … 10</td></tr><tr><td>5</td><td>left forward</td><td>ball + 4, in −8 … 22</td><td>0.4·ball + 8, in −4 … 15</td></tr><tr><td>6</td><td>right forward</td><td>ball + 4, in −8 … 22</td><td>0.4·ball − 8, in −15 … 4</td></tr><tr><td>7</td><td>centre forward</td><td>ball + 8, in −2 … 23</td><td>0.3·ball, in −6 … 6</td></tr></tbody></table></div>
-        <p class="note">Field 55 × 36 m, we attack +x. Then: at least 2.5 m from the ball, never inside our goal area (at most 2 robots allowed there), inside the field. Shown: the ball at (5, 3), orange = striker, light blue = keeper.</p></div>
+        <p class="note">Field 55 × 36 m, we attack +x. Then: at least 2.5 m from the ball, never inside our goal area (at most 2 robots allowed there), inside the field. Shown: ball at (5, 3); orange striker, light blue keeper.</p></div>
     </div>
     <h3>Set plays and the referee</h3>
     <div class="tablewrap"><table class=""><thead><tr><th>Situation</th><th>What our robots do</th><th>Why</th></tr></thead><tbody><tr><td>Before kick-off, after a goal</td><td>beam to fixed spots: #1 (−25.5, 0), #2 (−16, ±5) … #7 (−6.5, 0)</td><td>beaming is only allowed then</td></tr><tr><td>Our kick-off</td><td>#7 walks in and kicks wide; it then sits out 8 s</td><td>a direct kick-off goal is void; second touch is a foul</td></tr><tr><td>Their kick-off, kick-in, corner, free kick</td><td>everyone ≥ 6.5 m from the ball</td><td>inside 5.5 m the referee teleports the robot off the field</td></tr><tr><td>Our goal area</td><td>only the keeper; field robots clamped outside</td><td>3 robots there for 0.1 s is a foul</td></tr></tbody></table></div>
@@ -950,37 +941,38 @@ details.films[open] { display: grid; gap: 14px; }
   <section id="matches">
     <div class="shead">
       <h2>Matches</h2>
-      <div class="facts"><span>full matches, <b>2 × 5 min</b>, sides swapped at half time</span><span>opponents: <b>FC Portugal</b> and <b>magmaOffenburg</b> (Portuguese Open 2026 binaries), the <b>Apollo</b> and <b>BahiaRT</b> base teams</span></div>
+      <div class="facts"><span>2 × 5 min, sides swapped at half time</span></div>
     </div>
     <img class="strip" src="img/strip_match.png" alt="Open play against magmaOffenburg, six frames one second apart" loading="lazy">
     <div class="tablewrap"><table>
       <thead><tr><th>Opponent</th><th>Our orchestrator</th><th>Server timing</th><th>Half 1</th><th>Half 2</th><th>Match</th><th>Our falls</th></tr></thead>
       <tbody>
-<tr><td>magmaOffenburg (2025 runner-up), Portuguese Open 2026 binary</td><td>rules</td><td>synchronous</td><td class="n">2-0</td><td class="n">9-0</td><td class="n"><b>11-0</b></td><td class="n">48</td></tr>
-<tr><td>FC Portugal (2025 champion), Portuguese Open 2026 binary</td><td>rules</td><td>synchronous</td><td class="n">3-0</td><td class="n">6-0</td><td class="n"><b>9-0</b></td><td class="n">32</td></tr>
-<tr><td>FC Portugal (2025 champion), Portuguese Open 2026 binary</td><td>learned</td><td>synchronous</td><td class="n">5-0</td><td class="n">5-0</td><td class="n"><b>10-0</b></td><td class="n">45</td></tr>
+<tr><td>magmaOffenburg (2025 runner-up)</td><td>rules</td><td>synchronous</td><td class="n">2-0</td><td class="n">9-0</td><td class="n"><b>11-0</b></td><td class="n">48</td></tr>
+<tr><td>FC Portugal (2025 champion)</td><td>rules</td><td>synchronous</td><td class="n">3-0</td><td class="n">6-0</td><td class="n"><b>9-0</b></td><td class="n">32</td></tr>
+<tr><td>FC Portugal (2025 champion)</td><td>learned</td><td>synchronous</td><td class="n">5-0</td><td class="n">5-0</td><td class="n"><b>10-0</b></td><td class="n">45</td></tr>
 <tr><td>Apollo base team</td><td>rules</td><td>real time</td><td class="n">11-0</td><td class="n">10-0</td><td class="n"><b>21-0</b></td><td class="n">47</td></tr>
 <tr><td>BahiaRT base team</td><td>rules</td><td>synchronous</td><td class="n">6-0</td><td class="n">7-0</td><td class="n"><b>13-0</b></td><td class="n">39</td></tr>
       </tbody>
     </table></div>
+    <p class="note">FC Portugal's binary lost 2 of its 7 robots in each half.</p>
     <h3>Highlight reels: every goal of every match</h3>
-    <p class="note">Each reel runs the whole match: open play fast-forwarded 8 times (marked x8), then real speed from 8 s before each goal to 3 s after it. Sides swap at half time, and the server colours the left team blue and the right team red, so our colour changes with the half.</p>
+    <p class="note">Open play at 8× speed; real speed from 8 s before each goal. The left team is blue; sides swap at half time.</p>
     <div class="grid">
       <figure class="clip">
         <div class="v"><video src="clips/reels/reel_magma.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Against magmaOffenburg (2025 runner-up)</h4><span class="chip good">11-0</span></div><p>Rules orchestrator. magmaOffenburg kept all seven robots for the whole match.</p></figcaption>
+        <figcaption><div class="row"><h4>Against magmaOffenburg (2025 runner-up)</h4><span class="chip good">11-0</span></div><p>Rules orchestrator.</p></figcaption>
       </figure>
       <figure class="clip">
         <div class="v"><video src="clips/reels/reel_fcp_rules.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Against FC Portugal (2025 champion)</h4><span class="chip good">9-0</span></div><p>Rules orchestrator. Two FC Portugal robots dropped out in each half.</p></figcaption>
+        <figcaption><div class="row"><h4>Against FC Portugal (2025 champion)</h4><span class="chip good">9-0</span></div><p>Rules orchestrator. 2 of their robots dropped out each half.</p></figcaption>
       </figure>
       <figure class="clip">
         <div class="v"><video src="clips/reels/reel_fcp_learned.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Learned orchestrator against FC Portugal</h4><span class="chip good">10-0</span></div><p>The RL tactics layer on top of the rules orchestrator.</p></figcaption>
+        <figcaption><div class="row"><h4>Learned orchestrator against FC Portugal</h4><span class="chip good">10-0</span></div><p>Rules orchestrator with the RL tactics layer.</p></figcaption>
       </figure>
       <figure class="clip">
         <div class="v"><video src="clips/reels/reel_apollo.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Against Apollo, real time</h4><span class="chip good">21-0</span></div><p>Run at competition timing.</p></figcaption>
+        <figcaption><div class="row"><h4>Against Apollo, real time</h4><span class="chip good">21-0</span></div><p>Rules orchestrator, real time.</p></figcaption>
       </figure>
       <figure class="clip">
         <div class="v"><video src="clips/reels/reel_bahiart.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
@@ -988,53 +980,14 @@ details.films[open] { display: grid; gap: 14px; }
       </figure>
       <figure class="clip">
         <div class="v"><video src="clips/reels/reel_learned_vs_rules.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Learned against rules</h4><span class="chip good">7-3</span></div><p>Our two orchestrators head to head; across five matches they finished 2-1-2.</p></figcaption>
+        <figcaption><div class="row"><h4>Learned against rules</h4><span class="chip good">7-3</span></div><p>Our two orchestrators head to head.</p></figcaption>
       </figure>
     </div>
-    <div class="catch"><h3>The catch</h3><ul class="findings"><li>FC Portugal and magmaOffenburg are their Portuguese Open 2026 binaries (archive.robocup.info), run on our machine. They are not necessarily the teams they will bring to RoboCup 2026.</li><li>FC Portugal&#x27;s binary lost two of its seven players in each half (its own players exited mid-match), so 9-0 and 10-0 were against five to seven of their robots. magmaOffenburg kept all seven: 11-0 is the cleanest result.</li><li>All matches but the Apollo one ran in the server&#x27;s synchronous mode, where it waits for every player each step. The Apollo match ran in real time, as in competition.</li><li>One match per opponent so far. Our robots still fall 32 to 48 times a match, mostly on contact and after the referee teleports a robot that stood too near the ball at the other side&#x27;s restart.</li><li>The learned layer&#x27;s gain in the simulator has not yet shown up in the league server.</li></ul></div>
-    <div class="grid">
-      <figure class="clip">
-        <div class="v"><video src="clips/match/c3_h2/goal_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Against magmaOffenburg, second half</h4><span class="chip good"></span></div><p>11-0 over the match. magmaOffenburg kept all seven robots on the field.</p></figcaption>
-      </figure>
-      <figure class="clip">
-        <div class="v"><video src="clips/match/c3_h2/goal_7.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Against magmaOffenburg, second half</h4><span class="chip good"></span></div><p>One of nine second-half goals.</p></figcaption>
-      </figure>
-      <figure class="clip">
-        <div class="v"><video src="clips/match/c1_h1/goal_2.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Against FC Portugal, first half</h4><span class="chip good"></span></div><p>9-0 over the match, against FC Portugal&#x27;s Portuguese Open 2026 binary.</p></figcaption>
-      </figure>
-      <figure class="clip">
-        <div class="v"><video src="clips/match/c2_h1/goal_1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Learned orchestrator against FC Portugal</h4><span class="chip good"></span></div><p>10-0 over the match.</p></figcaption>
-      </figure>
-      <figure class="clip">
-        <div class="v"><video src="clips/match/c2_h2/goal_2.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Learned orchestrator against FC Portugal, second half</h4><span class="chip good"></span></div><p>Playing from the right side after half time.</p></figcaption>
-      </figure>
-      <figure class="clip">
-        <div class="v"><video src="clips/match/b2m1_h1/goal_2.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Learned (blue) against rules (red)</h4><span class="chip good"></span></div><p>Head to head in the league server: the learned side won this half 4-1, the match 7-3, the five matches 2-1-2.</p></figcaption>
-      </figure>
-      <figure class="clip">
-        <div class="v"><video src="clips/match/m4_h1/goal_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Against Apollo in real time</h4><span class="chip good"></span></div><p>21-0 over the match at competition timing.</p></figcaption>
-      </figure>
-      <figure class="clip">
-        <div class="v"><video src="clips/match/m2_h1/goal_2.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>Against BahiaRT</h4><span class="chip good"></span></div><p>13-0 over the match.</p></figcaption>
-      </figure>
-      <figure class="clip">
-        <div class="v"><video src="clips/match/c3_h1/play_60s.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
-        <figcaption><div class="row"><h4>A minute of open play against magmaOffenburg</h4><span class="chip good"></span></div><p>From the first kick-off: roles, formation and team talk at work.</p></figcaption>
-      </figure>
-    </div>
+    
   </section>
 
   <section id="limits">
     <div class="shead"><h2>Not solved yet</h2></div>
-    <div class="tablewrap"><table class=""><thead><tr><th>Problem</th><th>Measured</th><th>Next</th></tr></thead><tbody><tr><td>RL layer not shown to help in the league</td><td>41-47 over 13 matches; identical rules teams 15-22 over 5</td><td>server noise in the simulator, decide on dozens of matches</td></tr><tr><td>Gait shuffle</td><td>about 10 foot lifts a second, even standing (magmaOffenburg 2.5 to 3)</td><td>still stance when idle (testing); retrain with foot-timing terms</td></tr><tr><td>Falls</td><td>32 to 48 per match over 7 robots</td><td>contact handling, avoid standing near the ball at their restarts</td></tr><tr><td>Opponent sample</td><td>one match each; FC Portugal lost 2 of 7 robots per half</td><td>more matches, real-time mode for all</td></tr></tbody></table></div>
+    <div class="tablewrap"><table class=""><thead><tr><th>Problem</th><th>Measured</th><th>Next</th></tr></thead><tbody><tr><td>RL layer not shown to help in the league</td><td>41-47 over 13 matches; identical rules teams 15-22 over 5</td><td>server noise in the simulator, decide on dozens of matches</td></tr><tr><td>Gait shuffle</td><td>about 10 foot lifts a second, even standing (magmaOffenburg 2.5 to 3)</td><td>still stance when idle (testing); retrain with foot-timing terms</td></tr><tr><td>Falls</td><td>32 to 48 per match over 7 robots</td><td>contact handling, avoid standing near the ball at their restarts</td></tr></tbody></table></div>
   </section>
-  <footer>Every number on this page comes from the training code and logs of the runs named, or from tests in the league server rcssservermj 0.2.1. Films are rendered from the server's own physics state.</footer>
 </div>
