@@ -1,0 +1,986 @@
+<title>T1 Team</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* layout: a match-review sheet: the three skills together first, then the results, then the films, one section per network */
+:root {
+  --bg: #f3f5f8; --surface: #ffffff; --ink: #18212d; --muted: #5a6677; --line: #d9dee6;
+  --accent: #1f4fd1; --pitch: #1d6b3f;
+  --good: #1d7a46; --good-bg: #e2f3e9; --warn: #8a5a00; --warn-bg: #fbefd5; --bad: #b42318; --bad-bg: #fde5e2; --wait-bg: #e9ecf1;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f141b; --surface: #171e28; --ink: #e6ebf2; --muted: #9aa6b6; --line: #2a3442; --accent: #7fa2ff; --pitch: #5fc48a;
+  --good: #6fd39b; --good-bg: #173325; --warn: #f0c060; --warn-bg: #3a2d10; --bad: #ff8a7a; --bad-bg: #3d1a16; --wait-bg: #232c38; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f141b; --surface: #171e28; --ink: #e6ebf2; --muted: #9aa6b6; --line: #2a3442; --accent: #7fa2ff; --pitch: #5fc48a;
+  --good: #6fd39b; --good-bg: #173325; --warn: #f0c060; --warn-bg: #3a2d10; --bad: #ff8a7a; --bad-bg: #3d1a16; --wait-bg: #232c38; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--body); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 64px; display: grid; gap: 44px; }
+header { display: grid; gap: 10px; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { font: 700 clamp(34px, 6vw, 52px)/1 var(--display); margin: 0; letter-spacing: .01em; text-wrap: balance; }
+.lede { max-width: 68ch; color: var(--muted); margin: 0; }
+nav { display: flex; flex-wrap: wrap; gap: 8px; }
+nav a { font: 600 14px/1 var(--body); color: var(--accent); text-decoration: none; border: 1px solid var(--line); background: var(--surface); padding: 8px 12px; border-radius: 999px; }
+nav a:hover, nav a:focus-visible { border-color: var(--accent); outline: none; }
+section { display: grid; gap: 20px; scroll-margin-top: 16px; }
+.shead { display: grid; gap: 6px; border-top: 3px solid var(--ink); padding-top: 14px; }
+h2 { font: 700 32px/1.05 var(--display); margin: 0; text-wrap: balance; }
+.facts { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 500 13px/1.4 var(--mono); color: var(--muted); }
+.facts b { color: var(--ink); font-weight: 500; }
+.summary { max-width: 72ch; margin: 0; }
+.group { display: grid; gap: 10px; }
+h3 { font: 600 22px/1.1 var(--display); margin: 8px 0 0; letter-spacing: .02em; text-transform: uppercase; text-wrap: balance; }
+.note { margin: 0; color: var(--muted); max-width: 72ch; }
+.demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 16px; }
+.scene { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: grid; align-content: start; min-width: 0; }
+.scene figcaption { padding: 12px 14px 14px; display: grid; gap: 8px; min-width: 0; }
+.scene h4 { margin: 0; font: 600 18px/1.3 var(--body); }
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.timeline li { display: grid; grid-template-columns: 4.2em 6.6em 1fr; gap: 8px; align-items: baseline; font-size: 14px; }
+.timeline .t { font: 500 13px/1.4 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
+.net { font: 500 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .05em; padding: 4px 6px; border-radius: 3px; justify-self: start; }
+.net.move { color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.net.getup { color: var(--warn); background: var(--warn-bg); }
+.net.kick { color: var(--pitch); background: color-mix(in srgb, var(--pitch) 14%, transparent); }
+.net.none { color: var(--muted); background: var(--wait-bg); }
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 16px; }
+.skill { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.skill h3 { margin: 0; }
+.skill .facts { margin-top: -4px; }
+.stat { display: grid; gap: 2px; padding: 10px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+.sl { font-size: 14px; color: var(--muted); }
+.sv { font: 500 20px/1.25 var(--mono); font-variant-numeric: tabular-nums; }
+.sv b { font-weight: 500; }
+.sub { font-size: 13px; color: var(--muted); }
+.findings { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; font-variant-numeric: tabular-nums; min-width: 640px; }
+th, td { text-align: left; padding: 7px 12px; border-bottom: 1px solid var(--line); font-size: 14px; vertical-align: top; }
+th { font-weight: 600; color: var(--muted); }
+td.n { font-family: var(--mono); font-size: 13px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.clip { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: grid; align-content: start; min-width: 0; }
+.clip figcaption { padding: 10px 12px 12px; display: grid; gap: 4px; min-width: 0; }
+.clip h4 { margin: 0; font: 600 16px/1.3 var(--body); min-width: 0; }
+.clip figcaption p { margin: 0; color: var(--muted); font-size: 14px; }
+.v { position: relative; min-width: 0; }
+.v video { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; display: block; background: #000; }
+.vlabel { position: absolute; top: 6px; left: 6px; font: 500 11px/1 var(--mono); color: #fff; background: rgba(0,0,0,.6); padding: 4px 6px; border-radius: 3px; }
+.row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.chip { flex: none; font: 500 12px/1 var(--mono); padding: 5px 8px; border-radius: 4px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.chip.good { color: var(--good); background: var(--good-bg); }
+.chip.warn { color: var(--warn); background: var(--warn-bg); }
+.chip.bad { color: var(--bad); background: var(--bad-bg); }
+.chip.wait { color: var(--muted); background: var(--wait-bg); }
+.chip:empty { display: none; }
+footer { color: var(--muted); font-size: 14px; max-width: 72ch; }
+@media (max-width: 480px) { .timeline li { grid-template-columns: 3.6em 1fr; } .timeline li .net { grid-column: 2; } .timeline li span:last-child { grid-column: 2; } }
+
+.stack { display: grid; gap: 8px; max-width: 760px; }
+.layer { display: grid; grid-template-columns: 9.5em 1fr; gap: 12px; align-items: start; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--accent); border-radius: 8px; }
+.layer.rl { border-left-color: var(--pitch); }
+.layer.skill { border-left-color: var(--warn); }
+.layer.server { border-left-color: var(--muted); }
+.layer .lname { font: 600 18px/1.15 var(--display); letter-spacing: .02em; text-transform: uppercase; }
+.layer .lbody { display: grid; gap: 4px; font-size: 15px; min-width: 0; }
+.layer .lbody span { color: var(--muted); font-size: 14px; }
+.arrow { justify-self: center; color: var(--muted); font: 500 13px/1 var(--mono); }
+.chart { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; max-width: 760px; }
+.chart svg { width: 100%; height: auto; display: block; }
+.legend { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.legend .swatch { display: inline-block; width: 14px; height: 4px; margin-right: 6px; vertical-align: middle; }
+.catch { background: var(--warn-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; max-width: 80ch; }
+.catch h3 { margin: 0 0 6px; color: var(--warn); }
+@media (max-width: 520px) { .layer { grid-template-columns: 1fr; } }
+
+
+.hero { display: grid; gap: 14px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; display: grid; gap: 2px; }
+.tile .big { font: 700 40px/1 var(--display); color: var(--good); }
+.tile .who { font-weight: 600; }
+.tile .why { font-size: 14px; color: var(--muted); }
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px; counter-reset: step; }
+.step { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 8px; padding: 12px 14px; display: grid; gap: 4px; align-content: start; }
+.step b { font: 600 18px/1.2 var(--display); letter-spacing: .02em; text-transform: uppercase; }
+.step span { font-size: 15px; color: var(--muted); }
+.train { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.train .spec { display: grid; gap: 8px; margin: 0; }
+.train .spec div { display: grid; grid-template-columns: 7.5em 1fr; gap: 10px; font-size: 15px; }
+.train .spec dt { font-weight: 600; }
+.train .spec dd { margin: 0; color: var(--ink); }
+.train table { min-width: 0; width: 100%; }
+.train td.w { text-align: right; font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+.train .unused { color: var(--warn); font-size: 15px; margin: 6px 0 0; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; gap: 8px; min-width: 0; }
+.box h4 { margin: 0; font: 600 18px/1.2 var(--display); letter-spacing: .02em; text-transform: uppercase; }
+.limits { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 12px; }
+.limits .box { border-top: 4px solid var(--warn); }
+@media (max-width: 760px) { .train { grid-template-columns: 1fr; } .train .spec div { grid-template-columns: 1fr; gap: 0; } }
+
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">ACOD310 RoboCup 3D · Booster T1 · Karthik Nambiar · October 2026</div>
+    <h1>Training a RoboCup team from scratch</h1>
+    <p class="lede">Three skills learned with reinforcement learning (movement, kick, get-up) and an orchestrator that runs seven robots, with a learned tactics layer on top. Everything below was measured in the official 2026 league server with our own C++ player.</p>
+    <div class="tiles">
+      <div class="tile"><span class="who">magmaOffenburg</span><span class="big">11-0</span><span class="why">2025 runner-up, all 7 of theirs played</span></div>
+      <div class="tile"><span class="who">FC Portugal</span><span class="big">9-0</span><span class="why">2025 champion; 10-0 with the RL layer; 2 of theirs dropped out each half</span></div>
+      <div class="tile"><span class="who">Apollo</span><span class="big">21-0</span><span class="why">public base team, real time</span></div>
+      <div class="tile"><span class="who">BahiaRT</span><span class="big">13-0</span><span class="why">public base team</span></div>
+    </div>
+    <nav aria-label="Sections"><a href="#start">Start</a><a href="#training-how">How training works</a><a href="#movement">Movement</a><a href="#kick">Kick</a><a href="#getup">Get-up</a><a href="#orchestrator">Orchestrator</a><a href="#together">Skills together</a><a href="#matches">Matches</a><a href="#limits">Not solved yet</a></nav>
+  </header>
+
+
+
+  <section id="start">
+    <div class="shead"><h2>Starting from nothing</h2></div>
+    <p class="summary">In 2026 the RoboCup 3D simulation league moves to a new MuJoCo server with the Booster T1 humanoid: 23 joints, 31.6 kg, 7 a side, two halves of 5 minutes. No team brings a walk, a kick or a get-up from the old league. We started with a robot that could not stand and built every behaviour ourselves.</p>
+    <p class="summary">The plan: a library of learned skills, each trained and tested on its own, run by an orchestrator that decides who does what. One static C++ program per robot runs all of it, about 0.2 ms per decision, as the competition requires.</p>
+    <div class="stack">
+      <div class="layer rl"><div class="lname">RL tactics</div><div class="lbody">Shifts each robot's formation spot and the shooter's aim, every 0.2 s. <span>Learned by self-play in our GPU match simulator.</span></div></div>
+      <div class="arrow">offsets ↓</div>
+      <div class="layer"><div class="lname">Rules orchestrator</div><div class="lbody">Who plays the ball, who keeps goal, where the rest stand, the referee's set-play rules, every 20 ms. <span>Hand-written.</span></div></div>
+      <div class="arrow">targets, aim ↓</div>
+      <div class="layer skill"><div class="lname">Skills</div><div class="lbody">Movement, kick, get-up: one network drives the joints at a time. <span>Learned by reinforcement learning in GPU physics.</span></div></div>
+      <div class="arrow">23 joint targets every 20 ms ↓</div>
+      <div class="layer server"><div class="lname">League server</div><div class="lbody">rcssservermj 0.2.1, MuJoCo. <span>The official 2026 server.</span></div></div>
+    </div>
+  </section>
+
+  <section id="training-how">
+    <div class="shead"><h2>How every skill was trained</h2>
+      <div class="facts"><span>PPO with a recurrent policy</span><span><b>8,192</b> robots per GPU</span><span>8 H100s on the HPC, 2 RTX 6000 Ada on our workstation</span></div></div>
+    <div class="steps">
+      <div class="step"><b>1 · GPU physics</b><span>MuJoCo on the GPU (MJX with the Warp backend): thousands of T1 robots at once, with the server's own robot model, contacts and a one-cycle action delay.</span></div>
+      <div class="step"><b>2 · PPO update</b><span>A recurrent policy (GRU memory) improves on a reward per second of play. Penalties and randomisation phase in as it succeeds.</span></div>
+      <div class="step"><b>3 · Export to C++</b><span>The network runs in our own plain C++ inside the player, matching training to within 0.003° per joint.</span></div>
+      <div class="step"><b>4 · League tests</b><span>Fixed batteries of tests in the real league server. A network replaces the final only if it passes everything its predecessor passed.</span></div>
+    </div>
+  </section>
+  <section id="movement">
+    <div class="shead">
+      <h2>Movement network</h2>
+      <div class="facts"><span>A to B <b>7 of 7</b></span><span>falls <b>0 of 30</b></span><span>shoves <b>9 of 9</b></span></div>
+    </div>
+    <p class="summary">One network walks, turns, runs, stops and takes shoves. In a match the player gives it a target point (A to B) and it brakes to stop on the point. The omnidirectional tests give it a velocity command instead.</p>
+    <h3>How it was trained</h3>
+    <div class="train">
+      <div class="box"><h4>Constraints</h4><dl class="spec"><div><dt>Sees</dt><dd>83 numbers: joint angles and speeds, its last action, gyro, gravity direction, the velocity command, a gait clock, its own velocity.</dd></div><div><dt>Drives</dt><dd>21 joints (the head is separate): target = standing pose + 0.5 × output, PD kp 25, kd 0.6, 50 times a second, 20 to 40 ms action delay as in the server.</dd></div><div><dt>Practises</dt><dd>A-to-B legs of 4 to 35 m (45 % of episodes), flat-out sprints (30 %), fast runs (10 %), any direction (15 %). Half start from standing; half the runs end in a brake to a stop.</dd></div><div><dt>Ends</dt><dd>When the torso drops below 80 % of its standing height, or after 20 s.</dd></div><div><dt>Randomised</dt><dd>Shoves, start poses, landings after a beam, foot friction ±20 %, mass ±5 %, phased in as it succeeds.</dd></div><div><dt>Run</dt><dd>8,192 robots in parallel, 924 million steps, 84 minutes on one RTX 6000 Ada, warm-started through six runs from our first sprint network.</dd></div></dl></div>
+      <div class="box"><h4>Rewards</h4><div class="tablewrap"><table><thead><tr><th>Reward term</th><th style="text-align:right">Weight</th></tr></thead><tbody><tr><td>Progress towards the target (A to B)</td><td class="w">+4.0 /s</td></tr><tr><td>Stopped on the target</td><td class="w">+3.0 /s</td></tr><tr><td>Standing still when told to stand</td><td class="w">+3.0 /s</td></tr><tr><td>Matching the commanded velocity</td><td class="w">+2.0 /s</td></tr><tr><td>Speed along the commanded direction</td><td class="w">+2.0 /s</td></tr><tr><td>Forward speed in sprints</td><td class="w">+2.0 /s</td></tr><tr><td>Matching the commanded turn rate</td><td class="w">+1.5 /s</td></tr><tr><td>Hands outside the referee&#x27;s hand-foul box</td><td class="w">−1.0 /s</td></tr><tr><td>Foot slip</td><td class="w">−0.8 /s</td></tr><tr><td>Torque, power and jerky actions</td><td class="w">−0.01 to −0.1</td></tr></tbody></table></div><p class="unused">Not used: any gait or foot-timing term. That is why it moves and stands with a fast shuffle of about 10 steps a second.</p><p class="note">Weights are per second of play. The torque, power and smoothness penalties ramp in by curriculum as the robot gets better.</p></div>
+    </div>
+    <div class="group">
+      <h3>A to B, flat out, clean stop</h3>
+      <p class="note">The robot stands at A, runs to B and must stop there, then hold still for 2 s, so the final error counts any creep after the stop.</p>
+      <div class="grid">
+      <figure class="clip">
+        <div class="v"><video src="clips/goto/5_m_ahead.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>A to B, 5 m ahead</h4><span class="chip good">0.16 m from B</span></div><p>Stands at A, runs to B flat out and stops. Arrived in 3.18 s, top speed 3.57 m/s, overshoot 0.19 m, then held still 2 s.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/goto/10_m_ahead.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>A to B, 10 m ahead</h4><span class="chip good">0.12 m from B</span></div><p>Stands at A, runs to B flat out and stops. Arrived in 3.96 s, top speed 4.15 m/s, overshoot 0.00 m, then held still 2 s.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/goto/20_m_ahead.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>A to B, 20 m ahead</h4><span class="chip good">0.16 m from B</span></div><p>Stands at A, runs to B flat out and stops. Arrived in 6.80 s, top speed 4.17 m/s, overshoot 0.15 m, then held still 2 s.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/goto/40_m_ahead.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>A to B, 40 m ahead</h4><span class="chip good">0.12 m from B</span></div><p>Stands at A, runs to B flat out and stops. Arrived in 12.02 s, top speed 4.23 m/s, overshoot 0.16 m, then held still 2 s.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/goto/10_m_at_+45_deg.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>A to B, 10 m at +45 deg</h4><span class="chip good">0.18 m from B</span></div><p>Stands at A, runs to B flat out and stops. Arrived in 4.40 s, top speed 4.12 m/s, overshoot 0.10 m, then held still 2 s.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/goto/10_m_at_-90_deg.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>A to B, 10 m at -90 deg</h4><span class="chip good">0.12 m from B</span></div><p>Stands at A, runs to B flat out and stops. Arrived in 5.08 s, top speed 4.14 m/s, overshoot 0.23 m, then held still 2 s.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/goto/10_m_at_+180_deg.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>A to B, 10 m at +180 deg</h4><span class="chip good">0.11 m from B</span></div><p>Stands at A, runs to B flat out and stops. Arrived in 6.20 s, top speed 4.09 m/s, overshoot 0.26 m, then held still 2 s.</p></figcaption>
+      </figure>
+      </div>
+    </div>
+    <div class="group">
+      <h3>Walking in every direction</h3>
+      <p class="note">Four seconds at the commanded velocity, then stop. Speed measured over seconds 1 to 4. Commands of 5 and 6 m/s ask for more than the 4.5 m/s cap.</p>
+      <div class="grid">
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/forward_0.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Forward 0.5</h4><span class="chip good">On target</span></div><p>Asked 0.50 m/s forward. Got 0.59 forward, 0.09 left, turning 0.17.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/forward_1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Forward 1</h4><span class="chip good">On target</span></div><p>Asked 1.00 m/s forward. Got 1.17 forward, 0.12 left, turning 0.28.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/forward_2.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Forward 2</h4><span class="chip good">On target</span></div><p>Asked 2.00 m/s forward. Got 2.21 forward, 0.02 left, turning 0.23.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/forward_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Forward 3</h4><span class="chip good">On target</span></div><p>Asked 3.00 m/s forward. Got 3.09 forward, −0.23 left, turning 0.14.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/forward_4.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Forward 4</h4><span class="chip warn">Off by 0.54 m/s</span></div><p>Asked 4.00 m/s forward. Got 3.65 forward, −0.39 left, turning 0.11.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/forward_5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Forward 5</h4><span class="chip warn">Above the 4.5 cap</span></div><p>Asked 5.00 m/s forward. Got 3.84 forward, −0.33 left, turning −0.36.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/forward_6.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Forward 6</h4><span class="chip warn">Above the 4.5 cap</span></div><p>Asked 6.00 m/s forward. Got 3.49 forward, 0.08 left, turning −0.74.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/backward_0.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Backward 0.5</h4><span class="chip good">On target</span></div><p>Asked 0.50 m/s backward. Got −0.61 forward, −0.03 left, turning 0.02.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/backward_1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Backward 1</h4><span class="chip good">On target</span></div><p>Asked 1.00 m/s backward. Got −1.08 forward, −0.01 left, turning 0.04.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/backward_1.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Backward 1.5</h4><span class="chip good">On target</span></div><p>Asked 1.50 m/s backward. Got −1.51 forward, 0.03 left, turning 0.08.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/backward_2.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Backward 2</h4><span class="chip good">On target</span></div><p>Asked 2.00 m/s backward. Got −1.90 forward, 0.05 left, turning 0.11.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/sideways_0.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Sideways 0.5</h4><span class="chip good">On target</span></div><p>Asked 0.50 m/s to the left. Got −0.13 forward, 0.51 left, turning 0.01.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/sideways_1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Sideways 1</h4><span class="chip good">On target</span></div><p>Asked 1.00 m/s to the left. Got −0.10 forward, 0.98 left, turning 0.02.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/sideways_1.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Sideways 1.5</h4><span class="chip good">On target</span></div><p>Asked 1.50 m/s to the left. Got −0.00 forward, 1.38 left, turning 0.04.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/sideways_-1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Sideways -1</h4><span class="chip good">On target</span></div><p>Asked 1.00 m/s to the right. Got 0.07 forward, −1.06 left, turning 0.01.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/diagonal_1_0.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Diagonal 1,0.5</h4><span class="chip good">On target</span></div><p>Asked 1.00 m/s forward and 0.50 m/s to the left. Got 1.25 forward, 0.58 left, turning 0.20.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/diagonal_1_-0.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Diagonal 1,-0.5</h4><span class="chip good">On target</span></div><p>Asked 1.00 m/s forward and 0.50 m/s to the right. Got 1.22 forward, −0.40 left, turning 0.13.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/diagonal_-0.5_0.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Diagonal -0.5,0.5</h4><span class="chip good">On target</span></div><p>Asked 0.50 m/s backward and 0.50 m/s to the left. Got −0.60 forward, 0.46 left, turning 0.07.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/diagonal_2_1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Diagonal 2,1</h4><span class="chip warn">Off by 0.33 m/s</span></div><p>Asked 2.00 m/s forward and 1.00 m/s to the left. Got 2.23 forward, 0.77 left, turning 0.28.</p></figcaption>
+      </figure>
+      </div>
+    </div>
+    <div class="group">
+      <h3>Turning</h3>
+      <p class="note">Turning on the spot and while walking.</p>
+      <div class="grid">
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/turn_in_place_1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Turn in place 1</h4><span class="chip good">On target</span></div><p>Asked turning 1.00 rad/s left. Got −0.01 forward, 0.01 left, turning 1.03.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/turn_in_place_2.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Turn in place 2</h4><span class="chip good">On target</span></div><p>Asked turning 2.00 rad/s left. Got −0.07 forward, 0.02 left, turning 2.08.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/turn_in_place_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Turn in place 3</h4><span class="chip good">On target</span></div><p>Asked turning 3.00 rad/s left. Got −0.06 forward, 0.05 left, turning 3.10.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/turn_in_place_-2.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Turn in place -2</h4><span class="chip good">On target</span></div><p>Asked turning 2.00 rad/s right. Got 0.01 forward, 0.00 left, turning −1.87.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/walk_and_turn_1.5_1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Walk and turn 1.5,1</h4><span class="chip good">On target</span></div><p>Asked 1.50 m/s forward and turning 1.00 rad/s left. Got 1.62 forward, 0.01 left, turning 1.23.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/walk_and_turn_1.5_-1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Walk and turn 1.5,-1</h4><span class="chip warn">Off by 0.37 m/s</span></div><p>Asked 1.50 m/s forward and turning 1.00 rad/s right. Got 1.82 forward, −0.14 left, turning −0.92.</p></figcaption>
+      </figure>
+      </div>
+    </div>
+    <div class="group">
+      <h3>Fast moves</h3>
+      <p class="note">Sprints from standing, cuts and an emergency stop.</p>
+      <div class="grid">
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/10_m_from_standing.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>10 m from standing</h4><span class="chip good">3.20 s</span></div><p>Flat out from standing, finished in 3.20 s, 0.03 m off the line.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/55_m_sprint.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>55 m sprint</h4><span class="chip good">14.86 s</span></div><p>Flat out from standing, finished in 14.86 s, 0.04 m off the line.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/90_deg_cut_at_3_m_s.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>90 deg cut at 3 m/s</h4><span class="chip good">New heading in 0.75 s</span></div><p>Running at 3 m/s, then told to change heading.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/180_deg_turn_at_3_m_s.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>180 deg turn at 3 m/s</h4><span class="chip good">New heading in 1.21 s</span></div><p>Running at 3 m/s, then told to change heading.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/stop_from_flat_out.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Stop from flat out</h4><span class="chip good">Stopped</span></div><p>Flat out for 3 s, then told to stop at 3.9 m/s. Stopped within 1.76 m.</p></figcaption>
+      </figure>
+      </div>
+    </div>
+    <div class="group">
+      <h3>Shoves</h3>
+      <p class="note">A push of 0.5, 1 or 1.5 m/s added to the torso, as a collision with another robot would. The banner marks the moment it lands.</p>
+      <div class="grid">
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/shove_standing_side_0.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Shove standing side 0.5</h4><span class="chip good">Stayed up</span></div><p>Pushed while standing still.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/shove_standing_front_0.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Shove standing front 0.5</h4><span class="chip good">Stayed up</span></div><p>Pushed while standing still.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/shove_walking_side_0.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Shove walking side 0.5</h4><span class="chip good">Stayed up</span></div><p>Pushed while walking at 1 m/s.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/shove_standing_side_1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Shove standing side 1</h4><span class="chip good">Stayed up</span></div><p>Pushed while standing still.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/shove_standing_front_1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Shove standing front 1</h4><span class="chip good">Stayed up</span></div><p>Pushed while standing still.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/shove_walking_side_1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Shove walking side 1</h4><span class="chip good">Stayed up</span></div><p>Pushed while walking at 1 m/s.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/shove_standing_side_1.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Shove standing side 1.5</h4><span class="chip good">Stayed up</span></div><p>Pushed while standing still.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/shove_standing_front_1.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Shove standing front 1.5</h4><span class="chip good">Stayed up</span></div><p>Pushed while standing still.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/omni/shove_walking_side_1.5.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Movement 19:25</span></div>
+        <figcaption><div class="row"><h4>Shove walking side 1.5</h4><span class="chip good">Stayed up</span></div><p>Pushed while walking at 1 m/s.</p></figcaption>
+      </figure>
+      </div>
+    </div>
+  </section>
+  <section id="kick">
+    <div class="shead">
+      <h2>Kick network</h2>
+      <div class="facts"><span>10 m <b>15 of 15</b></span><span>27 m <b>12 of 15</b></span><span>placed kicks <b>27 of 27</b> within 10°</span><span>falls <b>0</b></span></div>
+    </div>
+    <p class="summary">The movement network holds the robot still until the ball is placed. Then the kick network takes over and kicks in the commanded field direction. Clips end just before the server moves the ball back after a goal.</p>
+    <h3>How it was trained</h3>
+    <div class="train">
+      <div class="box"><h4>Constraints</h4><dl class="spec"><div><dt>Sees</dt><dd>The movement network&#x27;s 83 numbers, plus the ball where its own head camera last saw it (25 times a second, ±60° view), time since it saw it, and the kick direction.</dd></div><div><dt>Drives</dt><dd>21 joints exactly as movement does, head held looking down, 50 times a second.</dd></div><div><dt>Starts</dt><dd>Ball still, 0.3 to 1.5 m away within ±45°; 30 % of episodes walking in. Aim within ±45° of the starting heading, always full power.</dd></div><div><dt>Ends</dt><dd>On a fall, after 8 s, or 2 s after the ball stops.</dd></div><div><dt>Randomised</dt><dd>Shoves, start poses, foot friction ±20 %, mass ±5 %. The ball is the server&#x27;s own: 0.41 kg, 0.11 m radius.</dd></div><div><dt>Run</dt><dd>8,192 robots on one H100, 1.18 billion steps in 73 minutes, warm-started from movement through seven runs.</dd></div></dl></div>
+      <div class="box"><h4>Rewards</h4><div class="tablewrap"><table><thead><tr><th>Reward term</th><th style="text-align:right">Weight</th></tr></thead><tbody><tr><td>Ball speed along the aim, inside a 2° direction window</td><td class="w">+10 /s</td></tr><tr><td>Ball speed across the aim</td><td class="w">−40 /s</td></tr><tr><td>Standing still after the kick</td><td class="w">+3 /s</td></tr><tr><td>Closing in on the ball before the touch</td><td class="w">+2 /s</td></tr><tr><td>Hands outside the hand-foul box</td><td class="w">−1 /s</td></tr><tr><td>Foot slip</td><td class="w">−0.8 /s</td></tr><tr><td>Time before the first touch</td><td class="w">−0.2 /s</td></tr><tr><td>Torque, power and jerky actions</td><td class="w">−0.01 to −0.1</td></tr></tbody></table></div><p class="note">The ball terms only count once the ball rolls free, 0.4 m from the foot, so it is paid for the shot and not for pushing. The heavy lateral penalty and the 2° window took 27 m shots from 47 % to 84 %.</p></div>
+    </div>
+    <div class="group">
+      <h3>Shots at goal from 10 m</h3>
+      <p class="note">Ball 10 m from the goal centre, from 30° left to 30° right, dead ahead of the robot or 0.1 m to a side. A goal is the ball crossing the line between the posts.</p>
+      <div class="grid">
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_-30_deg__ball_-0.1_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, 30° to the right of the goal, ball 0.1 m right</h4><span class="chip good">Goal</span></div><p>Ball 13.1 m/s, launched 3.7° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_-30_deg__ball_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, 30° to the right of the goal, ball centred</h4><span class="chip good">Goal</span></div><p>Ball 11.1 m/s, launched 1.3° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_-30_deg__ball_+0.1_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, 30° to the right of the goal, ball 0.1 m left</h4><span class="chip good">Goal</span></div><p>Ball 12.0 m/s, launched 4.6° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_-15_deg__ball_-0.1_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, 15° to the right of the goal, ball 0.1 m right</h4><span class="chip good">Goal</span></div><p>Ball 8.0 m/s, launched 4.2° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_-15_deg__ball_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, 15° to the right of the goal, ball centred</h4><span class="chip good">Goal</span></div><p>Ball 11.2 m/s, launched 4.3° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_-15_deg__ball_+0.1_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, 15° to the right of the goal, ball 0.1 m left</h4><span class="chip good">Goal</span></div><p>Ball 10.8 m/s, launched 3.6° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_+0_deg__ball_-0.1_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, straight in front of the goal, ball 0.1 m right</h4><span class="chip good">Goal</span></div><p>Ball 11.8 m/s, launched 4.5° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_+0_deg__ball_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, straight in front of the goal, ball centred</h4><span class="chip good">Goal</span></div><p>Ball 10.9 m/s, launched 3.3° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_+0_deg__ball_+0.1_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, straight in front of the goal, ball 0.1 m left</h4><span class="chip good">Goal</span></div><p>Ball 10.8 m/s, launched 0.8° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_+15_deg__ball_-0.1_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, 15° to the left of the goal, ball 0.1 m right</h4><span class="chip good">Goal</span></div><p>Ball 10.2 m/s, launched 0.3° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_+15_deg__ball_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, 15° to the left of the goal, ball centred</h4><span class="chip good">Goal</span></div><p>Ball 11.2 m/s, launched 0.8° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_+15_deg__ball_+0.1_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, 15° to the left of the goal, ball 0.1 m left</h4><span class="chip good">Goal</span></div><p>Ball 11.4 m/s, launched 3.1° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_+30_deg__ball_-0.1_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, 30° to the left of the goal, ball 0.1 m right</h4><span class="chip good">Goal</span></div><p>Ball 12.1 m/s, launched 1.3° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_+30_deg__ball_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, 30° to the left of the goal, ball centred</h4><span class="chip good">Goal</span></div><p>Ball 11.6 m/s, launched 4.1° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots/shot_+30_deg__ball_+0.1_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>10 m, 30° to the left of the goal, ball 0.1 m left</h4><span class="chip good">Goal</span></div><p>Ball 11.4 m/s, launched 2.7° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      </div>
+    </div>
+    <div class="group">
+      <h3>Shots at goal from 27 m</h3>
+      <p class="note">The same test from 27 m, where the goal is 3.9° wide either side of the aim. Misses first. A miss that left nearly straight curved wide on the way.</p>
+      <div class="grid">
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_-30_deg__ball_-0.1_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, 30° to the right of the goal, ball 0.1 m right</h4><span class="chip bad">Missed</span></div><p>Ball 11.0 m/s, launched 3.1° off the aim at the goal centre. The posts are 3.9° either side of the aim from here.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_-30_deg__ball_+0_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, 30° to the right of the goal, ball centred</h4><span class="chip bad">Missed</span></div><p>Ball 12.2 m/s, launched 5.5° off the aim at the goal centre. The posts are 3.9° either side of the aim from here.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_+30_deg__ball_+0.1_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, 30° to the left of the goal, ball 0.1 m left</h4><span class="chip bad">Missed</span></div><p>Ball 11.3 m/s, launched 2.2° off the aim at the goal centre. The posts are 3.9° either side of the aim from here.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_-30_deg__ball_+0.1_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, 30° to the right of the goal, ball 0.1 m left</h4><span class="chip good">Goal</span></div><p>Ball 12.0 m/s, launched 4.6° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_-15_deg__ball_-0.1_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, 15° to the right of the goal, ball 0.1 m right</h4><span class="chip good">Goal</span></div><p>Ball 9.0 m/s, launched 3.8° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_-15_deg__ball_+0_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, 15° to the right of the goal, ball centred</h4><span class="chip good">Goal</span></div><p>Ball 11.1 m/s, launched 3.7° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_-15_deg__ball_+0.1_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, 15° to the right of the goal, ball 0.1 m left</h4><span class="chip good">Goal</span></div><p>Ball 10.8 m/s, launched 3.7° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_+0_deg__ball_-0.1_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, straight in front of the goal, ball 0.1 m right</h4><span class="chip good">Goal</span></div><p>Ball 11.3 m/s, launched 4.4° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_+0_deg__ball_+0_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, straight in front of the goal, ball centred</h4><span class="chip good">Goal</span></div><p>Ball 12.4 m/s, launched 3.8° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_+0_deg__ball_+0.1_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, straight in front of the goal, ball 0.1 m left</h4><span class="chip good">Goal</span></div><p>Ball 10.4 m/s, launched 2.3° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_+15_deg__ball_-0.1_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, 15° to the left of the goal, ball 0.1 m right</h4><span class="chip good">Goal</span></div><p>Ball 11.9 m/s, launched 2.3° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_+15_deg__ball_+0_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, 15° to the left of the goal, ball centred</h4><span class="chip good">Goal</span></div><p>Ball 11.0 m/s, launched 4.3° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_+15_deg__ball_+0.1_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, 15° to the left of the goal, ball 0.1 m left</h4><span class="chip good">Goal</span></div><p>Ball 10.5 m/s, launched 2.2° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_+30_deg__ball_-0.1_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, 30° to the left of the goal, ball 0.1 m right</h4><span class="chip good">Goal</span></div><p>Ball 10.6 m/s, launched 3.9° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/shots27/shot_+30_deg__ball_+0_left__27_m.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>27 m, 30° to the left of the goal, ball centred</h4><span class="chip good">Goal</span></div><p>Ball 11.5 m/s, launched 3.4° off the aim at the goal centre.</p></figcaption>
+      </figure>
+      </div>
+    </div>
+    <div class="group">
+      <h3>Placed kicks</h3>
+      <p class="note">Ball 0.4, 0.8 or 1.2 m ahead, centred or 0.25 m to a side, kicked straight or 30° either way. Scored by the direction error against the commanded direction.</p>
+      <div class="grid">
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+0_deg__ball_0.4_ahead_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.4 m ahead, centred, aim straight</h4><span class="chip good">3.3° off</span></div><p>Ball 11.7 m/s, 3.3° off the aim, rolled 29 m. The holding stance&#x27;s toe touched the ball 0.02 s after it was placed, before the kick network acted.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+30_deg__ball_0.4_ahead_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.4 m ahead, centred, aim 30° left</h4><span class="chip good">6.7° off</span></div><p>Ball 12.6 m/s, 6.7° off the aim, rolled 28 m. The holding stance&#x27;s toe touched the ball 0.02 s after it was placed, before the kick network acted.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_-30_deg__ball_0.4_ahead_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.4 m ahead, centred, aim 30° right</h4><span class="chip good">3.5° off</span></div><p>Ball 14.3 m/s, 3.5° off the aim, rolled 30 m. The holding stance&#x27;s toe touched the ball 0.02 s after it was placed, before the kick network acted.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+0_deg__ball_0.4_ahead_+0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.4 m ahead, 0.25 m left, aim straight</h4><span class="chip good">1.5° off</span></div><p>Ball 10.4 m/s, 1.5° off the aim, rolled 25 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+30_deg__ball_0.4_ahead_+0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.4 m ahead, 0.25 m left, aim 30° left</h4><span class="chip good">0.5° off</span></div><p>Ball 12.2 m/s, 0.5° off the aim, rolled 28 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_-30_deg__ball_0.4_ahead_+0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.4 m ahead, 0.25 m left, aim 30° right</h4><span class="chip good">3.3° off</span></div><p>Ball 10.8 m/s, 3.3° off the aim, rolled 26 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+0_deg__ball_0.4_ahead_-0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.4 m ahead, 0.25 m right, aim straight</h4><span class="chip good">2.0° off</span></div><p>Ball 9.3 m/s, 2.0° off the aim, rolled 25 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+30_deg__ball_0.4_ahead_-0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.4 m ahead, 0.25 m right, aim 30° left</h4><span class="chip good">0.6° off</span></div><p>Ball 10.7 m/s, 0.6° off the aim, rolled 26 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_-30_deg__ball_0.4_ahead_-0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.4 m ahead, 0.25 m right, aim 30° right</h4><span class="chip good">1.0° off</span></div><p>Ball 8.1 m/s, 1.0° off the aim, rolled 24 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+0_deg__ball_0.8_ahead_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.8 m ahead, centred, aim straight</h4><span class="chip good">3.7° off</span></div><p>Ball 8.7 m/s, 3.7° off the aim, rolled 23 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+30_deg__ball_0.8_ahead_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.8 m ahead, centred, aim 30° left</h4><span class="chip good">0.7° off</span></div><p>Ball 12.1 m/s, 0.7° off the aim, rolled 30 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_-30_deg__ball_0.8_ahead_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.8 m ahead, centred, aim 30° right</h4><span class="chip good">2.1° off</span></div><p>Ball 11.4 m/s, 2.1° off the aim, rolled 28 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+0_deg__ball_0.8_ahead_+0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.8 m ahead, 0.25 m left, aim straight</h4><span class="chip good">1.7° off</span></div><p>Ball 13.2 m/s, 1.7° off the aim, rolled 31 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+30_deg__ball_0.8_ahead_+0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.8 m ahead, 0.25 m left, aim 30° left</h4><span class="chip good">1.1° off</span></div><p>Ball 8.9 m/s, 1.1° off the aim, rolled 25 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_-30_deg__ball_0.8_ahead_+0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.8 m ahead, 0.25 m left, aim 30° right</h4><span class="chip good">3.8° off</span></div><p>Ball 11.9 m/s, 3.8° off the aim, rolled 28 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+0_deg__ball_0.8_ahead_-0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.8 m ahead, 0.25 m right, aim straight</h4><span class="chip good">0.6° off</span></div><p>Ball 11.1 m/s, 0.6° off the aim, rolled 28 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+30_deg__ball_0.8_ahead_-0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.8 m ahead, 0.25 m right, aim 30° left</h4><span class="chip good">2.6° off</span></div><p>Ball 11.4 m/s, 2.6° off the aim, rolled 30 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_-30_deg__ball_0.8_ahead_-0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 0.8 m ahead, 0.25 m right, aim 30° right</h4><span class="chip good">1.9° off</span></div><p>Ball 11.3 m/s, 1.9° off the aim, rolled 28 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+0_deg__ball_1.2_ahead_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 1.2 m ahead, centred, aim straight</h4><span class="chip good">1.6° off</span></div><p>Ball 11.0 m/s, 1.6° off the aim, rolled 27 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+30_deg__ball_1.2_ahead_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 1.2 m ahead, centred, aim 30° left</h4><span class="chip good">0.1° off</span></div><p>Ball 11.4 m/s, 0.1° off the aim, rolled 29 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_-30_deg__ball_1.2_ahead_+0_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 1.2 m ahead, centred, aim 30° right</h4><span class="chip good">4.4° off</span></div><p>Ball 13.0 m/s, 4.4° off the aim, rolled 30 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+0_deg__ball_1.2_ahead_+0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 1.2 m ahead, 0.25 m left, aim straight</h4><span class="chip good">2.3° off</span></div><p>Ball 13.4 m/s, 2.3° off the aim, rolled 29 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+30_deg__ball_1.2_ahead_+0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 1.2 m ahead, 0.25 m left, aim 30° left</h4><span class="chip good">0.2° off</span></div><p>Ball 11.2 m/s, 0.2° off the aim, rolled 29 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_-30_deg__ball_1.2_ahead_+0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 1.2 m ahead, 0.25 m left, aim 30° right</h4><span class="chip good">4.2° off</span></div><p>Ball 13.3 m/s, 4.2° off the aim, rolled 29 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+0_deg__ball_1.2_ahead_-0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 1.2 m ahead, 0.25 m right, aim straight</h4><span class="chip good">1.4° off</span></div><p>Ball 11.2 m/s, 1.4° off the aim, rolled 26 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_+30_deg__ball_1.2_ahead_-0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 1.2 m ahead, 0.25 m right, aim 30° left</h4><span class="chip good">0.9° off</span></div><p>Ball 12.5 m/s, 0.9° off the aim, rolled 30 m.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/kick/kick_-30_deg__ball_1.2_ahead_-0.25_left.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Kick kL5 01:38</span></div>
+        <figcaption><div class="row"><h4>Ball 1.2 m ahead, 0.25 m right, aim 30° right</h4><span class="chip good">3.3° off</span></div><p>Ball 12.5 m/s, 3.3° off the aim, rolled 29 m.</p></figcaption>
+      </figure>
+      </div>
+    </div>
+  </section>
+  <section id="getup">
+    <div class="shead">
+      <h2>Get-up network</h2>
+      <div class="facts"><span>up within 5 s <b>26 of 26</b></span><span>median <b>1.81 s</b></span><span>fell again <b>0</b></span></div>
+    </div>
+    <p class="summary">Put on its back, front, sides or mid-fall, shoved over while standing or running, or dropped against a goalpost, the get-up network stands the robot up and hands back to the movement network. Done criterion: standing within 5 s in at least 95 % of tests, then 3 m of walking without a fall.</p>
+    <h3>How it was trained</h3>
+    <div class="train">
+      <div class="box"><h4>Constraints</h4><dl class="spec"><div><dt>Sees</dt><dd>76 numbers: joint angles and speeds, its last action, gyro, gravity direction, torso height.</dd></div><div><dt>Drives</dt><dd>All 23 joints: target = current angle + 0.6 × output, stiff gains (knee 60 N·m per rad, hip 45), 50 times a second.</dd></div><div><dt>Starts</dt><dd>From 41,088 fallen states made in the server&#x27;s physics: on the back 28 %, front 28 %, each side 7 %, mid-fall after a shove 30 %.</dd></div><div><dt>Success</dt><dd>Both feet down, torso at standing height, tilt under 10°, still, held for 0.5 s. The episode ends there, or after 8 s.</dd></div><div><dt>Training aid</dt><dd>A lift on the torso of up to 60 % of body weight at first, faded to zero as it improved. Off in every test.</dd></div><div><dt>Run</dt><dd>8,192 robots, 816 million steps, 75 minutes on one RTX 6000 Ada; 3 h 20 min from the first get-up launch.</dd></div></dl></div>
+      <div class="box"><h4>Rewards</h4><div class="tablewrap"><table><thead><tr><th>Reward term</th><th style="text-align:right">Weight</th></tr></thead><tbody><tr><td>Time cost until standing (less as it gets higher, more upright and calmer)</td><td class="w">−5 to −1 /s</td></tr><tr><td>Standing held 0.5 s</td><td class="w">+5 once</td></tr><tr><td>Jerky actions</td><td class="w">−0.001</td></tr><tr><td>Joint torque</td><td class="w">−0.002</td></tr></tbody></table></div><p class="unused">Not used: a fall penalty, hand penalties, scripted poses.</p><p class="note">Every second on the ground costs, so it learns to get up fast with no hand-made motion.</p></div>
+    </div>
+    <div class="grid">
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/back_7143.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its back</h4><span class="chip good">Up in 1.38 s</span></div><p>Get-up network stood it up in 1.38 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (5.9 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/back_34760.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its back</h4><span class="chip good">Up in 1.52 s</span></div><p>Get-up network stood it up in 1.52 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (5.9 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/front_15016.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its front</h4><span class="chip good">Up in 1.34 s</span></div><p>Get-up network stood it up in 1.34 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (5.9 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/front_26031.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its front</h4><span class="chip good">Up in 1.84 s</span></div><p>Get-up network stood it up in 1.84 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (5.9 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/left_3574.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its left side</h4><span class="chip good">Up in 1.62 s</span></div><p>Get-up network stood it up in 1.62 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (5.8 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/left_15158.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its left side</h4><span class="chip good">Up in 1.72 s</span></div><p>Get-up network stood it up in 1.72 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (5.8 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/right_14560.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its right side</h4><span class="chip good">Up in 1.86 s</span></div><p>Get-up network stood it up in 1.86 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (6.1 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/right_34439.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its right side</h4><span class="chip good">Up in 1.56 s</span></div><p>Get-up network stood it up in 1.56 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (5.8 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/midfall_29355.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Mid-fall</h4><span class="chip good">Up in 1.94 s</span></div><p>Get-up network stood it up in 1.94 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (6.1 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/midfall_37222.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Mid-fall</h4><span class="chip good">Up in 2.74 s</span></div><p>Get-up network stood it up in 2.74 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (5.9 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/shove_front_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Standing, shoved from the front at 3 m/s</h4><span class="chip good">Stayed up</span></div><p>Never went down, so the get-up network was not needed. The movement network carried on.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/shove_back_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Standing, shoved from the back at 3 m/s</h4><span class="chip good">Stayed up</span></div><p>Never went down, so the get-up network was not needed. The movement network carried on.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/shove_side_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Standing, shoved from the side at 3 m/s</h4><span class="chip good">Up in 1.92 s</span></div><p>Get-up network stood it up in 1.92 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (5.7 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/shove_front_4.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Standing, shoved from the front at 4 m/s</h4><span class="chip good">Stayed up</span></div><p>Never went down, so the get-up network was not needed. The movement network carried on.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/shove_back_4.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Standing, shoved from the back at 4 m/s</h4><span class="chip good">Up in 2.50 s</span></div><p>Get-up network stood it up in 2.50 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (5.9 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/shove_side_4.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Standing, shoved from the side at 4 m/s</h4><span class="chip good">Up in 1.64 s</span></div><p>Get-up network stood it up in 1.64 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (5.8 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/run_2_shove_side_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Running 2 m/s, shoved from the side at 3 m/s</h4><span class="chip good">Up in 1.78 s</span></div><p>Get-up network stood it up in 1.78 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (6.0 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/run_2_shove_front_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Running 2 m/s, shoved from the front at 3 m/s</h4><span class="chip good">Stayed up</span></div><p>Never went down, so the get-up network was not needed. The movement network carried on.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/run_2_shove_behind_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Running 2 m/s, shoved from the behind at 3 m/s</h4><span class="chip good">Up in 2.24 s</span></div><p>Get-up network stood it up in 2.24 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (5.6 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/run_3_shove_side_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Running 3 m/s, shoved from the side at 3 m/s</h4><span class="chip good">Stayed up</span></div><p>Never went down, so the get-up network was not needed. The movement network carried on.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/run_3_shove_front_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Running 3 m/s, shoved from the front at 3 m/s</h4><span class="chip good">Stayed up</span></div><p>Never went down, so the get-up network was not needed. The movement network carried on.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/run_3_shove_behind_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Running 3 m/s, shoved from the behind at 3 m/s</h4><span class="chip good">Up in 2.28 s</span></div><p>Get-up network stood it up in 2.28 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (6.0 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/run_8_shove_side_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Running 8 m/s, shoved from the side at 3 m/s</h4><span class="chip good">Up in 2.14 s</span></div><p>Get-up network stood it up in 2.14 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (7.0 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/run_8_shove_front_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Running 8 m/s, shoved from the front at 3 m/s</h4><span class="chip good">Stayed up</span></div><p>Never went down, so the get-up network was not needed. The movement network carried on.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/run_8_shove_behind_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Running 8 m/s, shoved from the behind at 3 m/s</h4><span class="chip good">Up in 2.36 s</span></div><p>Get-up network stood it up in 2.36 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (7.0 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/backward_2_unaided.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Running backward at 2 m/s, no push</h4><span class="chip good">Stayed up</span></div><p>Never went down, so the get-up network was not needed. The movement network carried on.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/forward_6_unaided.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>Running forward, asked 6 m/s, no push</h4><span class="chip good">Stayed up</span></div><p>Never went down, so the get-up network was not needed. The movement network carried on.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/left_post_back_38605.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its back, against the left goalpost</h4><span class="chip good">Up in 2.00 s</span></div><p>Get-up network stood it up in 2.00 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (6.0 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/left_post_front_25861.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its front, against the left goalpost</h4><span class="chip good">Up in 1.56 s</span></div><p>Get-up network stood it up in 1.56 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (6.0 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/left_post_left_28001.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its left side, against the left goalpost</h4><span class="chip good">Up in 1.66 s</span></div><p>Get-up network stood it up in 1.66 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (6.0 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/left_post_right_37017.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its right side, against the left goalpost</h4><span class="chip good">Up in 1.76 s</span></div><p>Get-up network stood it up in 1.76 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (6.0 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/right_post_back_23755.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its back, against the right goalpost</h4><span class="chip good">Up in 1.64 s</span></div><p>Get-up network stood it up in 1.64 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (6.1 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/right_post_front_31753.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its front, against the right goalpost</h4><span class="chip good">Up in 1.36 s</span></div><p>Get-up network stood it up in 1.36 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (3.8 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/right_post_left_34401.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its left side, against the right goalpost</h4><span class="chip good">Up in 2.06 s</span></div><p>Get-up network stood it up in 2.06 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (6.2 m, no fall).</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/getup/right_post_right_9411.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Get-up 15:50</span></div>
+        <figcaption><div class="row"><h4>On its right side, against the right goalpost</h4><span class="chip good">Up in 1.90 s</span></div><p>Get-up network stood it up in 1.90 s. The test then hands back to the movement network and walks 1 m/s for 6 s, to check the hand-off (4.1 m, no fall).</p></figcaption>
+      </figure>
+    </div>
+  </section>
+  <section id="orchestrator">
+    <div class="shead">
+      <h2>The orchestrator: learned tactics over a rules team</h2>
+      <div class="facts"><span>policy <b>z8b 243 in the league, w3h3 best in the simulator</b></span><span>trained <b>about 25 min per run, 30 runs on 8 H100 and 16 A100</b></span><span>simulator <b>1.0 M decisions/s per H100</b></span></div>
+    </div>
+    <p class="summary">Two layers decide what each of the seven robots does. The rules layer picks roles every cycle (keeper, the robot that plays the ball, formation spots for the rest), keeps the referee&#x27;s set-play rules and drives the three skill networks. On top of it, a learned layer trained with reinforcement learning shifts each robot&#x27;s spot and the ball player&#x27;s aim. It was trained by self-play in our own GPU match simulator, set up with the skills&#x27; measured speed, kick spread and get-up time, starting from exactly the rules team. The rules layer wins every match below. The learned layer beats it in the simulator, and in the league server it is level with it so far.</p>
+    <div class="stack">
+      <div class="layer rl"><div class="lname">Learned tactics</div><div class="lbody">One small network shared by the six field robots, run on each robot's own view every 0.2 s: 52 inputs (own pose, ball, the teammates heard over team talk, the three nearest opponents seen, the play mode, time left), 3 outputs. <span>Moves the robot's formation spot by up to 8 m and turns the ball player's aim by up to 60°. Output zero is the rules team exactly.</span></div></div>
+      <div class="arrow">offsets ↓</div>
+      <div class="layer"><div class="lname">Rules orchestrator</div><div class="lbody">Roles every cycle: player 1 keeps goal, the robot that can stand behind the ball first plays it (each robot says its time-to-ball in a 10-byte team-talk slot of its own), the rest hold formation spots that follow the ball. <span>Plays either side, beams before kick-off and after goals, and keeps the referee's set-play rules: wide kick-offs since a direct kick-off goal does not count, 6.5 m away at their restarts, at most 2 robots in our goal area.</span></div></div>
+      <div class="arrow">targets, aim ↓</div>
+      <div class="layer skill"><div class="lname">Skill networks</div><div class="lbody">Movement gotoV 19:25 (4.2 m/s), kick kL5 01:38 (28 m, 84 % from 27 m), get-up R2 15:50 (up in 1.8 s). <span>One network in control at a time, switched by the player.</span></div></div>
+      <div class="arrow">23 joint targets every 20 ms ↓</div>
+      <div class="layer server"><div class="lname">League server</div><div class="lbody">rcssservermj 0.2.1, 7 v 7, Booster T1. <span>Our C++ player, fully static, about 0.2 ms per decision.</span></div></div>
+    </div>
+    <h3>How it was trained</h3>
+    <p class="note">PPO with one network shared by the six field robots. The opponent is the rules team, or a frozen copy of the policy (self-play). The reward is goals for minus goals against, plus a small reward for moving the ball forward. Exploration noise jitters every robot&#x27;s target 5 times a second, so play gets worse for the first iterations. The policy then learns to play through the noise, and its noise-free version climbs above the rules team. Each point on the chart is 256 simulated halves of 300 s against the rules team with the noise off.</p>
+    <div class="chart"><svg viewBox="0 0 720 300" role="img" aria-label="Goal difference per half against the rules team during training"><line x1="54" x2="704" y1="255.8" y2="255.8" stroke="var(--line)" stroke-width="1"/><text x="46" y="259.8" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">-1.0</text><line x1="54" x2="704" y1="226.2" y2="226.2" stroke="var(--line)" stroke-width="1"/><text x="46" y="230.2" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">-0.5</text><line x1="54" x2="704" y1="196.5" y2="196.5" stroke="var(--line)" stroke-width="2"/><text x="46" y="200.5" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+0.0</text><line x1="54" x2="704" y1="166.8" y2="166.8" stroke="var(--line)" stroke-width="1"/><text x="46" y="170.8" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+0.5</text><line x1="54" x2="704" y1="137.1" y2="137.1" stroke="var(--line)" stroke-width="1"/><text x="46" y="141.1" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+1.0</text><line x1="54" x2="704" y1="107.4" y2="107.4" stroke="var(--line)" stroke-width="1"/><text x="46" y="111.4" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+1.5</text><line x1="54" x2="704" y1="77.7" y2="77.7" stroke="var(--line)" stroke-width="1"/><text x="46" y="81.7" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+2.0</text><line x1="54" x2="704" y1="48.0" y2="48.0" stroke="var(--line)" stroke-width="1"/><text x="46" y="52.0" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+2.5</text><line x1="54" x2="704" y1="18.3" y2="18.3" stroke="var(--line)" stroke-width="1"/><text x="46" y="22.3" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--mono)">+3.0</text><text x="54.0" y="278" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--mono)">0</text><text x="216.5" y="278" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--mono)">1523</text><text x="379.0" y="278" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--mono)">3046</text><text x="541.5" y="278" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--mono)">4569</text><text x="704.0" y="278" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--mono)">6092</text><text x="379.0" y="296" text-anchor="middle" font-size="12" fill="var(--muted)">PPO iterations</text><polyline points="54.0,200.0 59.3,198.3 64.7,176.3 70.0,124.6 75.3,95.3 80.7,72.1 86.0,51.7 91.3,33.4 96.7,28.1 102.0,23.9 107.3,19.0 112.7,21.3 118.0,16.0 123.4,21.3 128.7,21.8 134.0,33.6 139.4,25.0 144.7,27.1 150.0,51.7 155.4,36.7 160.7,36.7 166.0,42.7 171.4,39.4 176.7,31.6 182.0,21.8 187.4,36.0 192.7,34.1 198.0,48.5 203.4,20.2 208.7,32.7 214.0,38.3 219.4,31.1 224.7,22.7 230.1,31.1 235.4,41.9 240.7,35.7 246.1,20.2 251.4,37.8 256.7,40.3 262.1,34.8 267.4,32.0 272.7,27.6 278.1,19.0 283.4,29.2 288.7,43.9 294.1,31.3 299.4,49.0 304.7,20.6 310.1,20.6 315.4,27.6 320.7,42.4 326.1,40.3 331.4,63.3 336.7,39.4 342.1,38.3 347.4,32.0 352.8,40.8 358.1,50.1" fill="none" stroke="var(--pitch)" stroke-width="3"/><polyline points="54.0,195.3 59.3,260.0 64.7,202.7 70.0,193.4 75.3,171.4 80.7,141.9 86.0,115.8 91.3,102.5 96.7,98.6 102.0,118.1 107.3,103.7 112.7,69.3 118.0,88.4 123.4,102.3 128.7,91.2 134.0,67.2 139.4,73.1 144.7,83.3 150.0,95.3 155.4,95.1 160.7,102.3 166.0,88.6 171.4,111.3 176.7,100.7 182.0,87.0 187.4,95.8 192.7,116.7 198.0,91.4 203.4,96.2 208.7,90.9 214.0,87.0 219.4,83.0 224.7,106.7 230.1,96.5 235.4,95.3 240.7,91.6 246.1,87.4 251.4,81.4 256.7,95.8 262.1,100.4 267.4,95.1 272.7,83.9 278.1,103.2 283.4,80.3 288.7,104.4 294.1,81.0 299.4,97.2 304.7,82.3 310.1,96.7 315.4,94.9 320.7,83.8 326.1,85.6 331.4,87.2 336.7,83.3 342.1,101.3 347.4,97.4 352.8,96.7 358.1,103.2 363.4,98.1 368.8,78.6 374.1,99.3 379.4,94.4 384.8,82.1 390.1,87.2 395.4,112.7 400.8,95.1 406.1,104.4 411.4,87.4 416.8,78.6 422.1,101.8 427.4,89.8 432.8,102.3 438.1,94.4 443.4,105.3 448.8,95.3 454.1,100.7 459.4,99.0 464.8,90.9 470.1,78.9 475.5,92.5 480.8,88.6 486.1,111.3 491.5,93.7 496.8,84.4 502.1,110.4 507.5,103.5 512.8,78.4 518.1,98.1" fill="none" stroke="var(--accent)" stroke-width="2"/><polyline points="54.0,197.2 56.1,196.0 58.3,196.9 60.4,193.2 62.5,188.1 64.7,203.9 66.8,199.7 68.9,200.0 71.1,208.5 73.2,208.0 75.3,209.5 77.5,198.1 79.6,196.7 81.7,210.8 83.9,207.8 86.0,201.6 88.1,213.9 90.3,199.5 92.4,209.0 94.5,211.5 96.7,209.5 98.8,209.5 100.9,203.4 103.1,195.3 105.2,193.7 107.3,183.0 109.5,191.1 111.6,187.2 113.8,180.7 115.9,189.3 118.0,184.4 120.2,168.0 122.3,184.4 124.4,187.9 126.6,169.8 128.7,177.7 130.8,177.5 133.0,162.1 135.1,183.2 137.2,175.8 139.4,169.3 141.5,175.4 143.6,172.8 145.8,175.8 147.9,165.6 150.0,186.0 152.2,183.7 154.3,185.3 156.4,174.4 158.6,170.9 160.7,184.4 162.8,170.5 165.0,164.0 167.1,161.7 169.2,173.7 171.4,171.4 173.5,173.7 175.6,172.6 177.8,153.8 179.9,183.2 182.0,174.7 184.2,166.1 186.3,173.2 188.4,157.0 190.6,170.7 192.7,171.4 194.8,175.1 197.0,168.4 199.1,163.7 201.2,167.7 203.4,157.0 205.5,174.0 207.6,161.9 209.8,167.0 211.9,163.5 214.0,164.0 216.2,165.4 218.3,163.5 220.4,168.6 222.6,161.4 224.7,167.7 226.8,165.4 229.0,158.4 231.1,170.9 233.3,171.9 235.4,168.6 237.5,167.2 239.7,161.2 241.8,159.1 243.9,167.2 246.1,172.4 248.2,167.0 250.3,169.8 252.5,154.5 254.6,165.4 256.7,165.2 258.9,156.8 261.0,169.8 263.1,172.4 265.3,167.0 267.4,159.8 269.5,181.6 271.7,157.0 273.8,175.4 275.9,161.7 278.1,162.9 280.2,154.7 282.3,167.0 284.5,172.8 286.6,167.5 288.7,168.4 290.9,173.5 293.0,158.2 295.1,160.5 297.3,162.4 299.4,147.3 301.5,145.7 303.7,152.6 305.8,165.4 307.9,166.5 310.1,151.2 312.2,148.0 314.3,156.1 316.5,174.4 318.6,142.2 320.7,159.3 322.9,160.1 325.0,162.6 327.1,167.5 329.3,163.1 331.4,156.3 333.5,160.5 335.7,173.2 337.8,162.6 339.9,161.0 342.1,170.7 344.2,156.6 346.4,161.9 348.5,170.0 350.6,161.4 352.8,163.7 354.9,156.3 357.0,145.5 359.2,159.6 361.3,155.6 363.4,148.9 365.6,148.4 367.7,154.5 369.8,159.3 372.0,145.7 374.1,160.7 376.2,164.9 378.4,161.9 380.5,155.8 382.6,164.2 384.8,151.9 386.9,170.5 389.0,168.8 391.2,174.4 393.3,154.7 395.4,158.6 397.6,157.0 399.7,179.3 401.8,156.1 404.0,158.2 406.1,175.1 408.2,166.1 410.4,159.8 412.5,171.6 414.6,154.0 416.8,158.4 418.9,168.0 421.0,170.0 423.2,168.4 425.3,163.1 427.4,156.8 429.6,161.0 431.7,158.2 433.8,167.5 436.0,156.3 438.1,162.9 440.2,161.2 442.4,166.1 444.5,156.8 446.6,170.3 448.8,157.7 450.9,154.5 453.0,164.2 455.2,168.1 457.3,151.4 459.4,161.7 461.6,168.6 463.7,168.0 465.9,155.2 468.0,168.1 470.1,168.8 472.3,158.0 474.4,147.3 476.5,147.3 478.7,174.0 480.8,155.4 482.9,159.1 485.1,151.2 487.2,148.9 489.3,154.0 491.5,167.7 493.6,155.2 495.7,154.2 497.9,158.6 500.0,161.7 502.1,164.2 504.3,158.6 506.4,159.6 508.5,156.8 510.7,160.1 512.8,160.1 514.9,157.5 517.1,167.7 519.2,169.8 521.3,163.5 523.5,155.2 525.6,148.0 527.7,141.7 529.9,169.8 532.0,169.3 534.1,156.3 536.3,157.3 538.4,156.8 540.5,160.5 542.7,158.0 544.8,163.1 546.9,141.7 549.1,153.3 551.2,160.1 553.3,151.9 555.5,156.1 557.6,160.5 559.7,162.6 561.9,171.9 564.0,152.6 566.1,155.0 568.3,168.6 570.4,167.2 572.5,157.3 574.7,169.3 576.8,152.2 579.0,160.7 581.1,161.7 583.2,160.3 585.4,148.4 587.5,166.3 589.6,164.7 591.8,165.8 593.9,158.4 596.0,158.0 598.2,144.0 600.3,158.4 602.4,155.2 604.6,167.0 606.7,157.0 608.8,160.1 611.0,147.5 613.1,163.1 615.2,151.0 617.4,160.3 619.5,156.3 621.6,153.5 623.8,161.9 625.9,156.6 628.0,161.7 630.2,163.5 632.3,160.1 634.4,165.2 636.6,163.3 638.7,162.6 640.8,172.8 643.0,161.0 645.1,164.7 647.2,155.4 649.4,155.6 651.5,170.7 653.6,154.2 655.8,170.7 657.9,157.0 660.0,152.9 662.2,159.6 664.3,149.6 666.4,166.8 668.6,158.0 670.7,162.9 672.8,152.4 675.0,159.3 677.1,161.9 679.2,160.1 681.4,156.1 683.5,157.3 685.6,158.9 687.8,158.6 689.9,159.6 692.0,146.1 694.2,164.2 696.3,155.4 698.5,145.7 700.6,150.7 702.7,155.4 704.0,160.5" fill="none" stroke="var(--warn)" stroke-width="2"/></svg><ul class="legend"><li><span class="swatch" style="background:var(--pitch)"></span>w3h3: 8,192 games per GPU, exploration 0.3</li><li><span class="swatch" style="background:var(--accent)"></span>w3h2: 4,096 games per GPU, exploration 0.3</li><li><span class="swatch" style="background:var(--warn)"></span>w1h4: exploration 0.1, learning rate 1e-4</li></ul></div>
+    <p class="note">Goal difference per 300 s half against the rules team in the simulator, noise off, ± about 0.14. w3h3 (8,192 parallel games per GPU, exploration 0.3) reached +2.6. Runs with a third of that exploration (w1h4) settle near +0.6. The deployed z8b policy (5 min on the Z8, iteration 243) measured +1.31 ± 0.07 over 1,024 fresh halves: 62 % won, 18 % drawn, 19 % lost.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Run</th><th>Setting</th><th>Last evaluation vs rules (goals per half)</th></tr></thead>
+      <tbody>
+<tr><td>w3h3</td><td>exploration 0.3, 8,192 games per GPU, H100</td><td class="n">+2.47 to +2.63 (± 0.14)</td></tr>
+<tr><td>w3a4</td><td>exploration 0.3, ball-progress reward x3, A100</td><td class="n">+1.91</td></tr>
+<tr><td>w3a3</td><td>exploration 0.4, A100</td><td class="n">+1.84</td></tr>
+<tr><td>w3a5</td><td>warm start from z8b 243, A100</td><td class="n">+1.64</td></tr>
+<tr><td>w3h2</td><td>exploration 0.3, 4,096 games, H100</td><td class="n">+1.66</td></tr>
+<tr><td>w3h5</td><td>exploration 0.3, learning rate 1e-4, H100</td><td class="n">+1.50</td></tr>
+<tr><td>z8b</td><td>exploration 0.3, 5 min on the Z8 GPU, iteration 243 (deployed)</td><td class="n">+1.31 ± 0.07 (1,024 halves)</td></tr>
+<tr><td>w3h4</td><td>half the games against a frozen copy (self-play), H100</td><td class="n">+1.10</td></tr>
+<tr><td>w1h4</td><td>exploration 0.1, learning rate 1e-4, H100</td><td class="n">+0.61</td></tr>
+<tr><td>w1a1, w1a2</td><td>one output&#x27;s exploration at 0.0001</td><td class="n">diverged, stopped</td></tr>
+      </tbody>
+    </table></div>
+    <h3>In the league server: learned against rules</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Match</th><th>Score</th><th>Note</th></tr></thead>
+      <tbody>
+<tr><td>Learned (z8b 243) vs rules, 5 full matches</td><td class="n">W-D-L 2-1-2, goals 17-14</td><td>mean +0.6 per match, standard error 1.5: level within noise</td></tr>
+<tr><td>Learned (w3h3 2675) vs rules, 3 full matches</td><td class="n">W-D-L 1-1-1, goals 9-10</td><td>the simulator&#x27;s strongest policy, level in the league too</td></tr>
+<tr><td>Rules vs rules (two identical teams), 2 full matches</td><td class="n">3-13</td><td>the noise floor: identical teams can differ by 5 goals a match, so dozens of matches are needed. 9 more learned-vs-rules and control matches are running</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <section id="together">
+    <div class="shead">
+      <h2>The three skills together</h2>
+      <div class="facts"><span>movement <b>gotoV 19:25</b></span><span>kick <b>kL5 01:38</b></span><span>get-up <b>R2 15:50</b></span><span>player <b>drill mode</b>, ball search fixed 22:12</span></div>
+    </div>
+    <p class="summary">The player runs one network at a time and switches on its own: get-up whenever the robot is down, movement to reach the ball, kick once it is lined up behind the ball. Times are from the robot's arrival on the field.</p>
+    <div class="demo">
+      <figure class="scene">
+        <div class="v"><video src="clips/demo/demo_A_shove_getup_move_goal.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Shove, get up, walk, score</span></div>
+        <figcaption>
+          <h4>Knocked over, gets up, walks 21.3 m, scores from 16 m</h4>
+          <ol class="timeline">
+            <li><span class="t">0.40 s</span><span class="net none">scene</span><span>A 6 m/s shove from the side knocks it over</span></li>
+            <li><span class="t">1.00 s</span><span class="net getup">get-up</span><span>Fall detected, the get-up network takes over</span></li>
+            <li><span class="t">3.36 s</span><span class="net getup">get-up</span><span>Standing, 2.36 s after the fall</span></li>
+            <li><span class="t">3.70 s</span><span class="net move">movement</span><span>The ball is behind it, so it turns to where it last saw the ball</span></li>
+            <li><span class="t">4.86 s</span><span class="net move">movement</span><span>Walks 21.3 m to the spot behind the ball</span></li>
+            <li><span class="t">11.50 s</span><span class="net kick">kick</span><span>Shoots at the goal from 16 m</span></li>
+            <li><span class="t">14.30 s</span><span class="net none">goal</span><span>Ball crosses the goal line</span></li>
+          </ol>
+          <p class="note">The camera switches to a view down the shot at 10.9 s. The clip ends at 17.0 s, before the server's kick-off restart moves the robot off the field. All three takes of this scene with this kick network scored.</p>
+        </figcaption>
+      </figure>
+      <figure class="scene">
+        <div class="v"><video src="clips/demo/demo_B_move_goal.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video><span class="vlabel">Walk, score</span></div>
+        <figcaption>
+          <h4>Walks 24 m to the ball and scores from 10.6 m</h4>
+          <ol class="timeline">
+            <li><span class="t">0.90 s</span><span class="net none">scene</span><span>Ball placed 25 m ahead</span></li>
+            <li><span class="t">1.96 s</span><span class="net move">movement</span><span>Walks 24 m to the spot behind the ball</span></li>
+            <li><span class="t">9.20 s</span><span class="net kick">kick</span><span>Shoots at the goal from 10.6 m</span></li>
+            <li><span class="t">11.02 s</span><span class="net none">goal</span><span>Ball crosses the goal line</span></li>
+          </ol>
+          <p class="note">The camera switches to a view down the shot at 8.5 s. The clip ends at 13.7 s, before the kick-off restart. Both takes of this scene scored.</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+  <section id="matches">
+    <div class="shead">
+      <h2>Matches</h2>
+      <div class="facts"><span>full matches, <b>2 × 5 min</b>, sides swapped at half time</span><span>opponents: <b>FC Portugal</b> and <b>magmaOffenburg</b> (Portuguese Open 2026 binaries), the <b>Apollo</b> and <b>BahiaRT</b> base teams</span></div>
+    </div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Opponent</th><th>Our orchestrator</th><th>Server timing</th><th>Half 1</th><th>Half 2</th><th>Match</th><th>Our falls</th></tr></thead>
+      <tbody>
+<tr><td>magmaOffenburg (2025 runner-up), Portuguese Open 2026 binary</td><td>rules</td><td>synchronous</td><td class="n">2-0</td><td class="n">9-0</td><td class="n"><b>11-0</b></td><td class="n">48</td></tr>
+<tr><td>FC Portugal (2025 champion), Portuguese Open 2026 binary</td><td>rules</td><td>synchronous</td><td class="n">3-0</td><td class="n">6-0</td><td class="n"><b>9-0</b></td><td class="n">32</td></tr>
+<tr><td>FC Portugal (2025 champion), Portuguese Open 2026 binary</td><td>learned</td><td>synchronous</td><td class="n">5-0</td><td class="n">5-0</td><td class="n"><b>10-0</b></td><td class="n">45</td></tr>
+<tr><td>Apollo base team</td><td>rules</td><td>real time</td><td class="n">11-0</td><td class="n">10-0</td><td class="n"><b>21-0</b></td><td class="n">47</td></tr>
+<tr><td>BahiaRT base team</td><td>rules</td><td>synchronous</td><td class="n">6-0</td><td class="n">7-0</td><td class="n"><b>13-0</b></td><td class="n">39</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Highlight reels: every goal of every match</h3>
+    <p class="note">Each reel runs the whole match: open play fast-forwarded 8 times (marked x8), then real speed from 8 s before each goal to 3 s after it. Sides swap at half time, and the server colours the left team blue and the right team red, so our colour changes with the half.</p>
+    <div class="grid">
+      <figure class="clip">
+        <div class="v"><video src="clips/reels/reel_magma.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Against magmaOffenburg (2025 runner-up)</h4><span class="chip good">11-0</span></div><p>Rules orchestrator. magmaOffenburg kept all seven robots for the whole match.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/reels/reel_fcp_rules.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Against FC Portugal (2025 champion)</h4><span class="chip good">9-0</span></div><p>Rules orchestrator. Two FC Portugal robots dropped out in each half.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/reels/reel_fcp_learned.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Learned orchestrator against FC Portugal</h4><span class="chip good">10-0</span></div><p>The RL tactics layer on top of the rules orchestrator.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/reels/reel_apollo.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Against Apollo, real time</h4><span class="chip good">21-0</span></div><p>Run at competition timing.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/reels/reel_bahiart.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Against BahiaRT</h4><span class="chip good">13-0</span></div><p>Rules orchestrator.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/reels/reel_learned_vs_rules.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Learned against rules</h4><span class="chip good">7-3</span></div><p>Our two orchestrators head to head; across five matches they finished 2-1-2.</p></figcaption>
+      </figure>
+    </div>
+    <div class="catch"><h3>The catch</h3><ul class="findings"><li>FC Portugal and magmaOffenburg are their Portuguese Open 2026 binaries (archive.robocup.info), run on our machine. They are not necessarily the teams they will bring to RoboCup 2026.</li><li>FC Portugal&#x27;s binary lost two of its seven players in each half (its own players exited mid-match), so 9-0 and 10-0 were against five to seven of their robots. magmaOffenburg kept all seven: 11-0 is the cleanest result.</li><li>All matches but the Apollo one ran in the server&#x27;s synchronous mode, where it waits for every player each step. The Apollo match ran in real time, as in competition.</li><li>One match per opponent so far. Our robots still fall 32 to 48 times a match, mostly on contact and after the referee teleports a robot that stood too near the ball at the other side&#x27;s restart.</li><li>The learned layer&#x27;s gain in the simulator has not yet shown up in the league server.</li></ul></div>
+    <div class="grid">
+      <figure class="clip">
+        <div class="v"><video src="clips/match/c3_h2/goal_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Against magmaOffenburg, second half</h4><span class="chip good"></span></div><p>11-0 over the match. magmaOffenburg kept all seven robots on the field.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/match/c3_h2/goal_7.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Against magmaOffenburg, second half</h4><span class="chip good"></span></div><p>One of nine second-half goals.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/match/c1_h1/goal_2.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Against FC Portugal, first half</h4><span class="chip good"></span></div><p>9-0 over the match, against FC Portugal&#x27;s Portuguese Open 2026 binary.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/match/c2_h1/goal_1.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Learned orchestrator against FC Portugal</h4><span class="chip good"></span></div><p>10-0 over the match.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/match/c2_h2/goal_2.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Learned orchestrator against FC Portugal, second half</h4><span class="chip good"></span></div><p>Playing from the right side after half time.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/match/b2m1_h1/goal_2.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Learned (blue) against rules (red)</h4><span class="chip good"></span></div><p>Head to head in the league server: the learned side won this half 4-1, the match 7-3, the five matches 2-1-2.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/match/m4_h1/goal_3.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Against Apollo in real time</h4><span class="chip good"></span></div><p>21-0 over the match at competition timing.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/match/m2_h1/goal_2.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>Against BahiaRT</h4><span class="chip good"></span></div><p>13-0 over the match.</p></figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="v"><video src="clips/match/c3_h1/play_60s.mp4#t=0.4" controls muted playsinline loop preload="metadata"></video></div>
+        <figcaption><div class="row"><h4>A minute of open play against magmaOffenburg</h4><span class="chip good"></span></div><p>From the first kick-off: roles, formation and team talk at work.</p></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="limits">
+    <div class="shead"><h2>Not solved yet</h2></div>
+    <div class="limits">
+      <div class="box"><h4>RL gain not shown in the league</h4><p class="note">+1.3 to +2.6 goals per half in our simulator. In the league against the rules layer: 41-47 over 13 matches, while two identical rules teams went 15-22 over 5. No measurable difference yet; next is adding the server's measured noise to the simulator and deciding on dozens of matches.</p></div>
+      <div class="box"><h4>The gait shuffles</h4><p class="note">About 10 foot lifts a second, even standing (magmaOffenburg: 2.5 to 3). The rulebook bans unnatural behaviour that exploits the simulation. A still stance when idle is in testing; the real fix is retraining the gait with foot-timing terms.</p></div>
+      <div class="box"><h4>Falls</h4><p class="note">32 to 48 per match across our 7 robots: contact, and referee teleports when a robot stands too close at the other side's restart.</p></div>
+      <div class="box"><h4>One match per opponent</h4><p class="note">FC Portugal's binary lost 2 of its 7 robots each half in our setup. These are Portuguese Open 2026 binaries, not necessarily what teams bring to RoboCup 2026.</p></div>
+    </div>
+  </section>
+
+
+  <footer>Recorded from the server's own physics state and rendered offline. Match clips: a side-line camera that follows the ball, the score counted from goal-line crossings as the referee does. Skill films: the same tests the automatic batteries score, run between 22:00 and 22:15 on 8 October.</footer>
+</div>
